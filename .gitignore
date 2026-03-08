@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.env
+.env.*
+*.log
+.DS_Store
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/agent-memory-local/
+wikidocs_19104_full.md
