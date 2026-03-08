@@ -1,5 +1,7 @@
 # Claude Code Practice
 
+> **English version**: See the [`english`](https://github.com/SeongokRyu/ClaudeCodePractice/tree/english) branch.
+
 Claude Code를 효율적으로 활용하기 위한 실습 과제 모음.
 
 단순한 사용법 가이드가 아니라, **직접 해보면서 체득**할 수 있는 Practice 중심으로 구성했습니다.
