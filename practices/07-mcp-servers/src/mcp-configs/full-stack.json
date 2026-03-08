@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "description": "Real-time documentation lookup for npm packages and frameworks"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-playwright@latest"],
+      "description": "Browser automation for E2E testing and screenshots"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-github"],
+      "env": {
+        "GITHUB_TOKEN": "<your-github-token>"
+      },
+      "description": "GitHub integration — manage issues, PRs, releases"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+# Nightly Code Health Check with Claude Code
+#
+# Runs on a schedule (default: 2 AM UTC daily).
+# Claude scans the codebase and creates a health report issue.
+#
+# Required secrets:
+#   ANTHROPIC_API_KEY — Your Anthropic API key
+#
+# Installation:
+#   1. Copy this file to .github/workflows/claude-nightly-health.yml
+#   2. Add ANTHROPIC_API_KEY to repo Settings > Secrets
+#   3. Adjust the cron schedule as needed
+
+name: Claude Nightly Health Check
+
+on:
+  schedule:
+    # Run at 2 AM UTC every weekday (Mon-Fri)
+    - cron: '0 2 * * 1-5'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git log analysis
+
+      - name: Install dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm ci --ignore-scripts 2>/dev/null || true
+          fi
+
+      - name: Run Health Check with Claude
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+          prompt: |
+            Run a comprehensive code health check on this repository.
+
+            Check the following areas:
+
+            1. **TODO/FIXME Audit**
+               - Find all TODO and FIXME comments
+               - Identify which ones have been there the longest (use git blame)
+               - Flag any that seem critical or stale
+
+            2. **Dependency Health**
+               - Check package.json for outdated or deprecated packages
+               - Look for known vulnerabilities (check npm audit output if available)
+               - Identify unused dependencies
+
+            3. **Code Quality**
+               - Find functions longer than 50 lines
+               - Look for duplicated code patterns
+               - Check for any files with no test coverage
+
+            4. **Security Scan**
+               - Check for hardcoded secrets or credentials
+               - Look for SQL injection or XSS vulnerabilities
+               - Verify environment variables are used for configuration
+
+            After your analysis, create a GitHub issue with the results:
+
+            gh issue create \
+              --title "🏥 Nightly Health Check: $(date +%Y-%m-%d)" \
+              --label "maintenance" \
+              --body "YOUR_REPORT_HERE"
+
+            Format the report with:
+            - Summary section with overall health score (A/B/C/D/F)
+            - Findings grouped by category
+            - Each finding with file path and severity
+            - Recommended actions
+
+          allowed_tools: "Read,Grep,Glob,Bash"
+          max_turns: 25

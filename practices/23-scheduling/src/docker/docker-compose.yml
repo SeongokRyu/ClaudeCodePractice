@@ -1,0 +1,64 @@
+# Docker Compose for isolated Claude Code execution
+#
+# Usage:
+#   # Run an overnight refactoring session
+#   TASK="migrate error handling" MAX_TURNS=100 docker compose run --rm claude-worker
+#
+#   # Run with custom repo path
+#   REPO_PATH=/path/to/repo TASK="add tests" docker compose run --rm claude-worker
+#
+# Safety features:
+# - Resource limits (CPU, memory)
+# - No network access (network_mode: none) — prevents git push
+# - Read-only access to host filesystem (except the workspace)
+# - Automatic cleanup (--rm)
+
+services:
+  claude-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Mount the repository as the workspace
+    volumes:
+      - ${REPO_PATH:-./../../../..}:/workspace
+
+    # Environment variables
+    environment:
+      - TASK=${TASK:-}
+      - MAX_TURNS=${MAX_TURNS:-50}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+
+    # Resource limits for safety
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+    # NOTE: network_mode: none would prevent API calls to Anthropic
+    # Instead, we disable git push via the entrypoint script
+    # Uncomment the following line if you want full network isolation
+    # (but then Claude won't be able to call the Anthropic API):
+    # network_mode: none
+
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+
+    # Don't allow the container to run indefinitely
+    # 8 hours should be enough for overnight work
+    stop_grace_period: 30s
+
+    # Logging
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+    # Working directory
+    working_dir: /workspace

@@ -1,0 +1,66 @@
+# PR Review with Claude Code
+#
+# Triggers when someone comments "@claude" on a PR.
+# Claude reviews the PR diff and posts findings as a comment.
+#
+# Required secrets:
+#   ANTHROPIC_API_KEY — Your Anthropic API key
+#
+# Installation:
+#   1. Copy this file to .github/workflows/claude-pr-review.yml
+#   2. Add ANTHROPIC_API_KEY to repo Settings > Secrets
+#   3. Run /install-github-app in Claude Code
+
+name: Claude PR Review
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  review:
+    # Only run on PR comments that mention @claude
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '@claude')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout PR branch
+        run: |
+          gh pr checkout ${{ github.event.issue.number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Claude Code Review
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+          # The prompt includes context about the PR
+          prompt: |
+            Review this pull request. Focus on:
+            1. Potential bugs or logic errors
+            2. Security vulnerabilities
+            3. Performance concerns
+            4. Code style and best practices
+            5. Test coverage gaps
+
+            Be specific: reference file names and line numbers.
+            Prioritize findings by severity (Critical > Warning > Info).
+            If the code looks good, say so briefly.
+
+            The user's comment was: "${{ github.event.comment.body }}"
+
+          # Read-only tools for safety
+          allowed_tools: "Read,Grep,Glob,Bash(git diff),Bash(git log)"
+          max_turns: 15

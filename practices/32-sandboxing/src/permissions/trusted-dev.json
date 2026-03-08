@@ -1,0 +1,58 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "Trusted Developer — for daily development work with reasonable safety",
+  "_trust_level": "high",
+  "_use_case": "Feature development, bug fixing, refactoring in trusted codebases",
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Grep",
+      "Glob",
+      "Bash(git *)",
+      "Bash(npm run *)",
+      "Bash(npm test*)",
+      "Bash(npm install*)",
+      "Bash(npx prettier*)",
+      "Bash(npx eslint*)",
+      "Bash(npx tsc*)",
+      "Bash(npx jest*)",
+      "Bash(node *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(diff *)",
+      "Bash(echo *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(env)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)*",
+      "Bash(rm -rf ~)*",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(chmod 777*)",
+      "Bash(curl*|*sh)",
+      "Bash(wget*|*sh)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(shutdown*)",
+      "Bash(reboot*)",
+      "Bash(mkfs*)",
+      "Bash(dd *)"
+    ]
+  }
+}

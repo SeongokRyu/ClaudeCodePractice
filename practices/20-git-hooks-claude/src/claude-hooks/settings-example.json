@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "Claude Code hooks configuration for git operations. Copy relevant sections to your .claude/settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hook": {
+          "type": "command",
+          "command": "bash -c 'INPUT=$(cat); CMD=$(echo \"$INPUT\" | jq -r \".tool_input.command // empty\"); if echo \"$CMD\" | grep -qE \"git\\s+push\\s+.*--force|git\\s+push\\s+-f|git\\s+reset\\s+--hard|git\\s+clean\\s+-fd\"; then echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"Destructive git operations (force push, hard reset, clean -fd) are not allowed. Use safer alternatives.\\\"}\"; else echo \"{\\\"decision\\\": \\\"allow\\\"}\"; fi'"
+        }
+      },
+      {
+        "matcher": "Bash",
+        "hook": {
+          "type": "command",
+          "command": "bash -c 'INPUT=$(cat); CMD=$(echo \"$INPUT\" | jq -r \".tool_input.command // empty\"); if echo \"$CMD\" | grep -qE \"git\\s+commit.*--no-verify|git\\s+push.*--no-verify\"; then echo \"{\\\"decision\\\": \\\"block\\\", \\\"reason\\\": \\\"Skipping git hooks (--no-verify) is not allowed. Fix the underlying issue instead.\\\"}\"; else echo \"{\\\"decision\\\": \\\"allow\\\"}\"; fi'"
+        }
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hook": {
+          "type": "command",
+          "command": "bash -c 'INPUT=$(cat); CMD=$(echo \"$INPUT\" | jq -r \".tool_input.command // empty\"); if echo \"$CMD\" | grep -qE \"^git\\s+commit\"; then echo \"{\\\"notification\\\": \\\"Commit created. Remember to verify the commit message follows conventions.\\\"}\"; else echo \"{}\"; fi'"
+        }
+      }
+    ]
+  },
+
+  "_examples": {
+    "block_force_push": {
+      "description": "Prevents git push --force and git push -f",
+      "input_example": {
+        "tool_name": "Bash",
+        "tool_input": {
+          "command": "git push --force origin main"
+        }
+      },
+      "output": {
+        "decision": "block",
+        "reason": "Destructive git operations (force push, hard reset, clean -fd) are not allowed."
+      }
+    },
+    "allow_normal_push": {
+      "description": "Allows regular git push",
+      "input_example": {
+        "tool_name": "Bash",
+        "tool_input": {
+          "command": "git push origin feature-branch"
+        }
+      },
+      "output": {
+        "decision": "allow"
+      }
+    }
+  }
+}

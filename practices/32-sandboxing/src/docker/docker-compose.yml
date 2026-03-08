@@ -1,0 +1,95 @@
+# Docker Compose for sandboxed Claude Code environments
+#
+# Usage:
+#   # Code review (read-only):
+#   docker compose run review
+#
+#   # Development (read-write, more resources):
+#   docker compose run dev
+#
+#   # CI/CD (read-only, minimal):
+#   docker compose run ci
+
+version: "3.8"
+
+services:
+  # Read-only code review — maximum isolation
+  review:
+    build:
+      context: ../..
+      dockerfile: src/docker/Dockerfile
+    volumes:
+      - ${PROJECT_DIR:-.}:/workspace:ro    # Read-only mount
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+    # Network restrictions
+    networks:
+      - sandbox-net
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=100M
+    command: ["--print", "Review this codebase for security issues."]
+
+  # Development — read-write, more permissive
+  dev:
+    build:
+      context: ../..
+      dockerfile: src/docker/Dockerfile
+    volumes:
+      - ${PROJECT_DIR:-.}:/workspace:rw    # Read-write mount
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 4G
+    networks:
+      - sandbox-net
+    security_opt:
+      - no-new-privileges:true
+    stdin_open: true
+    tty: true
+    entrypoint: ["claude"]
+    command: []
+
+  # CI/CD — headless, minimal resources
+  ci:
+    build:
+      context: ../..
+      dockerfile: src/docker/Dockerfile
+    volumes:
+      - ${PROJECT_DIR:-.}:/workspace:ro
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CI=true
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+    networks:
+      - sandbox-net
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=50M
+    command: ["--print", "${CI_PROMPT:-Run tests and report results.}"]
+
+networks:
+  sandbox-net:
+    driver: bridge
+    internal: true    # No external network access

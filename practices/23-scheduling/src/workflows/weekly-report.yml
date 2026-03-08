@@ -1,0 +1,112 @@
+# Weekly Code Quality Report
+#
+# Runs every Monday at 8 AM UTC.
+# Generates a comprehensive code quality report and tracks trends.
+#
+# Required secrets:
+#   ANTHROPIC_API_KEY — Your Anthropic API key
+
+name: Weekly Code Quality Report
+
+on:
+  schedule:
+    # 8 AM UTC every Monday
+    - cron: '0 8 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  weekly-report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for trend analysis
+
+      - name: Gather metrics
+        id: metrics
+        run: |
+          # Lines of code
+          LOC=$(find src -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" 2>/dev/null | xargs wc -l 2>/dev/null | tail -1 | awk '{print $1}' || echo "0")
+          echo "loc=$LOC" >> "$GITHUB_OUTPUT"
+
+          # Number of files
+          FILE_COUNT=$(find src -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" 2>/dev/null | wc -l || echo "0")
+          echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
+
+          # TODO count
+          TODO_COUNT=$(grep -r "TODO\|FIXME\|HACK\|XXX" src/ --include="*.ts" --include="*.tsx" --include="*.js" 2>/dev/null | wc -l || echo "0")
+          echo "todo_count=$TODO_COUNT" >> "$GITHUB_OUTPUT"
+
+          # Test file count
+          TEST_COUNT=$(find src -name "*.test.*" -o -name "*.spec.*" 2>/dev/null | wc -l || echo "0")
+          echo "test_count=$TEST_COUNT" >> "$GITHUB_OUTPUT"
+
+          # Commits this week
+          COMMITS_THIS_WEEK=$(git log --since="7 days ago" --oneline 2>/dev/null | wc -l || echo "0")
+          echo "commits=$COMMITS_THIS_WEEK" >> "$GITHUB_OUTPUT"
+
+          # Contributors this week
+          CONTRIBUTORS=$(git log --since="7 days ago" --format='%ae' 2>/dev/null | sort -u | wc -l || echo "0")
+          echo "contributors=$CONTRIBUTORS" >> "$GITHUB_OUTPUT"
+
+      - name: Generate report with Claude
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+          prompt: |
+            Generate a weekly code quality report for this repository.
+
+            Metrics gathered:
+            - Lines of code: ${{ steps.metrics.outputs.loc }}
+            - Source files: ${{ steps.metrics.outputs.file_count }}
+            - TODO/FIXME comments: ${{ steps.metrics.outputs.todo_count }}
+            - Test files: ${{ steps.metrics.outputs.test_count }}
+            - Commits this week: ${{ steps.metrics.outputs.commits }}
+            - Contributors this week: ${{ steps.metrics.outputs.contributors }}
+
+            Please:
+            1. Analyze the commit history from the past week:
+               git log --since="7 days ago" --oneline --stat
+            2. Identify the most changed areas of the codebase
+            3. Check test-to-source file ratio
+            4. Find the oldest TODO comments (stale tech debt)
+            5. Look for code complexity hotspots (large files, deep nesting)
+            6. Assess overall code health
+
+            Create a GitHub issue with the report:
+
+            gh issue create \
+              --title "📊 Weekly Report: $(date +%Y-%m-%d)" \
+              --label "report" \
+              --body "YOUR_REPORT_HERE"
+
+            Use this format:
+            ## Weekly Code Quality Report — Week of [date]
+
+            ### Metrics
+            | Metric | This Week | Trend |
+            |--------|-----------|-------|
+            | ... | ... | ... |
+
+            ### Activity Summary
+            - Most active areas: ...
+            - Key changes: ...
+
+            ### Code Health
+            - Test coverage ratio: X test files / Y source files
+            - Tech debt: N TODO comments (M stale > 30 days)
+            - Complexity hotspots: ...
+
+            ### Recommendations
+            1. ...
+            2. ...
+            3. ...
+
+          allowed_tools: "Read,Grep,Glob,Bash"
+          max_turns: 20

@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+#
+# commit-msg hook — Validate commit message format
+#
+# Enforces Conventional Commits format:
+#   type(scope): description
+#
+# Valid types: feat, fix, docs, style, refactor, test, chore, perf, ci, build
+#
+# Install:
+#   cp commit-msg .git/hooks/commit-msg
+#   chmod +x .git/hooks/commit-msg
+#
+
+set -euo pipefail
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Skip merge commits
+if echo "$COMMIT_MSG" | grep -q "^Merge "; then
+  exit 0
+fi
+
+# Skip fixup/squash commits
+if echo "$COMMIT_MSG" | grep -q "^fixup! \|^squash! "; then
+  exit 0
+fi
+
+# Conventional Commits regex
+# Format: type(optional-scope): description
+PATTERN="^(feat|fix|docs|style|refactor|test|chore|perf|ci|build)(\(.+\))?: .{3,}"
+
+FIRST_LINE=$(echo "$COMMIT_MSG" | head -n 1)
+
+if ! echo "$FIRST_LINE" | grep -qE "$PATTERN"; then
+  echo ""
+  echo "═══════════════════════════════════════"
+  echo "❌ INVALID COMMIT MESSAGE FORMAT"
+  echo ""
+  echo "Your message: \"$FIRST_LINE\""
+  echo ""
+  echo "Expected format: type(scope): description"
+  echo ""
+  echo "Valid types:"
+  echo "  feat     — A new feature"
+  echo "  fix      — A bug fix"
+  echo "  docs     — Documentation only"
+  echo "  style    — Formatting, semicolons, etc."
+  echo "  refactor — Code restructuring"
+  echo "  test     — Adding tests"
+  echo "  chore    — Maintenance tasks"
+  echo "  perf     — Performance improvement"
+  echo "  ci       — CI/CD changes"
+  echo "  build    — Build system changes"
+  echo ""
+  echo "Examples:"
+  echo "  feat: add user authentication"
+  echo "  fix(auth): resolve token expiration bug"
+  echo "  refactor(api): simplify error handling"
+  echo "═══════════════════════════════════════"
+
+  # Optional: Use Claude to suggest a better message
+  if command -v claude &>/dev/null; then
+    echo ""
+    echo "💡 Suggested message:"
+    DIFF=$(git diff --cached --stat 2>/dev/null || echo "")
+    SUGGESTION=$(echo "Original message: $FIRST_LINE\n\nChanged files:\n$DIFF" | claude -p "Convert this commit message to Conventional Commits format. Output ONLY the corrected message, nothing else." --allowedTools "" --max-turns 1 2>/dev/null || echo "(suggestion unavailable)")
+    echo "  $SUGGESTION"
+    echo ""
+    echo "To use this suggestion:"
+    echo "  git commit -m \"$SUGGESTION\""
+  fi
+
+  exit 1
+fi
+
+# Check message length
+if [[ ${#FIRST_LINE} -gt 72 ]]; then
+  echo ""
+  echo "⚠️  Commit message first line is too long (${#FIRST_LINE} chars, max 72)."
+  echo "Consider shortening it and adding details in the body."
+  # Warning only, don't block
+fi
+
+exit 0

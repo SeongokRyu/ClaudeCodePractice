@@ -1,0 +1,52 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "CI/CD Pipeline — minimal tools for automated workflows",
+  "_trust_level": "low",
+  "_use_case": "Automated testing, building, and deployment checks in CI/CD pipelines",
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash(npm test*)",
+      "Bash(npm run build*)",
+      "Bash(npm run lint*)",
+      "Bash(npx tsc --noEmit*)",
+      "Bash(npx jest*)",
+      "Bash(npx eslint*)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(wc *)",
+      "Bash(echo *)"
+    ],
+    "deny": [
+      "Edit",
+      "Write",
+      "Bash(rm *)",
+      "Bash(mv *)",
+      "Bash(cp *)",
+      "Bash(mkdir *)",
+      "Bash(git push*)",
+      "Bash(git commit*)",
+      "Bash(git add*)",
+      "Bash(git checkout*)",
+      "Bash(git reset*)",
+      "Bash(git merge*)",
+      "Bash(git rebase*)",
+      "Bash(npm install*)",
+      "Bash(npm publish*)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(node -e*)",
+      "Bash(python *)",
+      "Bash(sudo *)",
+      "Bash(chmod *)",
+      "Bash(chown *)"
+    ]
+  }
+}

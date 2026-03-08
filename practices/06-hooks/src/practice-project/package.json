@@ -1,0 +1,23 @@
+{
+  "name": "hooks-practice-project",
+  "version": "1.0.0",
+  "description": "Practice project for learning Claude Code Hooks",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/app.ts",
+    "start": "node dist/app.ts",
+    "lint": "eslint src/",
+    "format": "prettier --write 'src/**/*.ts'"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "prettier": "^3.4.0",
+    "typescript": "^5.7.0",
+    "ts-node": "^10.9.0"
+  }
+}

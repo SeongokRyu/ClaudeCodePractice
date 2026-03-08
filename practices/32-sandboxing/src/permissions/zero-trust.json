@@ -1,0 +1,71 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "Zero Trust — for reviewing potentially malicious or untrusted code",
+  "_trust_level": "none",
+  "_use_case": "Security audits of untrusted repositories, malware analysis, vulnerability review",
+  "_requirements": [
+    "Should be used inside a Docker container for OS-level isolation",
+    "No network access should be available",
+    "Filesystem should be mounted read-only"
+  ],
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash(ls *)",
+      "Bash(wc *)",
+      "Bash(file *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(cat *)"
+    ],
+    "deny": [
+      "Edit",
+      "Write",
+      "Bash(rm *)",
+      "Bash(mv *)",
+      "Bash(cp *)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(chmod *)",
+      "Bash(chown *)",
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(python *)",
+      "Bash(pip *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(ssh *)",
+      "Bash(scp *)",
+      "Bash(rsync *)",
+      "Bash(nc *)",
+      "Bash(ncat *)",
+      "Bash(telnet *)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(bash *)",
+      "Bash(sh *)",
+      "Bash(eval *)",
+      "Bash(exec *)",
+      "Bash(source *)",
+      "Bash(. *)",
+      "Bash(export *)",
+      "Bash(env *)",
+      "Bash(set *)"
+    ]
+  },
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hook": "echo \"[AUDIT] Tool call: $(cat | jq -r '.tool_name')\" >&2",
+        "_comment": "Log every tool call for audit trail"
+      }
+    ]
+  }
+}

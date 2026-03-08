@@ -1,0 +1,62 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "Production environment — strict blocking, all guardrails active",
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hook": "bash src/hooks/protect-files.sh",
+        "_comment": "Block edits to protected files (.env, migrations, etc.)"
+      },
+      {
+        "matcher": "Bash",
+        "hook": "bash src/hooks/block-dangerous.sh",
+        "_comment": "Block dangerous bash commands (rm -rf, force push, DROP TABLE)"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hook": "bash src/hooks/auto-format.sh",
+        "_comment": "Auto-format with prettier after every file edit"
+      },
+      {
+        "matcher": "Edit|Write",
+        "hook": "bash src/hooks/auto-lint.sh",
+        "_comment": "Auto-lint TypeScript files after edits"
+      },
+      {
+        "matcher": "Bash",
+        "hook": "bash src/hooks/notify-completion.sh",
+        "_comment": "Desktop notification when tasks complete"
+      }
+    ]
+  },
+
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx prettier*)",
+      "Bash(npx eslint*)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add *)",
+      "Bash(git commit*)",
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(chmod 777*)",
+      "Bash(curl*|*sh)",
+      "Bash(wget*|*sh)"
+    ]
+  }
+}

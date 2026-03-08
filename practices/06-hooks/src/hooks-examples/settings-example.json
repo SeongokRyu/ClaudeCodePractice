@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hook": ".claude/hooks/protect-files.sh",
+        "description": "Block edits to .env and generated files"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hook": ".claude/hooks/auto-format.sh",
+        "description": "Auto-format files after editing"
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hook": ".claude/hooks/notify.sh",
+        "description": "Send desktop notification on Claude notifications"
+      }
+    ]
+  }
+}

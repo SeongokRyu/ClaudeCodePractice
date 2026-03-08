@@ -1,0 +1,59 @@
+# Issue Auto-Triage with Claude Code
+#
+# Triggers when a new issue is opened.
+# Claude analyzes the issue, adds labels, and posts an initial response.
+#
+# Required secrets:
+#   ANTHROPIC_API_KEY — Your Anthropic API key
+#
+# Installation:
+#   1. Copy this file to .github/workflows/claude-issue-triage.yml
+#   2. Add ANTHROPIC_API_KEY to repo Settings > Secrets
+#   3. Ensure labels exist: bug, feature, question, documentation, good-first-issue
+
+name: Claude Issue Triage
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Triage Issue with Claude
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+          prompt: |
+            A new issue has been created in this repository.
+
+            Issue title: "${{ github.event.issue.title }}"
+            Issue body: "${{ github.event.issue.body }}"
+            Author: ${{ github.event.issue.user.login }}
+
+            Please:
+            1. Analyze the issue to determine its type (bug, feature request, question, documentation)
+            2. Search the codebase for related files and functions
+            3. If it's a bug report, try to identify the likely cause
+            4. If it's a feature request, identify which files would need to change
+            5. Suggest appropriate labels
+            6. Post a helpful initial response that:
+               - Acknowledges the issue
+               - Provides relevant context (related files, similar past issues)
+               - Suggests next steps
+               - Is friendly and professional
+
+            Use the GitHub CLI to add labels:
+            gh issue edit ${{ github.event.issue.number }} --add-label "label-name"
+
+          allowed_tools: "Read,Grep,Glob,Bash(gh issue),Bash(git log)"
+          max_turns: 10

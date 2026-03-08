@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "Read-Only Review — for code review without modification risk",
+  "_trust_level": "minimal",
+  "_use_case": "Reviewing code, answering questions about a codebase, auditing",
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git show*)",
+      "Bash(git blame*)",
+      "Bash(git status)",
+      "Bash(git branch*)",
+      "Bash(wc *)",
+      "Bash(ls *)",
+      "Bash(file *)",
+      "Bash(head *)",
+      "Bash(tail *)"
+    ],
+    "deny": [
+      "Edit",
+      "Write",
+      "Bash(rm *)",
+      "Bash(mv *)",
+      "Bash(cp *)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(chmod *)",
+      "Bash(chown *)",
+      "Bash(git push*)",
+      "Bash(git commit*)",
+      "Bash(git add*)",
+      "Bash(git checkout*)",
+      "Bash(git reset*)",
+      "Bash(git merge*)",
+      "Bash(git rebase*)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(python *)",
+      "Bash(pip *)"
+    ]
+  }
+}

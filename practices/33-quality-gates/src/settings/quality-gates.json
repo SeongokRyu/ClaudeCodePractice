@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "Quality gates configuration — enforces pipeline on every commit",
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hook": "bash -c 'INPUT=$(cat); CMD=$(echo \"$INPUT\" | jq -r \".tool_input.command // empty\"); if echo \"$CMD\" | grep -qE \"git commit\"; then bash src/pipeline/gate-runner.sh || exit 2; fi; exit 0'",
+        "_comment": "Run quality gate pipeline before any git commit"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hook": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | jq -r \".tool_input.file_path // empty\"); if [[ -n \"$FILE\" ]]; then echo \"[QUALITY] File modified: $FILE\" >&2; fi; exit 0'",
+        "_comment": "Log all file modifications for audit trail"
+      }
+    ]
+  },
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Grep",
+      "Glob",
+      "Bash(npm test*)",
+      "Bash(npm run *)",
+      "Bash(npx *)",
+      "Bash(git *)",
+      "Bash(claude -p *)",
+      "Bash(node *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(bash src/pipeline/*)"
+    ]
+  }
+}

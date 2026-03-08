@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+#
+# pre-push hook — Run tests and quality checks before pushing
+#
+# Install:
+#   cp pre-push .git/hooks/pre-push
+#   chmod +x .git/hooks/pre-push
+#
+
+set -euo pipefail
+
+echo "🔄 Running pre-push checks..."
+
+# Track overall status
+CHECKS_PASSED=true
+
+# ─── Check 1: Run tests ───
+echo ""
+echo "📋 Running tests..."
+if command -v npm &>/dev/null && [[ -f package.json ]]; then
+  if npm test 2>&1; then
+    echo "✅ Tests passed"
+  else
+    echo "❌ Tests failed"
+    CHECKS_PASSED=false
+  fi
+elif command -v pytest &>/dev/null; then
+  if pytest 2>&1; then
+    echo "✅ Tests passed"
+  else
+    echo "❌ Tests failed"
+    CHECKS_PASSED=false
+  fi
+else
+  echo "⚠️  No test runner found, skipping tests"
+fi
+
+# ─── Check 2: Type check (TypeScript) ───
+if [[ -f tsconfig.json ]] && command -v npx &>/dev/null; then
+  echo ""
+  echo "📋 Running type check..."
+  if npx tsc --noEmit 2>&1; then
+    echo "✅ Type check passed"
+  else
+    echo "❌ Type check failed"
+    CHECKS_PASSED=false
+  fi
+fi
+
+# ─── Check 3: Quick security scan with Claude ───
+echo ""
+echo "📋 Running security scan on new commits..."
+
+# Get commits that will be pushed
+REMOTE="$1"
+URL="$2"
+
+while read -r local_ref local_oid remote_ref remote_oid; do
+  if [[ "$local_oid" == "0000000000000000000000000000000000000000" ]]; then
+    continue  # Deleting a ref
+  fi
+
+  if [[ "$remote_oid" == "0000000000000000000000000000000000000000" ]]; then
+    # New branch, check all commits
+    RANGE="$local_oid"
+  else
+    RANGE="${remote_oid}..${local_oid}"
+  fi
+
+  # Get the diff for all new commits
+  DIFF=$(git diff "$RANGE" --stat 2>/dev/null || echo "")
+
+  if [[ -n "$DIFF" ]] && command -v claude &>/dev/null; then
+    SCAN_RESULT=$(git diff "$RANGE" | head -500 | claude -p "Quick security scan of this diff. Check for: hardcoded secrets, SQL injection, XSS vulnerabilities, unsafe deserialization. If you find issues, start with 'ISSUE:'. If clean, say 'CLEAN'. Be very concise." --allowedTools "" --max-turns 1 2>/dev/null || echo "CLEAN")
+
+    if echo "$SCAN_RESULT" | grep -q "^ISSUE:"; then
+      echo "⚠️  Security concern found:"
+      echo "$SCAN_RESULT"
+      echo ""
+      read -p "Push anyway? [y/N] " -r response
+      if [[ ! "$response" =~ ^[yY]$ ]]; then
+        CHECKS_PASSED=false
+      fi
+    else
+      echo "✅ Security scan passed"
+    fi
+  else
+    echo "⚠️  Claude not available, skipping security scan"
+  fi
+done
+
+# ─── Final result ───
+if [[ "$CHECKS_PASSED" == false ]]; then
+  echo ""
+  echo "═══════════════════════════════════════"
+  echo "❌ PUSH BLOCKED: Some checks failed."
+  echo "Fix the issues and try again."
+  echo "To skip: git push --no-verify (NOT recommended)"
+  echo "═══════════════════════════════════════"
+  exit 1
+fi
+
+echo ""
+echo "✅ All pre-push checks passed. Pushing..."
+exit 0

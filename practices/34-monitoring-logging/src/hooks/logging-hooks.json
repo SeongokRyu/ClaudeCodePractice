@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/settings-schema.json",
+  "_comment": "Comprehensive logging hooks — captures all tool calls for monitoring",
+
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hook": "bash -c 'INPUT=$(cat); TOOL=$(echo \"$INPUT\" | jq -r \".tool_name // empty\"); TIMESTAMP=$(date -u +\"%Y-%m-%dT%H:%M:%S.%3NZ\"); echo \"{\\\"timestamp\\\":\\\"$TIMESTAMP\\\",\\\"event\\\":\\\"pre_tool_use\\\",\\\"tool\\\":\\\"$TOOL\\\"}\" >> /tmp/claude-session.log; exit 0'",
+        "_comment": "Log every tool call attempt with timestamp"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hook": "bash -c 'INPUT=$(cat); TOOL=$(echo \"$INPUT\" | jq -r \".tool_name // empty\"); STATUS=$(echo \"$INPUT\" | jq -r \".tool_output // empty\" | head -c 200); TIMESTAMP=$(date -u +\"%Y-%m-%dT%H:%M:%S.%3NZ\"); echo \"{\\\"timestamp\\\":\\\"$TIMESTAMP\\\",\\\"event\\\":\\\"post_tool_use\\\",\\\"tool\\\":\\\"$TOOL\\\",\\\"status_preview\\\":\\\"$(echo $STATUS | tr '\"' \"'\" | tr \"\\n\" \" \" | head -c 100)\\\"}\" >> /tmp/claude-session.log; exit 0'",
+        "_comment": "Log every tool result with a preview of the output"
+      },
+      {
+        "matcher": ".*",
+        "hook": "bash -c 'INPUT=$(cat); TOOL=$(echo \"$INPUT\" | jq -r \".tool_name // empty\"); FILE=$(echo \"$INPUT\" | jq -r \".tool_input.file_path // .tool_input.path // empty\"); if [ -n \"$FILE\" ]; then echo \"[$(date +%H:%M:%S)] $TOOL: $FILE\" >&2; fi; exit 0'",
+        "_comment": "Show file operations in stderr for real-time visibility"
+      }
+    ]
+  }
+}
