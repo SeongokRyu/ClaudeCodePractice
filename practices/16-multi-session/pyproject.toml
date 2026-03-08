@@ -1,7 +1,7 @@
 [project]
 name = "practice-16-multi-session"
 version = "0.1.0"
-description = "Practice 16: 멀티세션 워크플로우"
+description = "Practice 16: Multi-Session Workflow"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

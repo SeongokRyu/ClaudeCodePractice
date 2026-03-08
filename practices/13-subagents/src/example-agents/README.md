@@ -1,32 +1,32 @@
 # Example Agent Definitions
 
-이 디렉토리에는 서브에이전트 정의 예시가 있습니다.
+This directory contains example subagent definitions.
 
-## 파일 목록
+## File List
 
-| 파일 | 역할 | 모델 | 용도 |
-|------|------|------|------|
-| `researcher.md` | 코드 탐색/분석 | haiku | 대규모 코드베이스 탐색, 패턴 분석 |
-| `code-reviewer.md` | 코드 리뷰 | sonnet | 보안/성능/유지보수성 리뷰 |
-| `test-writer.md` | 테스트 작성 | sonnet | 테스트 코드 생성 및 검증 |
+| File | Role | Model | Purpose |
+|------|------|-------|---------|
+| `researcher.md` | Code exploration/analysis | haiku | Large codebase exploration, pattern analysis |
+| `code-reviewer.md` | Code review | sonnet | Security/performance/maintainability review |
+| `test-writer.md` | Test writing | sonnet | Test code generation and verification |
 
-## 서브에이전트 vs 직접 수행
+## Subagent vs. Direct Execution
 
-### 서브에이전트를 사용해야 하는 경우
+### When to Use Subagents
 
-- **대규모 탐색**: 많은 파일을 읽어야 하는 분석 작업 (컨텍스트 보호)
-- **전문화된 역할**: 특정 관점(보안, 성능 등)에서의 집중 분석
-- **Writer/Reviewer 분리**: 작성자와 리뷰어의 관점을 분리하고 싶을 때
-- **반복 작업**: 동일한 패턴의 작업을 여러 곳에 적용할 때
+- **Large-scale exploration**: Analysis tasks that require reading many files (context protection)
+- **Specialized roles**: Focused analysis from a specific perspective (security, performance, etc.)
+- **Writer/Reviewer separation**: When you want to separate the writer and reviewer perspectives
+- **Repetitive tasks**: When applying the same pattern across multiple locations
 
-### 직접 수행하는 것이 나은 경우
+### When Direct Execution is Better
 
-- **간단한 작업**: 1-2개 파일만 수정하는 작업
-- **대화형 작업**: 중간에 피드백을 주고받아야 하는 작업
-- **컨텍스트 의존적**: 이전 대화 내용이 필요한 작업
-- **빠른 수정**: 간단한 버그 수정이나 작은 변경
+- **Simple tasks**: Tasks that modify only 1-2 files
+- **Interactive tasks**: Tasks that require back-and-forth feedback
+- **Context-dependent**: Tasks that need previous conversation context
+- **Quick fixes**: Simple bug fixes or minor changes
 
-## 에이전트 정의 형식
+## Agent Definition Format
 
 ```markdown
 ---
@@ -40,19 +40,19 @@ memory: project         # optional
 
 # Agent Title
 
-역할 설명과 지침을 Markdown으로 작성합니다.
+Write the role description and instructions in Markdown.
 ```
 
-### 주요 설정
+### Key Settings
 
-- **tools**: 에이전트가 사용할 수 있는 도구 목록
-- **model**: 사용할 모델 (haiku: 빠르고 저렴, sonnet: 균형, opus: 최고 품질)
-- **permissionMode**: `plan`이면 실행 전 계획을 보여줌
-- **memory**: `project`이면 프로젝트 수준 메모리 사용
+- **tools**: List of tools the agent can use
+- **model**: Model to use (haiku: fast and cheap, sonnet: balanced, opus: highest quality)
+- **permissionMode**: If `plan`, shows the plan before execution
+- **memory**: If `project`, uses project-level memory
 
-## 활용 팁
+## Usage Tips
 
-1. **모델 선택**: 탐색/분석은 haiku, 코드 생성/리뷰는 sonnet, 복잡한 설계는 opus
-2. **도구 최소화**: 필요한 도구만 부여하여 에이전트의 범위를 제한
-3. **명확한 지침**: 출력 형식을 구체적으로 정의하면 일관된 결과를 얻을 수 있음
-4. **팀 공유**: `.claude/agents/` 디렉토리를 git으로 관리하면 팀에서 공유 가능
+1. **Model selection**: haiku for exploration/analysis, sonnet for code generation/review, opus for complex design
+2. **Minimize tools**: Limit the agent's scope by granting only necessary tools
+3. **Clear instructions**: Defining the output format specifically yields consistent results
+4. **Team sharing**: Managing the `.claude/agents/` directory with git enables team sharing

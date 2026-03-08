@@ -1,4 +1,4 @@
-# Challenge: Writer/Reviewer 패턴
+# Challenge: Writer/Reviewer Pattern
 
 ## Step 1: Set Up Writer Agent
 

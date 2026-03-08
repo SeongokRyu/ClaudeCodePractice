@@ -1,12 +1,13 @@
 """
 Rate Limiter Tests
 
-이 테스트는 RateLimiter 인터페이스의 모든 구현이 통과해야 합니다.
-Sliding Window와 Token Bucket 모두 이 테스트를 사용합니다.
+All RateLimiter interface implementations must pass these tests.
+Both Sliding Window and Token Bucket use this test suite.
 
-사용법:
-    테스트 파일에서 구현체를 import하고 run_rate_limiter_tests에 팩토리를 전달합니다.
-    예: run_rate_limiter_tests(SlidingWindowLimiter)
+Usage:
+    Import the implementation in your test file and pass the factory
+    to run_rate_limiter_tests.
+    Example: run_rate_limiter_tests(SlidingWindowLimiter)
 """
 
 from __future__ import annotations

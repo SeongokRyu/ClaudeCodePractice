@@ -1,30 +1,30 @@
-# Practice 02: 프롬프팅 기법 (Prompting Techniques)
+# Practice 02: Prompting Techniques
 
 ## Goal
 
-효과적인 프롬프팅 기법을 학습합니다 -- 검증 기준 제공, 인터뷰 기법, 구조화된 프롬프트 작성법을 익힙니다.
+Learn effective prompting techniques -- master verification criteria, the interview technique, and structured prompt writing.
 
 ## Why This Matters
 
 > "Providing verification means is the single highest-leverage action you can take to improve Claude's output quality."
-> -- Anthropic 공식 문서
+> -- Anthropic Official Documentation
 
-Claude에게 단순히 "이거 고쳐줘"라고 말하는 것과, 명확한 기준과 검증 방법을 제공하는 것은 결과물의 품질에 큰 차이를 만듭니다.
+There is a significant difference in output quality between simply telling Claude "fix this" and providing clear criteria and verification methods.
 
 ## Prerequisites
 
-- Practice 01 (Golden Workflow) 완료
+- Practice 01 (Golden Workflow) completed
 
 ## Time
 
-20-30분
+20-30 minutes
 
 ## What You'll Learn
 
-1. **나쁜 프롬프트 vs 좋은 프롬프트** -- 모호한 요청과 구체적인 요청의 차이
-2. **검증 기준 제공** -- Claude에게 기능 구현과 함께 테스트 검증을 요청하는 방법
-3. **인터뷰 기법** -- Claude가 먼저 질문하도록 유도하는 방법
-4. **구조화된 프롬프트** -- 역할 + 컨텍스트 + 제약조건 + 예상 출력 + 검증
+1. **Bad prompts vs good prompts** -- The difference between vague and specific requests
+2. **Providing verification criteria** -- How to ask Claude for test verification alongside feature implementation
+3. **Interview technique** -- How to get Claude to ask questions first
+4. **Structured prompts** -- Role + Context + Constraints + Expected output + Verification
 
 ## Getting Started
 
@@ -34,32 +34,32 @@ uv sync
 uv run pytest
 ```
 
-테스트가 통과하는지 확인한 후, `CHALLENGE.md`의 단계별 지시를 따라가세요.
+Confirm that tests pass, then follow the step-by-step instructions in `CHALLENGE.md`.
 
 ## Key Concepts
 
-### 검증 기준 (Verification Criteria)
+### Verification Criteria
 
-Claude에게 작업을 요청할 때 "어떻게 검증할 것인가"를 함께 알려주세요:
-
-```
-구현 후 pytest를 실행하여 모든 테스트가 통과하는지 확인해주세요.
-```
-
-### 인터뷰 기법 (Interview Technique)
-
-Claude에게 먼저 질문하도록 요청하세요:
+When requesting work from Claude, also tell it "how to verify":
 
 ```
-이 기능을 구현하기 전에, 요구사항에 대해 궁금한 점이 있으면 먼저 질문해주세요.
+After implementation, run pytest to confirm all tests pass.
 ```
 
-### 구조화된 프롬프트 (Structured Prompt)
+### Interview Technique
+
+Ask Claude to ask questions first:
 
 ```
-역할: Python 시니어 개발자
-컨텍스트: 계산기 모듈의 에러 처리 개선
-제약조건: 기존 테스트를 깨뜨리지 않을 것
-예상 출력: 수정된 코드 + 새로운 테스트
-검증: pytest로 모든 테스트 통과
+Before implementing this feature, please ask any questions you have about the requirements first.
+```
+
+### Structured Prompt
+
+```
+Role: Senior Python developer
+Context: Improving error handling in the calculator module
+Constraints: Do not break existing tests
+Expected output: Modified code + new tests
+Verification: All tests pass with pytest
 ```

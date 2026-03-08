@@ -1,120 +1,120 @@
-# Challenge: 황금 워크플로우 실습
+# Challenge: Golden Workflow Hands-On
 
-`src/` 디렉토리에 간단한 할 일 관리 앱 코드가 있습니다.
-이 코드에 "우선순위 기능"을 추가하는 과정을 통해 황금 워크플로우를 체험합니다.
+There is a simple todo management app in the `src/` directory.
+You will experience the golden workflow by adding a "priority feature" to this code.
 
 ---
 
-## Step 1: Explore (탐색) — 5분
+## Step 1: Explore — 5 min
 
-**목표**: 기존 코드를 이해한다. 직접 읽지 말고 Claude에게 맡긴다.
+**Goal**: Understand the existing code. Don't read it yourself — let Claude do it.
 
-1. 이 Practice 디렉토리에서 Claude Code를 시작합니다:
+1. Start Claude Code in this practice directory:
    ```bash
    cd practices/01-golden-workflow
    claude
    ```
 
-2. **Plan Mode**로 전환합니다: `Shift+Tab` 두 번 (Normal → Auto-accept → Plan)
+2. Switch to **Plan Mode**: Press `Shift+Tab` twice (Normal → Auto-accept → Plan)
 
-3. Claude에게 코드를 탐색하게 합니다:
+3. Have Claude explore the code:
    ```
-   src/ 디렉토리의 코드를 읽고 구조를 설명해줘.
-   어떤 기능이 있고, 데이터 모델은 어떻게 되어 있어?
+   Read the code in the src/ directory and explain its structure.
+   What features does it have, and what does the data model look like?
    ```
 
-4. Claude의 답변을 읽고 코드 구조를 파악합니다.
+4. Read Claude's response and understand the code structure.
 
-> **체크포인트**: Claude가 Todo 데이터클래스, 함수 목록, 테스트 구조를 설명했다면 성공.
+> **Checkpoint**: Success if Claude explained the Todo dataclass, list of functions, and test structure.
 
 ---
 
-## Step 2: Plan (계획) — 5분
+## Step 2: Plan — 5 min
 
-**목표**: 변경 계획을 세우고, 구현 전에 방향을 확인한다.
+**Goal**: Create a change plan and verify the direction before implementing.
 
-1. 여전히 **Plan Mode**에서 다음을 요청합니다:
+1. While still in **Plan Mode**, request the following:
    ```
-   이 Todo 앱에 우선순위 기능을 추가하고 싶어.
-   - 우선순위는 high, medium, low 3단계
-   - 기본값은 medium
-   - 우선순위별 필터링 기능
-   - 우선순위순 정렬 기능
+   I want to add a priority feature to this Todo app.
+   - Priority has 3 levels: high, medium, low
+   - Default is medium
+   - Filtering by priority
+   - Sorting by priority
 
-   어떤 파일을 수정해야 하는지, 어떤 순서로 진행할지 계획을 세워줘.
+   Create a plan for which files need to be modified and in what order.
    ```
 
-2. Claude의 계획을 검토합니다:
-   - 수정할 파일 목록이 합리적인가?
-   - 순서가 논리적인가? (보통: 데이터 모델 → 로직 → 테스트)
-   - 빠진 것은 없는가?
+2. Review Claude's plan:
+   - Is the list of files to modify reasonable?
+   - Is the order logical? (Usually: data model → logic → tests)
+   - Is anything missing?
 
-3. (선택) `Ctrl+G`를 눌러 에디터에서 계획을 편집할 수 있습니다.
+3. (Optional) Press `Ctrl+G` to edit the plan in your editor.
 
-> **체크포인트**: 수정할 파일, 변경 내용, 순서가 담긴 계획이 나왔다면 성공.
+> **Checkpoint**: Success if a plan with files to modify, changes, and order was produced.
 
 ---
 
-## Step 3: Implement (구현) — 10분
+## Step 3: Implement — 10 min
 
-**목표**: Plan Mode를 빠져나와 실제 코드를 수정한다.
+**Goal**: Exit Plan Mode and modify the actual code.
 
-1. **Normal Mode**로 전환합니다: `Shift+Tab` (Plan → Normal)
+1. Switch to **Normal Mode**: `Shift+Tab` (Plan → Normal)
 
-2. Claude에게 구현을 지시합니다:
+2. Instruct Claude to implement:
    ```
-   방금 세운 계획대로 우선순위 기능을 구현해줘.
-   구현 후 테스트도 실행해서 통과하는지 확인해줘.
-   ```
-
-3. Claude가 파일을 수정하는 과정을 지켜봅니다:
-   - 어떤 도구(Edit, Write, Bash)를 사용하는지 관찰
-   - 테스트 실행 결과 확인
-
-4. **만약 테스트가 실패한다면**:
-   ```
-   실패한 테스트를 수정해줘. 근본 원인을 분석하고 고쳐줘.
+   Implement the priority feature according to the plan we just created.
+   After implementation, run the tests to make sure they pass.
    ```
 
-> **체크포인트**: 코드가 수정되고, 테스트가 통과했다면 성공.
-> (실패해도 괜찮습니다 — 디버깅 과정 자체가 학습입니다)
+3. Watch Claude modify the files:
+   - Observe which tools (Edit, Write, Bash) it uses
+   - Check the test execution results
+
+4. **If tests fail**:
+   ```
+   Fix the failing tests. Analyze the root cause and fix it.
+   ```
+
+> **Checkpoint**: Success if the code was modified and tests pass.
+> (It's okay if they fail — the debugging process itself is a learning experience)
 
 ---
 
-## Step 4: Commit (커밋) — 5분
+## Step 4: Commit — 5 min
 
-**목표**: 변경사항을 깔끔하게 커밋한다.
+**Goal**: Commit the changes cleanly.
 
-1. Claude에게 커밋을 요청합니다:
+1. Ask Claude to commit:
    ```
-   변경사항을 확인하고 적절한 커밋 메시지로 커밋해줘.
+   Review the changes and commit them with an appropriate commit message.
    ```
 
-2. Claude가 `git diff`로 변경사항을 확인하고 커밋하는 과정을 봅니다.
+2. Watch Claude review the changes with `git diff` and create the commit.
 
-3. 커밋 후 `/clear`로 대화를 초기화합니다.
+3. After committing, reset the conversation with `/clear`.
 
-> **체크포인트**: 깔끔한 커밋 메시지와 함께 커밋이 생성되었다면 성공.
+> **Checkpoint**: Success if a commit was created with a clean commit message.
 
 ---
 
-## 자가 점검
+## Self-Check
 
-- [ ] Plan Mode와 Normal Mode를 전환해봤다
-- [ ] 구현 전에 계획을 먼저 세워봤다
-- [ ] Claude의 계획을 검토하고 판단해봤다
-- [ ] 테스트 실행으로 구현을 검증해봤다
-- [ ] `Shift+Tab`, `Esc`, `/clear`를 사용해봤다
+- [ ] Switched between Plan Mode and Normal Mode
+- [ ] Created a plan before implementing
+- [ ] Reviewed and evaluated Claude's plan
+- [ ] Verified the implementation by running tests
+- [ ] Used `Shift+Tab`, `Esc`, and `/clear`
 
-## 보너스 과제
+## Bonus Challenge
 
-같은 과정을 자신의 프로젝트에서 해보세요:
-1. 자신의 프로젝트 디렉토리에서 `claude` 시작
-2. Plan Mode로 코드베이스 탐색
-3. 작은 기능 추가 계획 수립
-4. Normal Mode로 전환 후 구현
-5. 커밋
+Try the same process on your own project:
+1. Start `claude` in your project directory
+2. Explore the codebase in Plan Mode
+3. Create a plan for a small feature addition
+4. Switch to Normal Mode and implement
+5. Commit
 
-## 다음 Practice
+## Next Practice
 
-[Practice 02: 프롬프팅 기법](../02-prompting-techniques/) — 검증 수단 제공, 인터뷰 기법을 배웁니다.
+[Practice 02: Prompting Techniques](../02-prompting-techniques/) — Learn verification criteria and interview techniques.

@@ -1,4 +1,4 @@
-# Challenge: Skills 만들기
+# Challenge: Creating Skills
 
 ## Step 1: Read the Example Skills
 

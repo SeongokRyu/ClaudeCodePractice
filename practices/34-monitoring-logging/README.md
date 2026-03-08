@@ -1,4 +1,4 @@
-# Practice 34: 에이전트 모니터링과 로깅
+# Practice 34: Agent Monitoring and Logging
 
 ## Goal
 

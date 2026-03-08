@@ -1,7 +1,7 @@
 [project]
 name = "practice-01-golden-workflow"
 version = "0.1.0"
-description = "Practice 01: 황금 워크플로우"
+description = "Practice 01: Golden Workflow"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

@@ -1,4 +1,4 @@
-# Practice 21: GitHub Actions 자동화
+# Practice 21: GitHub Actions Automation
 
 ## Goal
 

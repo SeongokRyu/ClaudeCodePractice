@@ -1,4 +1,4 @@
-# Practice 05: CLAUDE.md 작성법
+# Practice 05: Writing CLAUDE.md
 
 ## Goal
 

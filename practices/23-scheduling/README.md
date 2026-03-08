@@ -1,4 +1,4 @@
-# Practice 23: 스케줄링과 Cron
+# Practice 23: Scheduling and Cron
 
 ## Goal
 

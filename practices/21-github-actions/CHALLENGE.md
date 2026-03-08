@@ -1,4 +1,4 @@
-# Challenge: GitHub Actions 자동화
+# Challenge: GitHub Actions Automation
 
 ## Overview
 

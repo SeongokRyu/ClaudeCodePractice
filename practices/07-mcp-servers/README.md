@@ -1,4 +1,4 @@
-# Practice 07: MCP 서버 연동
+# Practice 07: MCP Server Integration
 
 ## Goal
 
@@ -6,7 +6,7 @@ Learn to set up and use MCP (Model Context Protocol) servers with Claude Code. C
 
 ## Prerequisites
 
-- [Practice 05: CLAUDE.md 작성법](../05-claude-md/)
+- [Practice 05: Writing CLAUDE.md](../05-claude-md/)
 
 ## Time
 

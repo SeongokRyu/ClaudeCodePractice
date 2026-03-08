@@ -1,4 +1,4 @@
-# Practice 06: Hooks 설정
+# Practice 06: Hooks Configuration
 
 ## Goal
 
@@ -6,7 +6,7 @@ Learn to configure Claude Code Hooks — file protection, auto-formatting, notif
 
 ## Prerequisites
 
-- [Practice 05: CLAUDE.md 작성법](../05-claude-md/)
+- [Practice 05: Writing CLAUDE.md](../05-claude-md/)
 
 ## Time
 

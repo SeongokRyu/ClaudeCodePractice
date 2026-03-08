@@ -1,4 +1,4 @@
-# Challenge: 컨텍스트 엔지니어링
+# Challenge: Context Engineering
 
 ## Step 1: Audit Current Context Usage
 

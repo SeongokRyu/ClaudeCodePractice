@@ -1,4 +1,4 @@
-# Challenge: Agent Teams 실습
+# Challenge: Agent Teams Workshop
 
 ## Step 1: Enable Agent Teams
 

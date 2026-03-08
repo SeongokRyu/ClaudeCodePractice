@@ -1,7 +1,7 @@
 [project]
 name = "practice-02-prompting-techniques"
 version = "0.1.0"
-description = "Practice 02: 프롬프팅 기법"
+description = "Practice 02: Prompting Techniques"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

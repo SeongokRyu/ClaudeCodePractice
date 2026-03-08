@@ -1,70 +1,70 @@
-# Problem: Rate Limiter 구현
+# Problem: Rate Limiter Implementation
 
-## 요구사항
+## Requirements
 
-API 요청 속도를 제한하는 Rate Limiter를 구현하세요.
+Implement a Rate Limiter that restricts API request rates.
 
-### 기능 요구사항
+### Functional Requirements
 
-1. **요청 허용 여부 판단** (`isAllowed`)
-   - 주어진 키(예: IP 주소, API 키)에 대해 요청이 허용되는지 판단
-   - 지정된 시간 윈도우 내에서 최대 요청 수를 초과하면 거부
+1. **Determine whether a request is allowed** (`isAllowed`)
+   - Determine whether a request is allowed for a given key (e.g., IP address, API key)
+   - Deny if the maximum number of requests is exceeded within the specified time window
 
-2. **남은 요청 수 조회** (`getRemainingRequests`)
-   - 현재 시간 윈도우에서 남은 허용 요청 수를 반환
+2. **Query remaining requests** (`getRemainingRequests`)
+   - Return the number of remaining allowed requests in the current time window
 
-3. **카운트 리셋** (`reset`)
-   - 특정 키의 요청 카운트를 초기화
+3. **Reset count** (`reset`)
+   - Reset the request count for a specific key
 
-### 비기능 요구사항
+### Non-Functional Requirements
 
-- 메모리 효율적이어야 함
-- O(1) 또는 O(log n) 시간 복잡도
-- Thread-safe (동시 접근 안전)
-- 시간이 지나면 오래된 데이터가 자동 정리되어야 함
+- Must be memory efficient
+- O(1) or O(log n) time complexity
+- Thread-safe (safe for concurrent access)
+- Old data must be automatically cleaned up over time
 
-## 두 가지 접근법 비교
+## Comparison of Two Approaches
 
-### 접근법 1: Sliding Window
-
-```
-시간 ────────────────────────────────►
-     [──── 윈도우 ────]
-         ↑ 현재 윈도우 내 요청 수를 카운트
-              [──── 윈도우 ────]
-                   ↑ 윈도우가 슬라이딩
-```
-
-**장점**: 정확한 제한, 균일한 트래픽 분산
-**단점**: 각 요청의 타임스탬프를 저장해야 함 (메모리 사용 높음)
-
-### 접근법 2: Token Bucket
+### Approach 1: Sliding Window
 
 ```
-버킷: [●●●●●] (최대 5개 토큰)
-요청 → 토큰 소비: [●●●●○]
-요청 → 토큰 소비: [●●●○○]
-시간 경과 → 토큰 충전: [●●●●○]
+Time ────────────────────────────────►
+     [──── Window ────]
+         ↑ Count requests within the current window
+              [──── Window ────]
+                   ↑ Window slides
 ```
 
-**장점**: 메모리 효율적 (키당 2개 숫자만 저장), burst 허용
-**단점**: 윈도우 경계에서 burst가 발생할 수 있음
+**Pros**: Precise limiting, uniform traffic distribution
+**Cons**: Must store timestamps for each request (high memory usage)
 
-## 인터페이스
+### Approach 2: Token Bucket
 
-`src/rate-limiter-interface.ts`에 정의된 `RateLimiter` 인터페이스를 구현하세요.
+```
+Bucket: [●●●●●] (max 5 tokens)
+Request → consume token: [●●●●○]
+Request → consume token: [●●●○○]
+Time passes → refill token: [●●●●○]
+```
 
-## 테스트
+**Pros**: Memory efficient (only 2 numbers per key), allows bursts
+**Cons**: Bursts can occur at window boundaries
 
-`src/rate-limiter.test.ts`에 정의된 테스트를 통과해야 합니다.
-두 구현 모두 동일한 테스트 스위트를 통과해야 합니다.
+## Interface
 
-## 평가 기준
+Implement the `RateLimiter` interface defined in `src/rate-limiter-interface.ts`.
 
-| 기준 | 배점 |
-|------|------|
-| 모든 테스트 통과 | 40점 |
-| 엣지 케이스 처리 | 20점 |
-| 메모리 효율성 | 15점 |
-| 시간 복잡도 | 15점 |
-| 코드 가독성 | 10점 |
+## Tests
+
+Must pass the tests defined in `src/rate-limiter.test.ts`.
+Both implementations must pass the same test suite.
+
+## Evaluation Criteria
+
+| Criterion | Score |
+|-----------|-------|
+| All tests pass | 40 points |
+| Edge case handling | 20 points |
+| Memory efficiency | 15 points |
+| Time complexity | 15 points |
+| Code readability | 10 points |

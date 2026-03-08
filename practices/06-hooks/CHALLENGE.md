@@ -1,4 +1,4 @@
-# Challenge: Hooks 설정
+# Challenge: Hooks Configuration
 
 ## Step 1: Read the Example Hooks
 

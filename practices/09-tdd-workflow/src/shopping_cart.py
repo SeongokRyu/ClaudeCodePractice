@@ -1,6 +1,6 @@
 # Shopping Cart Module
-# 이 파일은 인터페이스만 정의되어 있습니다.
-# TDD 워크플로우에 따라 Claude에게 구현을 요청하세요.
+# This file only defines the interface.
+# Follow the TDD workflow and ask Claude to implement it.
 
 from dataclasses import dataclass
 from typing import List
@@ -16,7 +16,7 @@ class CartItem:
 
 class ShoppingCartImpl:
     """
-    TODO: Claude에게 ShoppingCartImpl 클래스를 구현해달라고 요청하세요.
-    예: "src/test_shopping_cart.py의 테스트를 통과하도록 ShoppingCartImpl을 구현해줘"
+    TODO: Ask Claude to implement the ShoppingCartImpl class.
+    Example: "Implement ShoppingCartImpl so it passes the tests in src/test_shopping_cart.py"
     """
     pass

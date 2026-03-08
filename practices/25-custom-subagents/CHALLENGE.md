@@ -1,4 +1,4 @@
-# Challenge: 커스텀 서브에이전트 설계
+# Challenge: Custom Subagent Design
 
 ## Step 1: Design a 3-Agent System
 

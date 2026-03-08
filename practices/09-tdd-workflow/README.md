@@ -1,54 +1,54 @@
-# Practice 09: TDD 워크플로우
+# Practice 09: TDD Workflow
 
-## 목표
+## Objective
 
-Test-Driven Development(TDD)를 Claude와 함께 실습합니다. Red-Green-Refactor 사이클과 Ralph Loop 패턴을 익혀, AI와 협업하는 TDD 워크플로우를 체득합니다.
+Practice Test-Driven Development (TDD) together with Claude. Learn the Red-Green-Refactor cycle and the Ralph Loop pattern, and internalize a TDD workflow in collaboration with AI.
 
-## 사전 요구사항
+## Prerequisites
 
-- Practice 05 (CLAUDE.md) 완료
-- Python 및 pytest 기본 이해
+- Practice 05 (CLAUDE.md) completed
+- Basic understanding of Python and pytest
 
-## 소요 시간
+## Estimated Time
 
-45-60분
+45-60 minutes
 
-## 핵심 개념
+## Key Concepts
 
-### TDD 사이클: Red → Green → Refactor
+### TDD Cycle: Red → Green → Refactor
 
-1. **Red**: 실패하는 테스트를 먼저 작성합니다
-2. **Green**: 테스트를 통과하는 최소한의 코드를 구현합니다
-3. **Refactor**: 테스트를 유지하면서 코드 품질을 개선합니다
+1. **Red**: Write a failing test first
+2. **Green**: Write the minimum code to pass the test
+3. **Refactor**: Improve code quality while keeping tests passing
 
 ### Ralph Loop
 
-Claude에게 성공 기준을 주고 반복하게 하는 패턴입니다:
+A pattern where you give Claude success criteria and let it iterate:
 
 ```
-"테스트를 실행하고, 실패하면 수정하고, 다시 실행해. 모든 테스트가 통과할 때까지 반복해."
+"Run the tests, fix any failures, and run them again. Repeat until all tests pass."
 ```
 
-이 패턴은 Claude가 스스로 피드백 루프를 돌며 문제를 해결하게 합니다.
+This pattern lets Claude drive its own feedback loop to solve the problem.
 
-## 시작하기
+## Getting Started
 
 ```bash
 cd practices/09-tdd-workflow
 uv sync
 ```
 
-`src/test_shopping_cart.py`에 미리 작성된 테스트가 있습니다. 구현 파일(`src/shopping_cart.py`)은 인터페이스만 정의되어 있어 테스트는 **모두 실패**합니다.
+There are pre-written tests in `src/test_shopping_cart.py`. The implementation file (`src/shopping_cart.py`) only defines the interface, so all tests will **fail**.
 
 ```bash
-uv run pytest src/  # 모든 테스트가 실패하는 것을 확인
+uv run pytest src/  # Confirm that all tests fail
 ```
 
-이제 `CHALLENGE.md`의 단계를 따라 Claude와 함께 TDD를 실습하세요.
+Now follow the steps in `CHALLENGE.md` to practice TDD with Claude.
 
-## 학습 포인트
+## Learning Points
 
-- 테스트를 먼저 작성하면 요구사항이 명확해진다
-- Claude에게 "테스트를 통과시켜"라고 말하면 TDD의 Green 단계를 수행한다
-- Refactor 단계에서 Claude는 테스트라는 안전망 덕분에 자유롭게 리팩토링할 수 있다
-- Ralph Loop는 Claude가 자율적으로 문제를 해결하게 하는 강력한 패턴이다
+- Writing tests first makes the requirements clear
+- Telling Claude "make the tests pass" performs the Green phase of TDD
+- In the Refactor phase, Claude can refactor freely thanks to the safety net of tests
+- The Ralph Loop is a powerful pattern that lets Claude solve problems autonomously

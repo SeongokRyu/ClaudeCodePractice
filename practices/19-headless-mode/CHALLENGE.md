@@ -1,4 +1,4 @@
-# Challenge: Headless Mode 기초
+# Challenge: Headless Mode Basics
 
 ## Overview
 

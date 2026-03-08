@@ -1,7 +1,7 @@
 [project]
 name = "practice-24-agent-sdk-intro"
 version = "0.1.0"
-description = "Practice 24: Agent SDK 입문"
+description = "Practice 24: Agent SDK Introduction"
 requires-python = ">=3.10"
 dependencies = [
     "claude-agent-sdk>=0.1.0",

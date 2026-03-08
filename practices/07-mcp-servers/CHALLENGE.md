@@ -1,4 +1,4 @@
-# Challenge: MCP 서버 연동
+# Challenge: MCP Server Integration
 
 ## Step 1: Understand MCP
 

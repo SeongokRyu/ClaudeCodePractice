@@ -1,7 +1,7 @@
 [project]
 name = "practice-34-monitoring-logging"
 version = "0.1.0"
-description = "Practice 34: 에이전트 모니터링과 로깅"
+description = "Practice 34: Agent Monitoring and Logging"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

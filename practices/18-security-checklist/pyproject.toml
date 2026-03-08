@@ -1,7 +1,7 @@
 [project]
 name = "practice-18-security-checklist"
 version = "0.1.0"
-description = "Practice 18: 보안 체크리스트"
+description = "Practice 18: Security Checklist"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

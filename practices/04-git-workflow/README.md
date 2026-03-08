@@ -1,28 +1,28 @@
-# Practice 04: Git 워크플로우 (Git Workflow)
+# Practice 04: Git Workflow
 
 ## Goal
 
-Claude Code와 함께 안전한 Git 워크플로우를 학습합니다 -- 커밋, 브랜치, PR, 안전한 습관을 익힙니다.
+Learn safe Git workflows with Claude Code -- master commits, branches, PRs, and safe practices.
 
 ## Why This Matters
 
-AI 에이전트와 작업할 때 안전한 Git 습관은 데이터 손실을 방지합니다. Claude는 Git 작업을 자동화할 수 있지만, 올바른 워크플로우를 이해하고 있어야 합니다.
+Safe Git habits prevent data loss when working with AI agents. Claude can automate Git operations, but you need to understand proper workflows.
 
 ## Prerequisites
 
-- Practice 01 (Golden Workflow) 완료
+- Practice 01 (Golden Workflow) completed
 
 ## Time
 
-20-30분
+20-30 minutes
 
 ## What You'll Learn
 
-1. **백업 브랜치 생성** -- 변경 전 안전망 구축
-2. **설명적인 커밋 메시지** -- Claude에게 커밋을 요청하는 방법
-3. **피처 브랜치** -- 새 기능을 위한 브랜치 생성과 구현
-4. **PR 설명 작성** -- 변경 사항을 요약하는 방법
-5. **/rewind 사용** -- 변경 사항 되돌리기
+1. **Creating backup branches** -- Building a safety net before making changes
+2. **Descriptive commit messages** -- How to ask Claude to commit
+3. **Feature branches** -- Creating branches and implementing new features
+4. **Writing PR descriptions** -- How to summarize changes
+5. **Using /rewind** -- Reverting changes
 
 ## Getting Started
 
@@ -32,8 +32,8 @@ uv sync
 uv run pytest
 ```
 
-**중요**: 이 연습을 위해 Git 저장소가 초기화되어 있어야 합니다.
-아직 Git 저장소가 아니라면:
+**Important**: A Git repository must be initialized for this exercise.
+If it is not yet a Git repository:
 
 ```bash
 cd /path/to/ClaudeCodePractice
@@ -42,32 +42,32 @@ git add .
 git commit -m "Initial commit"
 ```
 
-테스트가 통과하는지 확인한 후, `CHALLENGE.md`의 단계별 지시를 따라가세요.
+Confirm that tests pass, then follow the step-by-step instructions in `CHALLENGE.md`.
 
 ## Key Concepts
 
-### 백업 브랜치
+### Backup Branches
 
-변경하기 전에 항상 백업 브랜치를 만드세요:
-
-```
-변경하기 전에 backup/before-refactor 이름으로 백업 브랜치를 만들어주세요.
-```
-
-### 설명적인 커밋
-
-Claude에게 커밋을 요청할 때:
+Always create a backup branch before making changes:
 
 ```
-지금까지의 변경 사항을 설명적인 커밋 메시지와 함께 커밋해주세요.
+Before making changes, please create a backup branch named backup/before-refactor.
+```
+
+### Descriptive Commits
+
+When asking Claude to commit:
+
+```
+Commit the changes so far with a descriptive commit message.
 ```
 
 ### /rewind
 
-Claude의 변경 사항을 되돌리고 싶을 때:
+When you want to revert Claude's changes:
 
 ```
 /rewind
 ```
 
-이전 체크포인트 목록이 표시되고, 원하는 시점으로 되돌릴 수 있습니다.
+A list of previous checkpoints will be displayed, and you can revert to the desired point.

@@ -1,68 +1,68 @@
-# Practice 12: 멀티 파일 리팩토링
+# Practice 12: Multi-File Refactoring
 
-## 목표
+## Objective
 
-여러 파일에 걸친 대규모 리팩토링을 Claude와 함께 수행합니다. 의존성 추적, 안전한 리팩토링 전략, 그리고 "한 번에 하나씩" 접근법을 학습합니다.
+Perform large-scale refactoring across multiple files together with Claude. Learn dependency tracking, safe refactoring strategies, and the "one at a time" approach.
 
-## 난이도
+## Difficulty
 
 :star::star::star:
 
-## 사전 요구사항
+## Prerequisites
 
-- Practice 05 (CLAUDE.md) 완료
-- 콜백 패턴과 async/await에 대한 기본 이해
+- Practice 05 (CLAUDE.md) completed
+- Basic understanding of callback patterns and async/await
 
-## 소요 시간
+## Estimated Time
 
-45-60분
+45-60 minutes
 
-## 핵심 개념
+## Key Concepts
 
-### 멀티 파일 리팩토링의 위험
+### Risks of Multi-File Refactoring
 
-- 한 파일의 변경이 다른 파일들에 연쇄적으로 영향을 미침
-- 의존성 그래프를 이해하지 않으면 예상치 못한 곳이 깨짐
-- 테스트 없이 리팩토링하면 회귀(regression)를 놓침
+- Changes in one file can cascade to other files
+- Without understanding the dependency graph, things break in unexpected places
+- Refactoring without tests means missing regressions
 
-### 안전한 리팩토링 전략
+### Safe Refactoring Strategy
 
-1. **의존성 파악**: 먼저 어떤 파일이 어떤 파일에 의존하는지 파악
-2. **계획 수립**: 리팩토링 순서를 정함 (의존성 최하위부터)
-3. **한 파일씩**: 한 번에 하나의 파일만 변경
-4. **매번 테스트**: 각 변경 후 테스트 실행
-5. **롤백 준비**: 문제 발생 시 즉시 되돌릴 수 있도록
+1. **Identify Dependencies**: First, determine which files depend on which
+2. **Make a Plan**: Decide the refactoring order (starting from the lowest dependencies)
+3. **One File at a Time**: Change only one file at a time
+4. **Test Every Time**: Run tests after each change
+5. **Prepare for Rollback**: Be ready to revert immediately if issues arise
 
-### 이 실습의 목표
+### Goal of This Exercise
 
-콜백(Callback) 패턴으로 작성된 코드베이스를 **async/await** 패턴으로 리팩토링합니다. 모든 테스트가 리팩토링 전후로 통과해야 합니다.
+Refactor a codebase written with the callback pattern into an **async/await** pattern. All tests must pass both before and after refactoring.
 
-## 시작하기
+## Getting Started
 
 ```bash
 cd practices/12-multi-file-refactoring
 uv sync
-uv run pytest src/  # 모든 테스트가 통과하는 것을 확인
+uv run pytest src/  # Confirm all tests pass
 ```
 
-코드베이스 구조:
+Codebase structure:
 ```
 src/
-  types.py               # 공유 타입 정의
-  database.py            # 데이터베이스 모듈 (콜백 패턴)
-  user_repository.py     # 사용자 저장소 (콜백 패턴)
-  order_repository.py    # 주문 저장소 (콜백 패턴)
-  notification_service.py  # 알림 서비스 (콜백 패턴)
-  app.py                 # 메인 앱 (콜백 체인)
+  types.py               # Shared type definitions
+  database.py            # Database module (callback pattern)
+  user_repository.py     # User repository (callback pattern)
+  order_repository.py    # Order repository (callback pattern)
+  notification_service.py  # Notification service (callback pattern)
+  app.py                 # Main app (callback chain)
 ```
 
-모든 모듈이 콜백 패턴을 사용하고 있으며, 이를 async/await로 변환하는 것이 목표입니다.
+All modules use the callback pattern, and the goal is to convert them to async/await.
 
-이제 `CHALLENGE.md`의 단계를 따라 실습하세요.
+Now follow the steps in `CHALLENGE.md` to practice.
 
-## 학습 포인트
+## Learning Points
 
-- Claude에게 의존성 그래프를 그려달라고 하면 리팩토링 순서를 파악할 수 있다
-- "한 파일씩, 테스트 실행" 패턴이 안전한 리팩토링의 핵심이다
-- Claude는 여러 파일을 동시에 수정할 수 있지만, 단계별로 하는 것이 더 안전하다
-- 콜백 → async/await 변환은 실무에서도 자주 만나는 패턴이다
+- Asking Claude to draw a dependency graph helps identify the refactoring order
+- The "one file at a time, run tests" pattern is the key to safe refactoring
+- Claude can modify multiple files at once, but doing it step by step is safer
+- Callback to async/await conversion is a pattern you frequently encounter in practice

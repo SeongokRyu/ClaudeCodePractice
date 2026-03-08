@@ -1,41 +1,41 @@
-# Challenge: Worktree 병렬 개발
+# Challenge: Worktree Parallel Development
 
-## Step 1: Git Worktree 개념 이해
+## Step 1: Understanding Git Worktree Concepts
 
-Git worktree는 하나의 저장소에서 여러 작업 디렉토리를 동시에 유지할 수 있게 해줍니다.
+Git worktree allows you to maintain multiple working directories simultaneously from a single repository.
 
-### 일반 브랜치 전환 vs Worktree
+### Regular Branch Switching vs Worktree
 
 ```
-일반 브랜치 전환:
-  git checkout feature-auth   → 작업 → git stash
-  git checkout feature-log    → 작업 → git stash
-  git checkout feature-auth   → git stash pop → 작업 계속
-  ❌ 컨텍스트 스위칭 비용이 큼
+Regular branch switching:
+  git checkout feature-auth   → work → git stash
+  git checkout feature-log    → work → git stash
+  git checkout feature-auth   → git stash pop → continue working
+  ❌ High context switching cost
 
 Worktree:
   Terminal 1: ~/project/           (main)
   Terminal 2: ~/project-auth/      (feature-auth)
   Terminal 3: ~/project-log/       (feature-logging)
-  ✅ 각 터미널에서 독립적으로 작업
+  ✅ Work independently in each terminal
 ```
 
-### 기본 명령어
+### Basic Commands
 
 ```bash
-# worktree 생성
+# Create worktree
 git worktree add ../my-project-feature-auth -b feature-auth
 
-# worktree 목록 확인
+# List worktrees
 git worktree list
 
-# worktree 제거
+# Remove worktree
 git worktree remove ../my-project-feature-auth
 ```
 
 ### Exercise
 
-다음 명령어를 실행하여 worktree의 동작을 확인하세요:
+Run the following command to verify worktree behavior:
 
 ```bash
 git worktree list
@@ -43,127 +43,127 @@ git worktree list
 
 ---
 
-## Step 2: Worktree 세션 시작 — 인증 기능
+## Step 2: Starting a Worktree Session — Authentication Feature
 
-첫 번째 터미널에서 worktree 기반 Claude 세션을 시작합니다.
+Start a worktree-based Claude session in the first terminal.
 
 ```bash
 claude --worktree feature-auth
 ```
 
-이 명령은 다음을 자동으로 수행합니다:
-1. `feature-auth` 브랜치 생성
-2. 새로운 worktree 디렉토리 생성
-3. 해당 디렉토리에서 Claude 세션 시작
+This command automatically performs the following:
+1. Creates the `feature-auth` branch
+2. Creates a new worktree directory
+3. Starts a Claude session in that directory
 
-### 인증 기능 구현 요청
+### Request Authentication Feature Implementation
 
-Claude에게 다음을 요청하세요:
+Ask Claude the following:
 
 ```
-src/app.py에 인증 기능을 추가해주세요:
-1. POST /auth/login 엔드포인트 — username, password를 받아 JWT 토큰 반환
-2. POST /auth/register 엔드포인트 — 새 사용자 등록
-3. auth_middleware — 토큰 검증 미들웨어
-4. 기존 GET /users 엔드포인트에 인증 미들웨어 적용
-5. 테스트도 함께 추가해주세요
+Add authentication features to src/app.py:
+1. POST /auth/login endpoint — accepts username, password and returns JWT token
+2. POST /auth/register endpoint — register new user
+3. auth_middleware — token verification middleware
+4. Apply authentication middleware to existing GET /users endpoint
+5. Please add tests as well
 ```
 
-### 확인 사항
-- [ ] feature-auth 브랜치에서 작업 중인지 확인
-- [ ] 인증 관련 코드가 추가되었는지 확인
-- [ ] 테스트가 통과하는지 확인
+### Checklist
+- [ ] Confirm you are working on the feature-auth branch
+- [ ] Confirm authentication-related code has been added
+- [ ] Confirm tests pass
 
 ---
 
-## Step 3: 두 번째 Worktree 세션 — 로깅 기능
+## Step 3: Second Worktree Session — Logging Feature
 
-**다른 터미널**을 열고 두 번째 worktree 세션을 시작합니다.
+Open **another terminal** and start a second worktree session.
 
 ```bash
 claude --worktree feature-logging
 ```
 
-### 로깅 기능 구현 요청
+### Request Logging Feature Implementation
 
-Claude에게 다음을 요청하세요:
+Ask Claude the following:
 
 ```
-src/app.py에 요청 로깅 기능을 추가해주세요:
-1. requestLogger 미들웨어 — 모든 요청의 method, path, 응답시간을 로그
-2. GET /logs 엔드포인트 — 최근 로그 조회
-3. 로그 레벨 지원 (info, warn, error)
-4. 에러 발생 시 자동으로 error 로그 기록
-5. 테스트도 함께 추가해주세요
+Add request logging features to src/app.py:
+1. requestLogger middleware — logs method, path, response time for all requests
+2. GET /logs endpoint — view recent logs
+3. Log level support (info, warn, error)
+4. Automatically record error logs when errors occur
+5. Please add tests as well
 ```
 
-### 확인 사항
-- [ ] feature-logging 브랜치에서 작업 중인지 확인 (feature-auth와 독립!)
-- [ ] 로깅 관련 코드가 추가되었는지 확인
-- [ ] 테스트가 통과하는지 확인
-- [ ] feature-auth의 변경사항이 이 브랜치에 없는지 확인
+### Checklist
+- [ ] Confirm you are working on the feature-logging branch (independent from feature-auth!)
+- [ ] Confirm logging-related code has been added
+- [ ] Confirm tests pass
+- [ ] Confirm changes from feature-auth are not in this branch
 
 ---
 
-## Step 4: 병렬 작업 수행
+## Step 4: Performing Parallel Work
 
-두 터미널에서 동시에 작업이 진행되는 것을 체험합니다.
+Experience simultaneous work in progress across both terminals.
 
-### Terminal 1 (feature-auth)에서
-
-```
-인증 기능에 비밀번호 해싱을 추가해주세요.
-bcrypt를 사용하여 비밀번호를 안전하게 저장하도록 수정해주세요.
-```
-
-### Terminal 2 (feature-logging)에서
+### In Terminal 1 (feature-auth)
 
 ```
-로깅에 구조화된 JSON 포맷을 추가해주세요.
-각 로그 엔트리가 timestamp, level, message, metadata를 포함하도록 해주세요.
+Add password hashing to the authentication feature.
+Use bcrypt to securely store passwords.
 ```
 
-### 병렬 작업의 장점 확인
+### In Terminal 2 (feature-logging)
+
+```
+Add structured JSON format to logging.
+Make each log entry include timestamp, level, message, and metadata.
+```
+
+### Verify Benefits of Parallel Work
 
 ```bash
-# Terminal 1에서
+# In Terminal 1
 git log --oneline feature-auth
 
-# Terminal 2에서
+# In Terminal 2
 git log --oneline feature-logging
 
-# 두 브랜치의 커밋 히스토리가 완전히 독립적!
+# The commit histories of both branches are completely independent!
 ```
 
 ---
 
-## Step 5: PR을 통한 머지
+## Step 5: Merging via PR
 
-각 worktree에서 작업한 내용을 PR로 머지합니다.
+Merge the work from each worktree via pull requests.
 
-### 5-1. 각 브랜치에서 PR 생성
+### 5-1. Create PR from Each Branch
 
 ```bash
 # Terminal 1 (feature-auth)
 git push -u origin feature-auth
-gh pr create --title "feat: Add authentication system" --body "JWT 기반 인증 시스템 추가"
+gh pr create --title "feat: Add authentication system" --body "Add JWT-based authentication system"
 
 # Terminal 2 (feature-logging)
 git push -u origin feature-logging
-gh pr create --title "feat: Add request logging" --body "구조화된 요청 로깅 시스템 추가"
+gh pr create --title "feat: Add request logging" --body "Add structured request logging system"
 ```
 
-### 5-2. PR 리뷰 및 머지
+### 5-2. PR Review and Merge
 
 ```bash
-# 각 PR을 리뷰하고 머지
+# Review and merge each PR
 gh pr merge --squash
 ```
 
-### 5-3. Worktree 정리
+### 5-3. Clean Up Worktrees
 
 ```bash
-# 작업 완료 후 worktree 제거
+# Remove worktrees after work is complete
 git worktree list
 git worktree remove ../project-feature-auth
 git worktree remove ../project-feature-logging
@@ -172,17 +172,17 @@ git worktree prune
 
 ---
 
-## 성공 기준
+## Success Criteria
 
-- [ ] 두 개의 worktree에서 독립적으로 기능을 개발했다
-- [ ] 각 worktree의 변경사항이 서로 격리되어 있었다
-- [ ] 두 기능 모두 테스트가 통과했다
-- [ ] PR을 통해 main 브랜치에 머지할 수 있었다
-- [ ] 사용 완료 후 worktree를 정리했다
+- [ ] Developed features independently in two worktrees
+- [ ] Changes in each worktree were isolated from each other
+- [ ] Tests passed for both features
+- [ ] Was able to merge to the main branch via PRs
+- [ ] Cleaned up worktrees after completion
 
-## 핵심 교훈
+## Key Takeaways
 
-1. **worktree = 물리적 격리**: 각 기능이 완전히 독립된 디렉토리에서 개발됨
-2. **컨텍스트 스위칭 제로**: stash/checkout 없이 터미널만 전환하면 됨
-3. **Claude 세션 격리**: 각 worktree의 Claude가 해당 기능에만 집중
-4. **PR 기반 통합**: 각 기능을 독립적으로 리뷰하고 머지 가능
+1. **worktree = physical isolation**: Each feature is developed in a completely independent directory
+2. **Zero context switching**: Just switch terminals without stash/checkout
+3. **Claude session isolation**: Claude in each worktree focuses only on that feature
+4. **PR-based integration**: Each feature can be reviewed and merged independently

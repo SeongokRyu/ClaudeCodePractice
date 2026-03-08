@@ -1,126 +1,126 @@
-# Challenge: 서브에이전트 활용
+# Challenge: Using Subagents
 
-## Step 1: 컨텍스트 채워짐 관찰
+## Step 1: Observe Context Filling
 
-먼저 서브에이전트 없이 대규모 탐색 작업을 수행하고, 컨텍스트가 어떻게 채워지는지 관찰합니다.
+First, perform a large-scale exploration task without a subagent and observe how the context fills up.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-이 프로젝트 전체(practices/ 디렉토리 아래 모든 파일)를 탐색하고,
-각 practice의 목적, 파일 구조, 사용된 패턴을 요약해줘.
-모든 .py 파일의 내용을 확인해줘.
+Explore the entire project (all files under the practices/ directory),
+and summarize the purpose, file structure, and patterns used in each practice.
+Check the contents of all .py files.
 ```
 
-이 작업 후 컨텍스트가 상당히 채워진 것을 확인하세요. `/cost` 명령으로 토큰 사용량을 확인할 수 있습니다.
+After this task, confirm that the context has been significantly consumed. You can check token usage with the `/cost` command.
 
 ---
 
-## Step 2: 내장 Explore 에이전트 사용
+## Step 2: Use the Built-in Explore Agent
 
-같은 작업을 서브에이전트에 위임하고 차이를 비교합니다.
+Delegate the same task to a subagent and compare the difference.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-서브에이전트를 사용해서 practices/ 디렉토리의 구조를 분석해줘.
-각 practice의 목적과 파일 구조를 요약하는 작업을 서브에이전트에게 위임해.
+Use a subagent to analyze the structure of the practices/ directory.
+Delegate the task of summarizing the purpose and file structure of each practice to a subagent.
 ```
 
-### 비교 포인트
+### Comparison Points
 
-- Step 1 후와 Step 2 후의 메인 컨텍스트 사용량 차이
-- 결과의 품질 차이
-- 응답 시간 차이
+- Difference in main context usage between Step 1 and Step 2
+- Difference in result quality
+- Difference in response time
 
 ---
 
-## Step 3: 커스텀 서브에이전트 만들기
+## Step 3: Create Custom Subagents
 
-`.claude/agents/` 디렉토리에 커스텀 에이전트를 만듭니다.
+Create custom agents in the `.claude/agents/` directory.
 
-### 3-1: Researcher 에이전트
+### 3-1: Researcher Agent
 
-`src/example-agents/researcher.md`를 참고하여 `.claude/agents/researcher.md`를 만드세요.
+Create `.claude/agents/researcher.md` using `src/example-agents/researcher.md` as a reference.
 
-### Claude에게 시도해볼 프롬프트
-
-```
-src/example-agents/researcher.md를 참고해서
-.claude/agents/researcher.md 에이전트를 만들어줘.
-
-이 에이전트는:
-- 코드베이스를 탐색하고 분석하는 역할
-- Read, Grep, Glob 도구만 사용
-- haiku 모델 사용 (빠르고 저렴)
-- 결과를 구조화된 형식으로 반환
-```
-
-만든 후 사용해보세요:
+### Prompts to Try with Claude
 
 ```
-@researcher 에이전트를 사용해서 이 프로젝트에서 사용된 모든 클래스를 찾아줘.
+Using src/example-agents/researcher.md as a reference,
+create a .claude/agents/researcher.md agent.
+
+This agent should:
+- Explore and analyze the codebase
+- Use only Read, Grep, and Glob tools
+- Use the haiku model (fast and inexpensive)
+- Return results in a structured format
 ```
 
----
+After creating it, try using it:
 
-## Step 4: Writer/Reviewer 패턴
-
-한 에이전트가 코드를 작성하고, 다른 에이전트가 리뷰하는 패턴을 실습합니다.
-
-### Claude에게 시도해볼 프롬프트
-
-먼저 코드를 작성합니다:
 ```
-src/app.py에 새 엔드포인트를 추가해줘:
-- GET /users/:id/stats — 사용자의 요청 통계를 반환
-- POST /users/:id/preferences — 사용자 설정을 저장
-- DELETE /users/:id/cache — 사용자 캐시를 삭제
-
-각 엔드포인트에 대한 테스트도 작성해줘.
-```
-
-그런 다음 리뷰를 위임합니다:
-```
-방금 작성한 코드를 서브에이전트에게 코드 리뷰를 맡겨줘.
-src/example-agents/code-reviewer.md의 정의를 참고해서
-보안, 성능, 에러 처리 관점에서 리뷰해달라고 해.
+Use the @researcher agent to find all classes used in this project.
 ```
 
 ---
 
-## Step 5: 메모리가 있는 코드 리뷰 에이전트
+## Step 4: Writer/Reviewer Pattern
 
-프로젝트 메모리를 활용하는 에이전트를 만듭니다.
+Practice the pattern where one agent writes code and another agent reviews it.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
+First, write the code:
 ```
-src/example-agents/code-reviewer.md를 참고해서
-.claude/agents/code-reviewer.md를 만들어줘.
+Add new endpoints to src/app.py:
+- GET /users/:id/stats — Returns user request statistics
+- POST /users/:id/preferences — Saves user preferences
+- DELETE /users/:id/cache — Deletes user cache
 
-이 에이전트는:
-- 코드 리뷰 전문
-- 프로젝트의 코딩 컨벤션을 기억 (memory: project)
-- 이전 리뷰에서 발견한 패턴을 축적
-- 보안 체크리스트를 항상 적용
+Write tests for each endpoint as well.
+```
 
-만든 후에 src/app.py를 이 에이전트로 리뷰해줘.
+Then delegate the review:
+```
+Have a subagent perform a code review of the code you just wrote.
+Using the definition in src/example-agents/code-reviewer.md as a reference,
+ask it to review from security, performance, and error handling perspectives.
 ```
 
 ---
 
-## 완료 기준
+## Step 5: Code Review Agent with Memory
 
-- [ ] Step 1: 서브에이전트 없이 탐색했을 때 컨텍스트 사용량을 확인했다
-- [ ] Step 2: 서브에이전트로 같은 작업을 했을 때의 차이를 이해했다
-- [ ] Step 3: 커스텀 researcher 에이전트를 만들고 사용했다
-- [ ] Step 4: Writer/Reviewer 패턴으로 코드 작성과 리뷰를 분리했다
-- [ ] Step 5: 메모리가 있는 코드 리뷰 에이전트를 만들었다
+Create an agent that utilizes project memory.
 
-## 회고 질문
+### Prompts to Try with Claude
 
-1. 서브에이전트를 사용했을 때 컨텍스트 보호 효과를 체감했나요?
-2. Writer/Reviewer 패턴에서 별도 에이전트가 리뷰했을 때와 같은 컨텍스트에서 리뷰했을 때의 차이는?
-3. 어떤 작업은 서브에이전트에 위임하고, 어떤 작업은 직접 수행하는 것이 좋을까요?
-4. 팀에서 공유할 수 있는 유용한 에이전트 정의를 3개 이상 생각해보세요.
+```
+Using src/example-agents/code-reviewer.md as a reference,
+create .claude/agents/code-reviewer.md.
+
+This agent should:
+- Specialize in code review
+- Remember the project's coding conventions (memory: project)
+- Accumulate patterns discovered in previous reviews
+- Always apply the security checklist
+
+After creating it, use this agent to review src/app.py.
+```
+
+---
+
+## Completion Criteria
+
+- [ ] Step 1: Checked context usage after exploring without a subagent
+- [ ] Step 2: Understood the difference when using a subagent for the same task
+- [ ] Step 3: Created and used a custom researcher agent
+- [ ] Step 4: Separated code writing and review with the Writer/Reviewer pattern
+- [ ] Step 5: Created a code review agent with memory
+
+## Reflection Questions
+
+1. Did you feel the context protection benefit when using subagents?
+2. What was the difference between having a separate agent review vs. reviewing in the same context in the Writer/Reviewer pattern?
+3. Which tasks should be delegated to subagents, and which should be performed directly?
+4. Think of at least 3 useful agent definitions that could be shared with your team.

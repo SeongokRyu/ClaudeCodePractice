@@ -1,4 +1,4 @@
-# Practice 30: 결정론적 가드레일
+# Practice 30: Deterministic Guardrails
 
 ## Goal
 

@@ -1,7 +1,7 @@
 [project]
 name = "practice-04-git-workflow"
 version = "0.1.0"
-description = "Practice 04: Git 워크플로우"
+description = "Practice 04: Git Workflow"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

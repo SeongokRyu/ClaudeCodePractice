@@ -1,104 +1,104 @@
-# Challenge: TDD 워크플로우
+# Challenge: TDD Workflow
 
-## Step 1: 실패하는 테스트 확인 (Red)
+## Step 1: Confirm Failing Tests (Red)
 
-`src/test_shopping_cart.py`에는 쇼핑 카트 모듈의 테스트가 이미 작성되어 있습니다. 먼저 테스트가 실패하는 것을 확인하세요.
-
-```bash
-uv run pytest src/
-```
-
-모든 테스트가 실패해야 합니다. 이것이 TDD의 Red 단계입니다.
-
-### Claude에게 시도해볼 프롬프트
-
-```
-아직 구현이 없는 쇼핑 카트 모듈의 테스트를 살펴봐.
-어떤 기능들이 필요한지 테스트에서 읽어내서 정리해줘.
-```
-
----
-
-## Step 2: 테스트를 통과시키기 (Green)
-
-Claude에게 구현을 요청합니다. 핵심은 **테스트를 변경하지 않고** 구현만 작성하는 것입니다.
-
-### Claude에게 시도해볼 프롬프트
-
-```
-src/test_shopping_cart.py의 테스트를 모두 통과하도록
-src/shopping_cart.py를 구현해줘.
-
-테스트는 수정하지 마. 구현만 작성해.
-```
-
-구현 후 테스트를 실행하여 모든 테스트가 통과하는지 확인하세요.
+Tests for the shopping cart module have already been written in `src/test_shopping_cart.py`. First, confirm that the tests fail.
 
 ```bash
 uv run pytest src/
 ```
 
----
+All tests should fail. This is the Red phase of TDD.
 
-## Step 3: 리팩토링 (Refactor)
-
-테스트가 모두 통과하면, 코드 품질을 개선합니다. 테스트는 안전망 역할을 합니다.
-
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-shopping_cart.py 구현을 리팩토링해줘.
-- 코드 가독성 개선
-- 중복 제거
-- 타입 안전성 강화
-- 에러 처리 개선
+Look at the tests for the shopping cart module that has no implementation yet.
+Read the tests and summarize what features are needed.
+```
 
-단, 모든 테스트가 계속 통과해야 해.
-리팩토링 후 uv run pytest src/를 실행해서 확인해줘.
+---
+
+## Step 2: Make the Tests Pass (Green)
+
+Ask Claude for the implementation. The key is to **write only the implementation without changing the tests**.
+
+### Prompts to Try with Claude
+
+```
+Implement src/shopping_cart.py so that all tests in
+src/test_shopping_cart.py pass.
+
+Do not modify the tests. Only write the implementation.
+```
+
+After implementation, run the tests to confirm they all pass.
+
+```bash
+uv run pytest src/
+```
+
+---
+
+## Step 3: Refactoring (Refactor)
+
+Once all tests pass, improve the code quality. The tests serve as a safety net.
+
+### Prompts to Try with Claude
+
+```
+Refactor the shopping_cart.py implementation.
+- Improve code readability
+- Remove duplication
+- Strengthen type safety
+- Improve error handling
+
+All tests must continue to pass.
+After refactoring, run uv run pytest src/ to verify.
 ```
 
 ---
 
 ## Step 4: Ralph Loop
 
-Ralph Loop는 Claude에게 **성공 기준**을 주고 자율적으로 반복하게 하는 패턴입니다.
+The Ralph Loop is a pattern where you give Claude **success criteria** and let it iterate autonomously.
 
-### Claude에게 시도해볼 프롬프트
-
-```
-다음 과정을 반복해줘:
-1. uv run pytest src/를 실행해
-2. 실패하는 테스트가 있으면 원인을 분석하고 수정해
-3. 다시 uv run pytest src/를 실행해
-4. 모든 테스트가 통과할 때까지 반복해
-
-중간에 멈추지 말고, 모든 테스트가 통과하면 그때 결과를 알려줘.
-```
-
-### 심화: 새 기능 추가 + Ralph Loop
+### Prompts to Try with Claude
 
 ```
-쇼핑 카트에 다음 기능을 추가해줘:
-- 쿠폰 코드 적용 (SAVE10 = 10% 할인, SAVE20 = 20% 할인)
-- 장바구니 아이템 수량 변경
-- 최소 주문 금액 체크 (10,000원 미만이면 에러)
+Repeat the following process:
+1. Run uv run pytest src/
+2. If any tests fail, analyze the cause and fix it
+3. Run uv run pytest src/ again
+4. Repeat until all tests pass
 
-각 기능에 대한 테스트를 먼저 작성하고,
-테스트를 통과하는 구현을 작성해.
-uv run pytest src/로 확인하고, 실패하면 수정해서 모든 테스트가 통과할 때까지 반복해.
+Don't stop in the middle — let me know the results once all tests pass.
+```
+
+### Advanced: Adding New Features + Ralph Loop
+
+```
+Add the following features to the shopping cart:
+- Apply coupon codes (SAVE10 = 10% discount, SAVE20 = 20% discount)
+- Change item quantity in the cart
+- Minimum order amount check (error if less than 10,000 won)
+
+Write tests for each feature first,
+then write the implementation to pass the tests.
+Verify with uv run pytest src/, and if any fail, fix them and repeat until all tests pass.
 ```
 
 ---
 
-## 완료 기준
+## Completion Criteria
 
-- [ ] Step 1: 모든 테스트가 실패하는 것을 확인했다
-- [ ] Step 2: shopping_cart.py를 구현하여 모든 테스트가 통과한다
-- [ ] Step 3: 리팩토링 후에도 모든 테스트가 통과한다
-- [ ] Step 4: Ralph Loop로 Claude가 자율적으로 문제를 해결하는 것을 경험했다
+- [ ] Step 1: Confirmed that all tests fail
+- [ ] Step 2: Implemented shopping_cart.py so all tests pass
+- [ ] Step 3: All tests still pass after refactoring
+- [ ] Step 4: Experienced Claude solving problems autonomously with the Ralph Loop
 
-## 회고 질문
+## Reflection Questions
 
-1. TDD 사이클에서 Claude가 가장 잘 도와준 단계는 무엇이었나요?
-2. Ralph Loop를 사용했을 때와 직접 하나씩 지시했을 때의 차이는 무엇이었나요?
-3. 테스트가 있을 때 리팩토링이 얼마나 더 안전하게 느껴졌나요?
+1. In which phase of the TDD cycle did Claude help the most?
+2. What was the difference between using the Ralph Loop versus giving instructions one at a time?
+3. How much safer did refactoring feel when you had tests in place?

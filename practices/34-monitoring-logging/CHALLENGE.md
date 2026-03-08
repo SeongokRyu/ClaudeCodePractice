@@ -1,4 +1,4 @@
-# Challenge: 에이전트 모니터링과 로깅
+# Challenge: Agent Monitoring and Logging
 
 ## Step 1: Structured Logging
 

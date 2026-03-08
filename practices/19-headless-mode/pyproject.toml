@@ -1,7 +1,7 @@
 [project]
 name = "practice-19-headless-mode"
 version = "0.1.0"
-description = "Practice 19: Headless Mode 기초"
+description = "Practice 19: Headless Mode Basics"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

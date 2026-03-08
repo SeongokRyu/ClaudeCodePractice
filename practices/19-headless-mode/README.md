@@ -1,4 +1,4 @@
-# Practice 19: Headless Mode 기초
+# Practice 19: Headless Mode Basics
 
 ## Goal
 

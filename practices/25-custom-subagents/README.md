@@ -1,10 +1,10 @@
-# Practice 25: 커스텀 서브에이전트 설계
+# Practice 25: Custom Subagent Design
 
 ## Goal
 Design role-based subagents with proper tool, model, and permission separation. Learn to create a multi-agent system where each agent has a clearly defined role, restricted capabilities, and appropriate model selection.
 
 ## Prerequisites
-- Practice 24 (Agent SDK 입문)
+- Practice 24 (Agent SDK Introduction)
 
 ## Time
 90-120 minutes

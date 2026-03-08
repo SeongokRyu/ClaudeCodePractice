@@ -1,160 +1,160 @@
-# Challenge: 컨텍스트 관리 실습
+# Challenge: Context Management Hands-On
 
 ## Overview
 
-`src/user_service.py`는 사용자 CRUD 서비스입니다.
-이 코드를 탐색하고 수정하면서 컨텍스트 관리 기법을 연습합니다.
+`src/user_service.py` is a user CRUD service.
+Practice context management techniques while exploring and modifying this code.
 
 ---
 
-## Step 1: 컨텍스트 채우기 관찰
+## Step 1: Observing Context Usage
 
-Claude에게 여러 작업을 요청하면서 컨텍스트가 채워지는 것을 관찰하세요.
+Observe the context filling up as you ask Claude to perform several tasks.
 
-### 1-1. 코드 탐색
-
-```
-src/user_service.py의 전체 코드를 읽고 각 메서드의 역할을 설명해주세요.
-```
-
-### 1-2. 타입 분석
+### 1-1. Code Exploration
 
 ```
-src/user_service.py의 User 데이터클래스를 분석하고, 추가하면 좋을 필드를 제안해주세요.
+Read the entire code in src/user_service.py and explain the role of each method.
 ```
 
-### 1-3. 테스트 분석
+### 1-2. Type Analysis
 
 ```
-src/test_user_service.py의 테스트 커버리지를 분석하고,
-누락된 테스트 케이스를 목록으로 정리해주세요.
+Analyze the User dataclass in src/user_service.py and suggest additional fields that would be useful.
 ```
 
-### 1-4. 사용량 확인
+### 1-3. Test Analysis
+
+```
+Analyze the test coverage in src/test_user_service.py and
+list the missing test cases.
+```
+
+### 1-4. Check Usage
 
 ```
 /cost
 ```
 
-컨텍스트 사용량이 증가한 것을 확인하세요.
+Confirm that the context usage has increased.
 
 ---
 
-## Step 2: /clear 연습
+## Step 2: Practicing /clear
 
-### 2-1. 관련 없는 새 작업 시작
+### 2-1. Starting a New Unrelated Task
 
-이전 작업과 관련 없는 새 작업을 시작하기 전에 `/clear`를 사용하세요:
+Use `/clear` before starting a new task unrelated to the previous one:
 
 ```
 /clear
 ```
 
-### 2-2. 새 작업 수행
+### 2-2. Perform the New Task
 
 ```
-src/user_service.py에 이메일 중복 검사 기능을 추가해주세요.
-create_user 메서드에서 같은 이메일의 사용자가 이미 존재하면 예외를 raise하도록 수정해주세요.
-테스트도 추가해주세요.
-pytest로 검증해주세요.
+Add an email duplication check feature to src/user_service.py.
+Modify the create_user method to raise an exception if a user with the same email already exists.
+Add tests as well.
+Verify with pytest.
 ```
 
-**관찰 포인트**: `/clear` 후에도 Claude가 파일을 다시 읽어서 작업할 수 있는 것을 확인하세요.
+**Observation point**: Notice that Claude can still read the files and work even after `/clear`.
 
 ---
 
-## Step 3: /compact 연습
+## Step 3: Practicing /compact
 
-### 3-1. 여러 작업 수행
+### 3-1. Perform Several Tasks
 
-몇 가지 작업을 연속으로 수행하세요:
-
-```
-src/user_service.py에 다음 기능을 추가해주세요:
-1. find_by_email(email: str) 메서드
-2. update_user에서 이메일 변경 시 중복 검사
-3. 각 기능에 대한 테스트
-pytest로 검증해주세요.
-```
-
-### 3-2. /compact 사용
-
-힌트 파라미터를 사용하여 컨텍스트를 압축하세요:
+Perform a few tasks in succession:
 
 ```
-/compact user-service의 CRUD 기능과 이메일 검증 로직에 집중하여 요약해주세요
+Add the following features to src/user_service.py:
+1. find_by_email(email: str) method
+2. Duplication check when email is changed in update_user
+3. Tests for each feature
+Verify with pytest.
 ```
 
-### 3-3. 압축 후 작업 계속
+### 3-2. Use /compact
+
+Use the hint parameter to compress the context:
 
 ```
-user_service에 페이지네이션이 적용된 list_users_paginated 메서드를 추가해주세요.
-offset과 limit 파라미터를 받아서 사용자 목록의 일부를 반환하도록 해주세요.
-테스트도 추가해주세요.
+/compact Please summarize focusing on the user-service CRUD features and email validation logic
 ```
 
-**관찰 포인트**: `/compact` 후에도 이전 작업의 맥락이 유지되는 것을 확인하세요.
+### 3-3. Continue Working After Compression
+
+```
+Add a list_users_paginated method with pagination to user_service.
+It should accept offset and limit parameters and return a subset of the user list.
+Add tests as well.
+```
+
+**Observation point**: Notice that the context from previous work is preserved even after `/compact`.
 
 ---
 
-## Step 4: HANDOFF.md 작성
+## Step 4: Writing HANDOFF.md
 
-### 4-1. 현재 상태 문서화
+### 4-1. Document the Current State
 
-Claude에게 HANDOFF.md를 작성하도록 요청하세요:
-
-```
-지금까지 user-service에서 수행한 작업을 기반으로 HANDOFF.md를 작성해주세요.
-다음 세션에서 다른 개발자(또는 새로운 Claude 세션)가 이어서 작업할 수 있도록
-현재 상태, 완료된 작업, 남은 작업, 주요 결정사항을 포함해주세요.
-```
-
-### 4-2. 새 세션에서 이어가기
-
-새 Claude 세션을 시작하고 HANDOFF.md를 사용하여 작업을 이어가세요:
+Ask Claude to write a HANDOFF.md:
 
 ```
-HANDOFF.md를 읽고 현재 프로젝트 상태를 파악해주세요.
-남은 작업 중 하나를 선택하여 구현해주세요.
+Based on the work performed on user-service so far, write a HANDOFF.md.
+Include the current state, completed tasks, remaining tasks, and key decisions
+so that another developer (or a new Claude session) can continue the work in the next session.
+```
+
+### 4-2. Continue in a New Session
+
+Start a new Claude session and use the HANDOFF.md to continue the work:
+
+```
+Read HANDOFF.md and understand the current project state.
+Pick one of the remaining tasks and implement it.
 ```
 
 ---
 
-## Step 5: --resume과 --continue 플래그
+## Step 5: --resume and --continue Flags
 
-### 5-1. 세션 종료 후 이어가기
+### 5-1. Continue After Ending a Session
 
-터미널에서 Claude를 종료한 후:
+After exiting Claude in the terminal:
 
 ```bash
-# 이전 세션 목록에서 선택하여 이어가기
+# Select from previous sessions and continue
 claude --resume
 
-# 또는 마지막 세션을 자동으로 이어가기
+# Or automatically continue from the last session
 claude --continue
 ```
 
-### 5-2. 이어가기 확인
+### 5-2. Verify Continuation
 
 ```
-이전 세션에서 어떤 작업을 했는지 요약해주세요.
+Summarize what was done in the previous session.
 ```
 
-**관찰 포인트**: `--resume`/`--continue`를 사용하면 이전 대화 내용이 유지되는 것을 확인하세요.
+**Observation point**: Notice that the previous conversation content is preserved when using `--resume`/`--continue`.
 
 ---
 
 ## Completion Checklist
 
-- [ ] `/cost`로 컨텍스트 사용량을 확인했다
-- [ ] `/clear`를 사용하여 관련 없는 작업 간 컨텍스트를 초기화했다
-- [ ] `/compact`를 힌트와 함께 사용하여 컨텍스트를 압축했다
-- [ ] HANDOFF.md를 작성하고 새 세션에서 활용했다
-- [ ] `--resume` 또는 `--continue` 플래그를 사용해봤다
+- [ ] Checked context usage with `/cost`
+- [ ] Used `/clear` to reset context between unrelated tasks
+- [ ] Used `/compact` with a hint to compress the context
+- [ ] Wrote HANDOFF.md and used it in a new session
+- [ ] Tried the `--resume` or `--continue` flags
 
 ## Tips
 
-- 컨텍스트가 50% 이상 차면 `/compact`를 고려하세요
-- 완전히 다른 작업을 시작할 때는 `/clear`가 더 적합합니다
-- HANDOFF.md는 팀 협업에서도 유용합니다 (AI-to-AI 인수인계)
-- `--resume`은 세션 선택이 가능하고, `--continue`는 마지막 세션을 자동으로 이어갑니다
+- Consider using `/compact` when the context exceeds 50%
+- `/clear` is more appropriate when starting a completely different task
+- HANDOFF.md is also useful for team collaboration (AI-to-AI handoff)
+- `--resume` allows session selection, while `--continue` automatically continues from the last session

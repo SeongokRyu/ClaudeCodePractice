@@ -1,4 +1,4 @@
-# Challenge: Scatter-Gather 연구 시스템
+# Challenge: Scatter-Gather Research System
 
 ## Step 1: Design the Scatter-Gather Architecture
 

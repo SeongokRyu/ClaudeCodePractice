@@ -1,4 +1,4 @@
-# Practice 24: Agent SDK 입문
+# Practice 24: Agent SDK Introduction
 
 ## Goal
 Build your first agent with the Claude Agent SDK in both Python and TypeScript. Learn the fundamentals of programmatic agent creation, tool restrictions, system prompts, and streaming responses.

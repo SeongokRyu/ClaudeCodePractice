@@ -1,4 +1,4 @@
-# Practice 32: 샌드박싱과 권한 제어
+# Practice 32: Sandboxing and Permission Control
 
 ## Goal
 

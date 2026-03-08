@@ -1,196 +1,196 @@
-# Challenge: 보안 체크리스트
+# Challenge: Security Checklist
 
-## Step 1: 취약한 코드 리뷰
+## Step 1: Reviewing Vulnerable Code
 
-`src/vulnerable_app.py`를 열어 코드를 직접 읽어보세요.
+Open `src/vulnerable_app.py` and read the code yourself.
 
-### 먼저 직접 찾아보기
+### Find Issues Yourself First
 
-코드를 읽으면서 보안 문제를 찾아보세요. 찾은 문제를 메모합니다:
+Read the code and look for security problems. Take notes on what you find:
 
 ```
-나의 발견:
+My findings:
 1. _______________
 2. _______________
 3. _______________
 ...
 ```
 
-### 힌트
+### Hints
 
-다음 관점에서 코드를 검토하세요:
-- 사용자 입력이 직접 쿼리에 사용되는 곳은?
-- 하드코딩된 비밀이 있는 곳은?
-- 인증 없이 접근 가능한 관리자 기능은?
-- HTML 출력에서 이스케이프되지 않는 데이터는?
-- 사용자가 다른 사용자의 데이터에 접근할 수 있는 곳은?
-
----
-
-## Step 2: Claude에게 보안 리뷰 요청
-
-Claude에게 OWASP Top 10 기준으로 보안 리뷰를 요청합니다.
-
-```
-src/vulnerable_app.py를 OWASP Top 10 기준으로 보안 리뷰해주세요.
-
-각 취약점에 대해:
-1. OWASP 카테고리 (A01~A10)
-2. 취약한 코드 위치 (줄 번호)
-3. 공격 시나리오 (어떻게 악용할 수 있는지)
-4. 수정 방법
-
-모든 취약점을 빠짐없이 찾아주세요.
-```
-
-### 확인 사항
-- [ ] Claude가 당신이 직접 찾은 것보다 더 많은 취약점을 발견했는가?
-- [ ] 당신이 찾았지만 Claude가 놓친 취약점이 있는가?
+Review the code from the following perspectives:
+- Where is user input used directly in queries?
+- Where are hardcoded secrets?
+- What admin functions are accessible without authentication?
+- Where is data in HTML output not escaped?
+- Where can a user access another user's data?
 
 ---
 
-## Step 3: 취약점 심각도 평가
+## Step 2: Request Security Review from Claude
 
-Claude에게 각 취약점의 심각도를 평가하게 합니다.
-
-```
-발견된 모든 취약점에 대해 심각도를 평가해주세요.
-
-심각도 기준:
-- Critical: 즉시 악용 가능, 시스템 전체 영향
-- High: 악용 가능, 데이터 유출 또는 권한 상승
-- Medium: 조건부 악용 가능, 제한적 영향
-- Low: 악용 어려움, 최소한의 영향
-
-테이블 형식으로 정리해주세요:
-| # | 취약점 | OWASP | 심각도 | 영향 범위 |
-```
-
-### 우선순위 결정
+Request a security review from Claude based on the OWASP Top 10.
 
 ```
-수정 우선순위를 정해주세요.
-Critical → High → Medium → Low 순으로 정렬하고,
-각각의 예상 수정 시간을 포함해주세요.
+Please perform a security review of src/vulnerable_app.py based on the OWASP Top 10.
+
+For each vulnerability:
+1. OWASP category (A01~A10)
+2. Location of vulnerable code (line number)
+3. Attack scenario (how it can be exploited)
+4. Remediation method
+
+Find all vulnerabilities without exception.
 ```
+
+### Checklist
+- [ ] Did Claude find more vulnerabilities than you found yourself?
+- [ ] Are there vulnerabilities you found that Claude missed?
 
 ---
 
-## Step 4: 취약점 수정
+## Step 3: Vulnerability Severity Assessment
 
-Claude와 함께 취약점을 수정합니다.
-
-### 4-1. Critical/High 취약점 수정
+Have Claude assess the severity of each vulnerability.
 
 ```
-src/vulnerable_app.py의 Critical과 High 심각도 취약점을 수정해주세요.
+Please assess the severity of all discovered vulnerabilities.
 
-수정 원칙:
-1. SQL 인젝션 → 파라미터화된 쿼리 사용
-2. XSS → 출력 이스케이프
-3. 하드코딩된 비밀 → 환경 변수 사용
-4. 인증 누락 → 미들웨어 추가
-5. IDOR → 권한 확인 추가
-6. 입력 검증 → 스키마 검증 추가
+Severity criteria:
+- Critical: Immediately exploitable, system-wide impact
+- High: Exploitable, data breach or privilege escalation
+- Medium: Conditionally exploitable, limited impact
+- Low: Difficult to exploit, minimal impact
 
-수정된 코드를 src/secure_app.py에 작성해주세요.
+Please organize in table format:
+| # | Vulnerability | OWASP | Severity | Impact Scope |
 ```
 
-### 4-2. Medium/Low 취약점 수정
+### Determine Priorities
 
 ```
-나머지 Medium과 Low 심각도 취약점도 수정해주세요.
-src/secure_app.py를 업데이트해주세요.
+Please determine the remediation priority.
+Sort by Critical → High → Medium → Low,
+and include the estimated remediation time for each.
 ```
 
 ---
 
-## Step 5: 보안 테스트로 검증
+## Step 4: Fixing Vulnerabilities
 
-수정된 코드가 안전한지 테스트로 검증합니다.
+Fix the vulnerabilities together with Claude.
 
-### 테스트 실행
+### 4-1. Fix Critical/High Vulnerabilities
+
+```
+Please fix the Critical and High severity vulnerabilities in src/vulnerable_app.py.
+
+Remediation principles:
+1. SQL injection → Use parameterized queries
+2. XSS → Escape output
+3. Hardcoded secrets → Use environment variables
+4. Missing authentication → Add middleware
+5. IDOR → Add authorization checks
+6. Input validation → Add schema validation
+
+Write the fixed code in src/secure_app.py.
+```
+
+### 4-2. Fix Medium/Low Vulnerabilities
+
+```
+Please fix the remaining Medium and Low severity vulnerabilities as well.
+Update src/secure_app.py.
+```
+
+---
+
+## Step 5: Verify with Security Tests
+
+Verify the fixed code is secure with tests.
+
+### Run Tests
 
 ```bash
 uv run pytest
 ```
 
-`src/test_vulnerable_app.py`에 보안 테스트가 준비되어 있습니다.
-이 테스트는 취약점이 수정되었는지 확인합니다.
+Security tests are prepared in `src/test_vulnerable_app.py`.
+These tests verify that the vulnerabilities have been fixed.
 
-### Claude에게 추가 테스트 요청
-
-```
-src/secure_app.py에 대한 추가 보안 테스트를 작성해주세요.
-
-테스트 시나리오:
-1. SQL 인젝션 시도 시 안전하게 처리되는지
-2. XSS 페이로드가 이스케이프되는지
-3. 인증 없이 관리자 API 호출 시 403 반환
-4. 다른 사용자의 데이터 접근 시 403 반환
-5. 잘못된 입력 시 400 반환
-```
-
----
-
-## Step 6: Slopsquatting 탐지
-
-### 가짜 패키지 확인
-
-`requirements-check.txt`를 확인하세요. 이 파일에는 의심스러운 패키지명이 포함되어 있습니다.
+### Request Additional Tests from Claude
 
 ```
-requirements-check.txt의 dependencies를 확인해주세요.
+Please write additional security tests for src/secure_app.py.
 
-각 패키지에 대해:
-1. PyPI에 실제로 존재하는 패키지인지 확인
-2. 이름이 유명 패키지와 유사한지 (typosquatting)
-3. Claude가 추천했을 법한 존재하지 않는 패키지인지 (slopsquatting)
-4. 주간 다운로드 수가 극히 적은 의심스러운 패키지인지
-
-의심스러운 패키지를 표로 정리해주세요.
-```
-
-### Slopsquatting 방지 체크리스트
-
-```
-AI가 추천하는 패키지를 설치하기 전에 확인할 체크리스트를 만들어주세요.
-
-포함해야 할 항목:
-- PyPI 공식 페이지에서 패키지 존재 확인
-- 주간 다운로드 수 확인 (최소 기준)
-- 패키지 유지보수 상태 (마지막 업데이트 날짜)
-- GitHub 저장소 확인
-- 이름 유사성 검사 (flask-limiter vs flask-limmiter)
+Test scenarios:
+1. SQL injection attempts are handled safely
+2. XSS payloads are escaped
+3. Unauthenticated admin API calls return 403
+4. Accessing another user's data returns 403
+5. Invalid input returns 400
 ```
 
 ---
 
-## 보안 체크리스트 총정리
+## Step 6: Slopsquatting Detection
 
-`src/security-checklist.md`를 확인하세요. 8가지 보안 품질 게이트가 정의되어 있습니다.
+### Check for Fake Packages
 
-Claude에게 이 체크리스트를 프로젝트에 적용하게 해보세요:
+Check `requirements-check.txt`. This file contains suspicious package names.
 
 ```
-src/security-checklist.md의 8가지 보안 게이트를 현재 프로젝트에 적용해주세요.
-각 게이트에 대해 통과(PASS) 또는 실패(FAIL) 여부를 판정해주세요.
+Please check the dependencies in requirements-check.txt.
+
+For each package:
+1. Is it a package that actually exists on PyPI?
+2. Is the name similar to a well-known package? (typosquatting)
+3. Is it a non-existent package that Claude might have recommended? (slopsquatting)
+4. Is it a suspicious package with extremely low weekly downloads?
+
+Organize suspicious packages in a table.
+```
+
+### Slopsquatting Prevention Checklist
+
+```
+Please create a checklist to verify before installing packages recommended by AI.
+
+Items to include:
+- Verify package existence on the official PyPI page
+- Check weekly download count (minimum threshold)
+- Package maintenance status (last update date)
+- Verify GitHub repository
+- Name similarity check (flask-limiter vs flask-limmiter)
 ```
 
 ---
 
-## 성공 기준
+## Security Checklist Summary
 
-- [ ] 코드에서 최소 6개 이상의 보안 취약점을 식별했다
-- [ ] 각 취약점의 OWASP 카테고리와 심각도를 평가했다
-- [ ] Critical/High 취약점을 모두 수정했다
-- [ ] 보안 테스트가 통과한다
-- [ ] Slopsquatting 위험을 이해하고 방지 체크리스트를 만들었다
+Check `src/security-checklist.md`. 8 security quality gates are defined.
 
-## 핵심 교훈
+Have Claude apply this checklist to the project:
 
-1. **보안은 기능이 아니라 속성**: 보안은 나중에 추가하는 것이 아니라 처음부터 고려
-2. **OWASP Top 10은 최소한**: 10가지만 확인해도 대부분의 취약점을 방지
-3. **Claude를 보안 리뷰어로 활용**: 구체적인 기준을 제시하면 효과적
-4. **테스트로 검증**: 수정 후 반드시 보안 테스트로 확인
-5. **패키지 검증**: AI 추천 패키지는 반드시 수동 확인
+```
+Please apply the 8 security gates from src/security-checklist.md to the current project.
+Determine PASS or FAIL for each gate.
+```
+
+---
+
+## Success Criteria
+
+- [ ] Identified at least 6 security vulnerabilities in the code
+- [ ] Assessed the OWASP category and severity for each vulnerability
+- [ ] Fixed all Critical/High vulnerabilities
+- [ ] Security tests pass
+- [ ] Understood the slopsquatting risk and created a prevention checklist
+
+## Key Takeaways
+
+1. **Security is a property, not a feature**: Security should be considered from the start, not added later
+2. **OWASP Top 10 is the minimum**: Checking just 10 items prevents most vulnerabilities
+3. **Use Claude as a security reviewer**: Effective when specific criteria are provided
+4. **Verify with tests**: Always confirm with security tests after remediation
+5. **Verify packages**: Always manually verify AI-recommended packages

@@ -1,49 +1,49 @@
-# Practice 11: 코드 리뷰
+# Practice 11: Code Review
 
-## 목표
+## Objective
 
-AI를 활용한 코드 리뷰 패턴을 학습합니다. 8가지 마스터 패턴을 실습하고, 신뢰 수준 확장(Trust Level Expansion) 전략을 익힙니다.
+Learn AI-powered code review patterns. Practice 8 master patterns and learn Trust Level Expansion strategies.
 
-## 사전 요구사항
+## Prerequisites
 
-- Practice 05 (CLAUDE.md) 완료
-- 기본적인 보안 개념 이해 (선택사항)
+- Practice 05 (CLAUDE.md) completed
+- Basic understanding of security concepts (optional)
 
-## 소요 시간
+## Estimated Time
 
-45-60분
+45-60 minutes
 
-## 핵심 개념
+## Key Concepts
 
-### 8가지 코드 리뷰 마스터 패턴
+### 8 Code Review Master Patterns
 
-1. **기본 리뷰**: "이 코드를 리뷰해줘"
-2. **역할 기반 리뷰**: "시니어 보안 엔지니어로서 리뷰해줘"
-3. **정량적 평가**: 보안/성능/유지보수성 점수 (1-5)
-4. **자기 리뷰**: 코드를 작성한 후 다른 관점에서 리뷰
-5. **체크리스트 리뷰**: 보안 체크리스트를 기반으로 체계적 검토
-6. **비교 리뷰**: 두 구현을 비교하여 장단점 분석
-7. **점진적 리뷰**: PR의 각 커밋을 순서대로 리뷰
-8. **교육적 리뷰**: 주니어 개발자에게 설명하듯 리뷰
+1. **Basic Review**: "Review this code"
+2. **Role-Based Review**: "Review as a senior security engineer"
+3. **Quantitative Assessment**: Security/Performance/Maintainability scores (1-5)
+4. **Self-Review**: Review from a different perspective after writing code
+5. **Checklist Review**: Systematic review based on a security checklist
+6. **Comparative Review**: Compare two implementations and analyze pros/cons
+7. **Incremental Review**: Review each commit of a PR in order
+8. **Educational Review**: Review as if explaining to a junior developer
 
-### 신뢰 수준 확장
+### Trust Level Expansion
 
-처음에는 작은 범위의 리뷰부터 시작하여, Claude의 리뷰 품질을 확인한 후 점점 더 넓은 범위를 맡깁니다.
+Start with small-scope reviews, verify Claude's review quality, and then gradually expand the scope.
 
-## 시작하기
+## Getting Started
 
 ```bash
 cd practices/11-code-review
 uv sync
 ```
 
-`src/api_handler.py`에는 **의도적으로 여러 문제**가 있는 API 핸들러 코드가 있습니다. Claude와 함께 다양한 리뷰 패턴을 사용해 문제를 찾아보세요.
+`src/api_handler.py` contains API handler code with **intentionally embedded issues**. Use various review patterns with Claude to find the problems.
 
-이제 `CHALLENGE.md`의 단계를 따라 실습하세요.
+Now follow the steps in `CHALLENGE.md` to practice.
 
-## 학습 포인트
+## Learning Points
 
-- 같은 코드라도 리뷰 관점에 따라 다른 문제를 발견할 수 있다
-- 역할을 지정하면 Claude가 해당 전문가의 관점에서 더 깊이 분석한다
-- 정량적 점수는 팀 내 코드 품질 기준을 세우는 데 유용하다
-- 자기 리뷰는 의외로 강력한 패턴이다
+- Different review perspectives reveal different issues in the same code
+- Assigning a role makes Claude analyze more deeply from that expert's perspective
+- Quantitative scores are useful for establishing code quality standards within a team
+- Self-review is a surprisingly powerful pattern

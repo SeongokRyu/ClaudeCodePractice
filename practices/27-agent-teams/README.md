@@ -1,10 +1,10 @@
-# Practice 27: Agent Teams 실습
+# Practice 27: Agent Teams Workshop
 
 ## Goal
 Create and manage agent teams using Claude Code's experimental Agent Teams feature. Learn to spawn teammates, use shared task lists, and coordinate specialist teams for complex tasks.
 
 ## Prerequisites
-- Practice 25 (커스텀 서브에이전트 설계)
+- Practice 25 (Custom Subagent Design)
 
 ## Time
 90-120 minutes

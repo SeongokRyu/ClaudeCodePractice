@@ -1,4 +1,4 @@
-# Practice 22: 배치 처리와 Fan-Out
+# Practice 22: Batch Processing and Fan-Out
 
 ## Goal
 

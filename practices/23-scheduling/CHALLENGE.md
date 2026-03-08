@@ -1,4 +1,4 @@
-# Challenge: 스케줄링과 Cron
+# Challenge: Scheduling and Cron
 
 ## Overview
 

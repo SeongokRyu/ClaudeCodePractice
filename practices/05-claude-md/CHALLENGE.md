@@ -1,4 +1,4 @@
-# Challenge: CLAUDE.md 작성법
+# Challenge: Writing CLAUDE.md
 
 ## Step 1: Run /init on an Empty Project
 

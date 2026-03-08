@@ -1,39 +1,39 @@
-# Practice 13: 서브에이전트 활용
+# Practice 13: Using Subagents
 
-## 목표
+## Objective
 
-서브에이전트(Subagent)를 활용하여 컨텍스트 보호, Writer/Reviewer 패턴, 병렬 작업을 수행하는 방법을 학습합니다.
+Learn how to use subagents to perform context protection, Writer/Reviewer patterns, and parallel tasks.
 
-## 난이도
+## Difficulty
 
 :star::star::star:
 
-## 사전 요구사항
+## Prerequisites
 
-- Practice 05 (CLAUDE.md) 완료
-- Practice 08 (Skills) 완료
-- 서브에이전트의 기본 개념 이해
+- Practice 05 (CLAUDE.md) completed
+- Practice 08 (Skills) completed
+- Basic understanding of the subagent concept
 
-## 소요 시간
+## Estimated Time
 
-45-60분
+45-60 minutes
 
-## 핵심 개념
+## Key Concepts
 
-### 서브에이전트란?
+### What is a Subagent?
 
-서브에이전트는 메인 Claude 세션에서 분리된 별도의 에이전트입니다. 독립된 컨텍스트 윈도우를 가지며, 특정 작업을 수행한 후 결과만 돌려줍니다.
+A subagent is a separate agent spawned from the main Claude session. It has its own independent context window, performs a specific task, and returns only the results.
 
-### 서브에이전트를 사용해야 하는 경우
+### When to Use Subagents
 
-1. **컨텍스트 보호**: 대규모 탐색 작업으로 메인 컨텍스트가 가득 차는 것을 방지
-2. **전문화**: 특정 역할(리뷰어, 테스트 작성자 등)에 집중하는 에이전트
-3. **Writer/Reviewer 패턴**: 한 에이전트가 작성, 다른 에이전트가 리뷰
-4. **병렬 작업**: 독립적인 작업을 동시에 수행
+1. **Context Protection**: Prevent the main context from filling up with large exploration tasks
+2. **Specialization**: Agents focused on specific roles (reviewer, test writer, etc.)
+3. **Writer/Reviewer Pattern**: One agent writes, another agent reviews
+4. **Parallel Tasks**: Perform independent tasks simultaneously
 
-### 에이전트 정의 파일
+### Agent Definition Files
 
-`.claude/agents/` 디렉토리에 Markdown 파일로 정의합니다:
+Define agents as Markdown files in the `.claude/agents/` directory:
 
 ```markdown
 ---
@@ -46,21 +46,21 @@ model: haiku
 
 # Agent Name
 
-에이전트의 역할과 지침을 여기에 작성합니다.
+Write the agent's role and instructions here.
 ```
 
-## 시작하기
+## Getting Started
 
 ```bash
 cd practices/13-subagents
 uv sync
 ```
 
-`src/example-agents/` 디렉토리에 에이전트 정의 예시가 있습니다. `CHALLENGE.md`를 따라 서브에이전트를 만들고 활용해보세요.
+There are example agent definitions in the `src/example-agents/` directory. Follow `CHALLENGE.md` to create and use subagents.
 
-## 학습 포인트
+## Learning Points
 
-- 서브에이전트는 컨텍스트 윈도우를 보호하는 가장 효과적인 방법이다
-- Writer/Reviewer 패턴은 코드 품질을 크게 향상시킨다
-- 모든 작업에 서브에이전트가 필요한 것은 아니다 — 적절한 판단이 중요하다
-- 에이전트 정의 파일은 팀에서 공유할 수 있는 재사용 가능한 자산이다
+- Subagents are the most effective way to protect the context window
+- The Writer/Reviewer pattern significantly improves code quality
+- Not every task needs a subagent — proper judgment is important
+- Agent definition files are reusable assets that can be shared with your team

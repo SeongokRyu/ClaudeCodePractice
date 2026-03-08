@@ -1,4 +1,4 @@
-# Challenge: 품질 게이트 파이프라인
+# Challenge: Quality Gate Pipeline
 
 ## Step 1: Design the Pipeline
 

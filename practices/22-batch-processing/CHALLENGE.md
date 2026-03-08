@@ -1,4 +1,4 @@
-# Challenge: 배치 처리와 Fan-Out
+# Challenge: Batch Processing and Fan-Out
 
 ## Overview
 

@@ -1,7 +1,7 @@
 [project]
 name = "practice-09-tdd-workflow"
 version = "0.1.0"
-description = "Practice 09: TDD 워크플로우"
+description = "Practice 09: TDD Workflow"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

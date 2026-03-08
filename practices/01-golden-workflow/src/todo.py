@@ -1,4 +1,4 @@
-"""Todo 관리 앱 - Practice 01 실습용 코드"""
+"""Todo management app - Practice 01 hands-on code"""
 
 from dataclasses import dataclass, field
 from datetime import datetime

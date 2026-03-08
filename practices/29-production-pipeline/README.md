@@ -1,12 +1,12 @@
-# Practice 29: 프로덕션 멀티에이전트 파이프라인
+# Practice 29: Production Multi-Agent Pipeline
 
 ## Goal
 Build a production-ready Command -> Agent -> Skill pipeline with agent memory. This practice combines everything from Phase 5 into a complete, reusable multi-agent system.
 
 ## Prerequisites
-- Practice 25 (커스텀 서브에이전트 설계)
-- Practice 26 (Writer/Reviewer 패턴)
-- Practice 28 (Scatter-Gather 연구 시스템)
+- Practice 25 (Custom Subagent Design)
+- Practice 26 (Writer/Reviewer Pattern)
+- Practice 28 (Scatter-Gather Research System)
 
 ## Time
 90-120 minutes

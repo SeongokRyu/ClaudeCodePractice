@@ -1,131 +1,131 @@
-# Challenge: Git 워크플로우 실습
+# Challenge: Git Workflow Hands-On
 
 ## Overview
 
-`src/string_utils.py`의 문자열 유틸리티 함수를 수정하면서 Git 워크플로우를 연습합니다.
-각 단계에서 Claude에게 Git 작업을 요청하세요.
+Practice Git workflows while modifying the string utility functions in `src/string_utils.py`.
+Ask Claude to perform the Git operations at each step.
 
-**사전 조건**: 이 연습을 시작하기 전에 현재 디렉토리가 Git 저장소 안에 있어야 합니다.
-
----
-
-## Step 1: 백업 브랜치 생성
-
-변경을 시작하기 전에 Claude에게 백업 브랜치를 만들도록 요청하세요:
-
-```
-변경을 시작하기 전에 안전을 위해 백업 브랜치를 만들어주세요.
-브랜치 이름은 backup/before-string-utils-refactor로 해주세요.
-```
-
-**관찰 포인트**: Claude가 현재 브랜치를 확인하고 백업 브랜치를 생성하는 과정을 관찰하세요.
+**Prerequisite**: The current directory must be inside a Git repository before starting this exercise.
 
 ---
 
-## Step 2: 변경 후 설명적인 커밋
+## Step 1: Creating a Backup Branch
 
-### 2-1. 변경 요청
-
-```
-src/string_utils.py의 capitalize 함수를 개선해주세요.
-현재는 첫 글자만 대문자로 바꾸지만, 각 단어의 첫 글자를 대문자로 바꾸는
-capitalize_words 함수도 추가해주세요.
-테스트도 함께 추가해주세요.
-pytest로 검증해주세요.
-```
-
-### 2-2. 커밋 요청
+Before starting changes, ask Claude to create a backup branch:
 
 ```
-지금까지의 변경 사항을 설명적인 커밋 메시지와 함께 커밋해주세요.
-커밋 메시지는 한국어로 작성해도 됩니다.
+Before starting changes, please create a backup branch for safety.
+Name the branch backup/before-string-utils-refactor.
 ```
 
-**관찰 포인트**: Claude가 작성하는 커밋 메시지의 구조(제목 + 본문)를 확인하세요.
+**Observation point**: Observe the process of Claude checking the current branch and creating the backup branch.
 
 ---
 
-## Step 3: 피처 브랜치에서 새 기능 구현
+## Step 2: Descriptive Commit After Changes
 
-### 3-1. 피처 브랜치 생성
-
-```
-feature/add-pad-functions라는 이름의 새 피처 브랜치를 만들고,
-src/string_utils.py에 다음 함수들을 추가해주세요:
-- pad_start(s, length, char): 문자열 앞에 특정 문자를 채워 원하는 길이로 만드는 함수
-- pad_end(s, length, char): 문자열 뒤에 특정 문자를 채워 원하는 길이로 만드는 함수
-테스트도 추가하고 pytest로 검증해주세요.
-```
-
-### 3-2. 커밋
+### 2-1. Request Changes
 
 ```
-변경 사항을 커밋해주세요.
+Improve the capitalize function in src/string_utils.py.
+Currently it only capitalizes the first letter, but also add a
+capitalize_words function that capitalizes the first letter of each word.
+Add tests as well.
+Verify with pytest.
 ```
 
-**관찰 포인트**: Claude가 브랜치를 생성하고 전환하는 과정을 관찰하세요.
+### 2-2. Request a Commit
+
+```
+Commit the changes so far with a descriptive commit message.
+The commit message can be written in English.
+```
+
+**Observation point**: Check the structure of the commit message Claude writes (title + body).
 
 ---
 
-## Step 4: PR 설명 작성
+## Step 3: Implement a New Feature on a Feature Branch
 
-Claude에게 현재 브랜치의 변경 사항을 PR 설명으로 요약하도록 요청하세요:
+### 3-1. Create a Feature Branch
 
 ```
-현재 브랜치에서 main 브랜치(또는 이전 브랜치)와 비교하여
-변경 사항을 PR 설명 형식으로 요약해주세요.
+Create a new feature branch named feature/add-pad-functions and
+add the following functions to src/string_utils.py:
+- pad_start(s, length, char): Pads the beginning of a string with a specific character to reach the desired length
+- pad_end(s, length, char): Pads the end of a string with a specific character to reach the desired length
+Add tests and verify with pytest.
+```
 
-다음 형식으로 작성해주세요:
+### 3-2. Commit
+
+```
+Commit the changes.
+```
+
+**Observation point**: Observe the process of Claude creating and switching to the branch.
+
+---
+
+## Step 4: Write a PR Description
+
+Ask Claude to summarize the changes on the current branch as a PR description:
+
+```
+Compare the changes on the current branch with the main branch (or previous branch)
+and summarize them in PR description format.
+
+Write it in the following format:
 ## Summary
 ## Changes
 ## Test Plan
 ```
 
-**관찰 포인트**: Claude가 git diff와 git log를 활용하여 변경 사항을 분석하는 것을 확인하세요.
+**Observation point**: Notice how Claude uses git diff and git log to analyze the changes.
 
 ---
 
-## Step 5: /rewind 연습
+## Step 5: Practicing /rewind
 
-### 5-1. 의도적인 변경
+### 5-1. Make an Intentional Change
 
 ```
-src/string_utils.py의 slugify 함수를 완전히 다시 작성해주세요.
-유니코드 문자도 지원하도록 개선해주세요.
+Completely rewrite the slugify function in src/string_utils.py.
+Improve it to support Unicode characters.
 ```
 
-### 5-2. 변경 되돌리기
+### 5-2. Revert the Changes
 
-변경이 마음에 들지 않는다고 가정하고 `/rewind`를 사용하세요:
+Assume you don't like the changes and use `/rewind`:
 
 ```
 /rewind
 ```
 
-체크포인트 목록에서 slugify 수정 이전 시점을 선택하세요.
+Select the checkpoint before the slugify modification from the list.
 
-### 5-3. 되돌린 후 확인
+### 5-3. Verify After Reverting
 
 ```
-src/string_utils.py의 slugify 함수가 원래 상태로 돌아갔는지 확인해주세요.
-pytest를 실행하여 테스트가 통과하는지 확인해주세요.
+Verify that the slugify function in src/string_utils.py has been restored to its original state.
+Run pytest to confirm tests pass.
 ```
 
-**관찰 포인트**: `/rewind`가 파일 변경과 Git 상태 모두를 되돌리는 것을 확인하세요.
+**Observation point**: Notice that `/rewind` reverts both file changes and Git state.
 
 ---
 
 ## Completion Checklist
 
-- [ ] 백업 브랜치를 만들어 안전망을 구축했다
-- [ ] Claude에게 설명적인 커밋 메시지로 커밋을 요청했다
-- [ ] 피처 브랜치를 생성하고 새 기능을 구현했다
-- [ ] 변경 사항을 PR 설명 형식으로 요약했다
-- [ ] `/rewind`를 사용하여 변경 사항을 되돌렸다
+- [ ] Created a backup branch as a safety net
+- [ ] Asked Claude to commit with a descriptive commit message
+- [ ] Created a feature branch and implemented a new feature
+- [ ] Summarized changes in PR description format
+- [ ] Used `/rewind` to revert changes
 
 ## Tips
 
-- 변경 전 항상 백업 브랜치를 만드는 습관을 들이세요
-- Claude에게 "커밋 메시지를 작성해줘"라고 하면 변경 내용을 분석하여 적절한 메시지를 작성합니다
-- `/rewind`는 Claude의 모든 변경 사항(파일 수정, Git 작업)을 되돌릴 수 있습니다
-- 위험한 Git 작업(force push, reset --hard 등)은 Claude가 경고해줍니다
+- Build the habit of always creating a backup branch before making changes
+- When you ask Claude to "write a commit message," it analyzes the changes and writes an appropriate message
+- `/rewind` can revert all of Claude's changes (file modifications, Git operations)
+- Claude will warn you about dangerous Git operations (force push, reset --hard, etc.)

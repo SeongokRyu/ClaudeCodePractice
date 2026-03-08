@@ -1,173 +1,173 @@
-# Challenge: Command→Agent→Skill 오케스트레이션
+# Challenge: Command→Agent→Skill Orchestration
 
-## Step 1: 3계층 패턴 이해
+## Step 1: Understanding the 3-Layer Pattern
 
-### 왜 3계층인가?
+### Why 3 Layers?
 
-단일 프롬프트로 복잡한 작업을 처리하면 다음 문제가 생깁니다:
-- 프롬프트가 너무 길어져서 Claude가 일부를 무시
-- 재사용이 불가능 (매번 처음부터 설명)
-- 테스트와 디버깅이 어려움
+Handling complex tasks with a single prompt leads to the following problems:
+- The prompt becomes too long and Claude ignores parts of it
+- Not reusable (must explain from scratch every time)
+- Difficult to test and debug
 
-3계층으로 분리하면:
-- **Skill**: 재사용 가능한 지식 모듈 (여러 Agent가 공유)
-- **Agent**: 재사용 가능한 실행 모듈 (여러 Command가 공유)
-- **Command**: 사용자 친화적 진입점
+By separating into 3 layers:
+- **Skill**: Reusable knowledge module (shared by multiple Agents)
+- **Agent**: Reusable execution module (shared by multiple Commands)
+- **Command**: User-friendly entry point
 
-### 데이터 흐름
+### Data Flow
 
 ```
-사용자 → /analyze src/
+User → /analyze src/
          ↓
   Command (analyze.md)
-    - 인자 파싱: target = "src/"
-    - Agent 호출
+    - Argument parsing: target = "src/"
+    - Call Agent
          ↓
   Agent (analyzer-agent.md)
-    - Skill 로드: code-analyzer
-    - 파일 탐색: src/**/*.ts
-    - 각 파일 분석
-    - 보고서 생성
+    - Load Skill: code-analyzer
+    - File discovery: src/**/*.ts
+    - Analyze each file
+    - Generate report
          ↓
   Skill (SKILL.md)
-    - 분석 기준 제공
-    - 점수 산정 규칙
-    - 패턴 매칭 규칙
+    - Provide analysis criteria
+    - Scoring rules
+    - Pattern matching rules
          ↓
-  결과 → 사용자에게 보고서 출력
+  Result → Output report to user
 ```
 
 ### Exercise
 
-`src/example-orchestration/` 디렉토리의 예제를 살펴보세요:
+Examine the example in the `src/example-orchestration/` directory:
 
 ```bash
 ls -la src/example-orchestration/.claude/
 ```
 
-각 파일의 역할을 파악하고, 데이터가 어떻게 흘러가는지 추적해보세요.
+Identify each file's role and trace how data flows through the pipeline.
 
 ---
 
-## Step 2: Skill 생성 — 코드 분석 지식
+## Step 2: Create a Skill — Code Analysis Knowledge
 
-Skill은 Claude가 특정 작업을 수행할 때 참고하는 지식 베이스입니다.
+A Skill is a knowledge base that Claude references when performing a specific task.
 
-### 프로젝트 루트에 Skill 생성
+### Create a Skill in the Project Root
 
 ```bash
 mkdir -p .claude/skills/code-analyzer
 ```
 
-`.claude/skills/code-analyzer/SKILL.md` 파일을 생성하세요:
+Create the `.claude/skills/code-analyzer/SKILL.md` file:
 
 ```markdown
 # Code Analyzer Skill
 
 ## Purpose
-TypeScript/JavaScript 코드의 품질을 분석하고 점수를 산정합니다.
+Analyzes TypeScript/JavaScript code quality and assigns scores.
 
 ## Analysis Criteria
 
-### 1. Complexity (복잡도) — 30점
-- 함수당 줄 수: 20줄 이하 = 10점, 50줄 이하 = 5점, 50줄 초과 = 0점
-- 중첩 깊이: 3단계 이하 = 10점, 5단계 이하 = 5점
-- 매개변수 수: 3개 이하 = 10점, 5개 이하 = 5점
+### 1. Complexity — 30 points
+- Lines per function: 20 or fewer = 10 pts, 50 or fewer = 5 pts, over 50 = 0 pts
+- Nesting depth: 3 levels or fewer = 10 pts, 5 levels or fewer = 5 pts
+- Number of parameters: 3 or fewer = 10 pts, 5 or fewer = 5 pts
 
-### 2. Maintainability (유지보수성) — 30점
-- 타입 안전성: any 사용 없음 = 10점
-- 에러 처리: try-catch 적절히 사용 = 10점
-- 네이밍: 의미있는 변수/함수명 = 10점
+### 2. Maintainability — 30 points
+- Type safety: no use of `any` = 10 pts
+- Error handling: appropriate use of try-catch = 10 pts
+- Naming: meaningful variable/function names = 10 pts
 
-### 3. Best Practices (모범 사례) — 40점
-- 단일 책임 원칙 준수 = 10점
-- DRY 원칙 (중복 코드 없음) = 10점
-- 테스트 존재 여부 = 10점
-- 문서화 (JSDoc 등) = 10점
+### 3. Best Practices — 40 points
+- Single Responsibility Principle compliance = 10 pts
+- DRY principle (no duplicate code) = 10 pts
+- Tests exist = 10 pts
+- Documentation (JSDoc, etc.) = 10 pts
 
 ## Output Format
 
-각 파일에 대해 다음 형식으로 보고:
+Report for each file in the following format:
 
-| 파일 | 복잡도 | 유지보수성 | 모범사례 | 총점 | 등급 |
+| File | Complexity | Maintainability | Best Practices | Total | Grade |
 |------|--------|-----------|---------|------|------|
 | file.ts | X/30 | X/30 | X/40 | X/100 | A~F |
 
-등급 기준: A(90+), B(80+), C(70+), D(60+), F(60 미만)
+Grade criteria: A(90+), B(80+), C(70+), D(60+), F(below 60)
 ```
 
-### 확인 사항
-- [ ] SKILL.md가 구체적인 분석 기준을 정의하고 있는가
-- [ ] 점수 산정 규칙이 명확한가
-- [ ] 출력 형식이 정의되어 있는가
+### Checklist
+- [ ] Does SKILL.md define specific analysis criteria
+- [ ] Are scoring rules clear
+- [ ] Is the output format defined
 
 ---
 
-## Step 3: Agent 생성 — 분석 실행자
+## Step 3: Create an Agent — Analysis Executor
 
-Agent는 Skill의 지식을 활용하여 실제 작업을 수행합니다.
+An Agent uses the Skill's knowledge to perform the actual work.
 
-### Agent 파일 생성
+### Create the Agent File
 
 ```bash
 mkdir -p .claude/agents
 ```
 
-`.claude/agents/analyzer-agent.md` 파일을 생성하세요:
+Create the `.claude/agents/analyzer-agent.md` file:
 
 ```markdown
 # Code Analyzer Agent
 
 ## Role
-코드 품질 분석을 수행하는 에이전트입니다.
+An agent that performs code quality analysis.
 
 ## Preloaded Skills
 - code-analyzer: .claude/skills/code-analyzer/SKILL.md
 
 ## Instructions
 
-1. 대상 디렉토리의 모든 .ts, .tsx, .js, .jsx 파일을 찾으세요
-2. 각 파일에 대해 code-analyzer Skill의 기준에 따라 분석하세요
-3. 파일별 점수를 산정하세요
-4. 전체 요약 보고서를 생성하세요
+1. Find all .ts, .tsx, .js, .jsx files in the target directory
+2. Analyze each file according to the code-analyzer Skill criteria
+3. Calculate scores for each file
+4. Generate an overall summary report
 
 ## Execution Steps
 
-### Step 1: 파일 탐색
-대상 경로에서 분석할 파일 목록을 수집합니다.
-테스트 파일 (*.test.ts, *.spec.ts)은 분석 대상에서 제외합니다.
+### Step 1: File Discovery
+Collect the list of files to analyze from the target path.
+Exclude test files (*.test.ts, *.spec.ts) from the analysis.
 
-### Step 2: 개별 분석
-각 파일을 읽고 Skill의 기준에 따라 점수를 산정합니다.
+### Step 2: Individual Analysis
+Read each file and assign scores based on the Skill criteria.
 
-### Step 3: 보고서 생성
-- 파일별 상세 점수표
-- 전체 평균 점수
-- 가장 개선이 필요한 파일 Top 3
-- 구체적인 개선 제안
+### Step 3: Report Generation
+- Detailed score table per file
+- Overall average score
+- Top 3 files most in need of improvement
+- Specific improvement suggestions
 
 ## Output
-분석 결과를 마크다운 테이블 형식으로 출력합니다.
+Output the analysis results in markdown table format.
 ```
 
-### 확인 사항
-- [ ] Agent가 Skill을 참조하고 있는가
-- [ ] 실행 단계가 명확하게 정의되어 있는가
-- [ ] 입력(대상 경로)과 출력(보고서) 형식이 정의되어 있는가
+### Checklist
+- [ ] Does the Agent reference the Skill
+- [ ] Are execution steps clearly defined
+- [ ] Are input (target path) and output (report) formats defined
 
 ---
 
-## Step 4: Command 생성 — 사용자 진입점
+## Step 4: Create a Command — User Entry Point
 
-Command는 사용자가 `/analyze` 슬래시 명령으로 실행하는 진입점입니다.
+A Command is the entry point that users execute with the `/analyze` slash command.
 
-### Command 파일 생성
+### Create the Command File
 
 ```bash
 mkdir -p .claude/commands
 ```
 
-`.claude/commands/analyze.md` 파일을 생성하세요:
+Create the `.claude/commands/analyze.md` file:
 
 ```markdown
 # /analyze Command
@@ -178,80 +178,80 @@ Analyze code quality for the specified path.
 /analyze <target-path>
 
 ## Arguments
-- $ARGUMENTS: 분석할 디렉토리 또는 파일 경로 (기본값: src/)
+- $ARGUMENTS: Directory or file path to analyze (default: src/)
 
 ## Execution
 
-1. 대상 경로를 확인합니다: $ARGUMENTS (미지정 시 src/)
-2. analyzer-agent를 호출하여 코드 분석을 수행합니다
-3. 분석 결과를 보기 좋게 포맷팅하여 출력합니다
+1. Verify the target path: $ARGUMENTS (defaults to src/ if not specified)
+2. Call analyzer-agent to perform the code analysis
+3. Format and display the analysis results
 
 ## Agent Delegation
-이 분석 작업은 analyzer-agent에게 위임합니다.
-analyzer-agent는 code-analyzer Skill의 기준에 따라 분석합니다.
+This analysis task is delegated to analyzer-agent.
+analyzer-agent analyzes code according to the code-analyzer Skill criteria.
 
 ## Expected Output
-- 파일별 품질 점수 테이블
-- 전체 프로젝트 평균 점수
-- 개선 우선순위 Top 3
-- 구체적 개선 제안
+- Quality score table per file
+- Overall project average score
+- Top 3 improvement priorities
+- Specific improvement suggestions
 ```
 
-### 확인 사항
-- [ ] $ARGUMENTS를 사용하여 인자를 받고 있는가
-- [ ] Agent에게 작업을 위임하고 있는가
-- [ ] 사용자에게 보여줄 출력 형식이 정의되어 있는가
+### Checklist
+- [ ] Does it accept arguments using $ARGUMENTS
+- [ ] Does it delegate the task to an Agent
+- [ ] Is the output format for the user defined
 
 ---
 
-## Step 5: 전체 파이프라인 테스트
+## Step 5: Full Pipeline Test
 
-### 5-1. Command 실행
+### 5-1. Run the Command
 
 ```bash
 claude
 > /analyze src/
 ```
 
-### 5-2. 결과 확인
+### 5-2. Verify the Results
 
-Claude가 다음 과정을 거치는지 확인하세요:
+Confirm that Claude goes through the following process:
 
-1. Command가 `$ARGUMENTS`로 `src/`를 받음
-2. Agent가 `src/` 디렉토리의 파일을 탐색
-3. Skill의 기준에 따라 각 파일을 분석
-4. 점수와 보고서를 사용자에게 출력
+1. Command receives `src/` via `$ARGUMENTS`
+2. Agent discovers files in the `src/` directory
+3. Each file is analyzed according to the Skill criteria
+4. Scores and report are output to the user
 
-### 5-3. 다른 경로로 테스트
+### 5-3. Test with Different Paths
 
 ```bash
 > /analyze lib/
 > /analyze src/utils/
 ```
 
-### 5-4. 자신만의 파이프라인 만들기
+### 5-4. Create Your Own Pipeline
 
-배운 패턴을 활용하여 새로운 오케스트레이션을 만들어보세요:
+Using the patterns you learned, create a new orchestration:
 
-**예시 아이디어:**
-- `/review` — 코드 리뷰 자동화 (review-skill + review-agent + review command)
-- `/docs` — 문서 자동 생성 (docs-skill + docs-agent + docs command)
-- `/refactor` — 리팩토링 제안 (refactor-skill + refactor-agent + refactor command)
+**Example ideas:**
+- `/review` — Automated code review (review-skill + review-agent + review command)
+- `/docs` — Automated documentation generation (docs-skill + docs-agent + docs command)
+- `/refactor` — Refactoring suggestions (refactor-skill + refactor-agent + refactor command)
 
 ---
 
-## 성공 기준
+## Success Criteria
 
-- [ ] Skill이 구체적인 분석 기준을 정의한다
-- [ ] Agent가 Skill을 참조하여 작업을 수행한다
-- [ ] Command가 사용자 입력을 받아 Agent에게 위임한다
-- [ ] `/analyze src/` 실행 시 분석 보고서가 출력된다
-- [ ] 3계층이 각각 독립적으로 재사용 가능하다
+- [ ] Skill defines specific analysis criteria
+- [ ] Agent performs work by referencing the Skill
+- [ ] Command accepts user input and delegates to the Agent
+- [ ] Running `/analyze src/` outputs an analysis report
+- [ ] Each of the 3 layers is independently reusable
 
-## 핵심 교훈
+## Key Takeaways
 
-1. **관심사 분리**: 각 계층이 하나의 책임만 가짐
-2. **재사용성**: Skill은 여러 Agent가, Agent는 여러 Command가 공유 가능
-3. **테스트 용이성**: 각 계층을 독립적으로 테스트 가능
-4. **확장성**: 새 Command를 추가할 때 기존 Agent와 Skill을 재사용
-5. **유지보수성**: 분석 기준 변경 시 Skill만 수정하면 됨
+1. **Separation of Concerns**: Each layer has a single responsibility
+2. **Reusability**: Skills can be shared by multiple Agents; Agents can be shared by multiple Commands
+3. **Testability**: Each layer can be tested independently
+4. **Extensibility**: When adding a new Command, existing Agents and Skills can be reused
+5. **Maintainability**: When analysis criteria change, only the Skill needs to be modified

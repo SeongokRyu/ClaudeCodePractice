@@ -1,4 +1,4 @@
-# Challenge: 프로덕션 멀티에이전트 파이프라인
+# Challenge: Production Multi-Agent Pipeline
 
 ## Step 1: Design the 3-Layer Architecture
 

@@ -1,4 +1,4 @@
-# Practice 33: 품질 게이트 파이프라인
+# Practice 33: Quality Gate Pipeline
 
 ## Goal
 

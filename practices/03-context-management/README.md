@@ -1,31 +1,31 @@
-# Practice 03: 컨텍스트 관리 (Context Management)
+# Practice 03: Context Management
 
 ## Goal
 
-Claude Code의 컨텍스트 윈도우를 효과적으로 관리하는 방법을 학습합니다 -- `/clear`, `/compact`, 세션 관리, `HANDOFF.md` 작성법을 익힙니다.
+Learn how to effectively manage Claude Code's context window -- master `/clear`, `/compact`, session management, and writing `HANDOFF.md`.
 
 ## Why This Matters
 
 > "Context window is the most important resource to manage when working with AI coding assistants."
 > -- Anthropic
 
-컨텍스트 윈도우가 가득 차면 Claude의 성능이 저하됩니다. 효율적인 컨텍스트 관리는 생산성의 핵심입니다.
+When the context window fills up, Claude's performance degrades. Efficient context management is key to productivity.
 
 ## Prerequisites
 
-- Practice 01 (Golden Workflow) 완료
+- Practice 01 (Golden Workflow) completed
 
 ## Time
 
-20-30분
+20-30 minutes
 
 ## What You'll Learn
 
-1. **컨텍스트 채우기 관찰** -- `/cost` 명령으로 사용량 확인
-2. **`/clear` 사용** -- 관련 없는 작업 간 컨텍스트 초기화
-3. **`/compact` 사용** -- 힌트 파라미터를 활용한 컨텍스트 압축
-4. **HANDOFF.md 작성** -- 세션 간 작업 인수인계 문서 작성
-5. **`--resume`과 `--continue` 플래그** -- 이전 세션 이어가기
+1. **Observing context usage** -- Checking usage with the `/cost` command
+2. **Using `/clear`** -- Resetting context between unrelated tasks
+3. **Using `/compact`** -- Context compression using hint parameters
+4. **Writing HANDOFF.md** -- Creating handoff documents between sessions
+5. **`--resume` and `--continue` flags** -- Continuing from a previous session
 
 ## Getting Started
 
@@ -35,13 +35,13 @@ uv sync
 uv run pytest
 ```
 
-테스트가 통과하는지 확인한 후, `CHALLENGE.md`의 단계별 지시를 따라가세요.
+Confirm that tests pass, then follow the step-by-step instructions in `CHALLENGE.md`.
 
 ## Key Concepts
 
 ### /clear
 
-관련 없는 새로운 작업을 시작할 때 컨텍스트를 초기화합니다:
+Reset the context when starting a new, unrelated task:
 
 ```
 /clear
@@ -49,41 +49,41 @@ uv run pytest
 
 ### /compact
 
-현재 대화를 요약하여 컨텍스트를 압축합니다. 힌트를 제공하면 중요한 정보를 보존할 수 있습니다:
+Summarize the current conversation to compress the context. Providing a hint preserves important information:
 
 ```
-/compact user-service의 CRUD 구현에 집중하여 요약해주세요
+/compact Please summarize focusing on the user-service CRUD implementation
 ```
 
 ### HANDOFF.md
 
-세션 간 작업 인수인계를 위한 문서입니다:
+A document for handing off work between sessions:
 
 ```markdown
 # Handoff
 
 ## Current State
-- 어디까지 진행했는지
+- How far the work has progressed
 
 ## What's Done
-- 완료된 작업 목록
+- List of completed tasks
 
 ## What's Left
-- 남은 작업 목록
+- List of remaining tasks
 
 ## Key Decisions
-- 중요한 결정사항들
+- Important decisions made
 
 ## How to Verify
-- 현재 상태를 검증하는 방법
+- How to verify the current state
 ```
 
 ### --resume & --continue
 
 ```bash
-# 마지막 세션을 선택하여 이어가기
+# Select and continue from a previous session
 claude --resume
 
-# 마지막 세션을 자동으로 이어가기
+# Automatically continue from the last session
 claude --continue
 ```

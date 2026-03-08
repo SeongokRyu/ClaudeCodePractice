@@ -1,7 +1,7 @@
 [project]
 name = "practice-13-subagents"
 version = "0.1.0"
-description = "Practice 13: 서브에이전트 활용"
+description = "Practice 13: Subagent Usage"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

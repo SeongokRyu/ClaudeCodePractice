@@ -1,113 +1,113 @@
-# Challenge: 코드 리뷰
+# Challenge: Code Review
 
-## Step 1: 기본 리뷰
+## Step 1: Basic Review
 
-`src/api_handler.py`를 Claude에게 가장 단순한 형태로 리뷰를 요청합니다.
+Ask Claude for the simplest form of review on `src/api_handler.py`.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-src/api_handler.py를 리뷰해줘.
+Review src/api_handler.py.
 ```
 
-Claude가 어떤 수준의 피드백을 주는지 관찰하세요. 이것이 기준선(baseline)입니다.
+Observe the level of feedback Claude provides. This is your baseline.
 
 ---
 
-## Step 2: 역할 기반 리뷰
+## Step 2: Role-Based Review
 
-같은 코드를 특정 역할의 관점에서 리뷰하도록 요청합니다.
+Ask for a review of the same code from the perspective of a specific role.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-너는 10년 경력의 시니어 보안 엔지니어야.
-OWASP Top 10을 기준으로 src/api_handler.py를 보안 관점에서 리뷰해줘.
-각 취약점에 대해 심각도(Critical/High/Medium/Low)를 부여해.
+You are a senior security engineer with 10 years of experience.
+Review src/api_handler.py from a security perspective based on OWASP Top 10.
+Assign a severity level (Critical/High/Medium/Low) to each vulnerability.
 ```
 
-Step 1의 결과와 비교해보세요. 역할을 지정하면 어떤 차이가 있나요?
+Compare with the results from Step 1. What difference does assigning a role make?
 
 ---
 
-## Step 3: 정량적 평가
+## Step 3: Quantitative Assessment
 
-코드에 점수를 매기도록 요청합니다.
+Ask Claude to score the code.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-src/api_handler.py를 다음 기준으로 1-5점 평가해줘:
+Rate src/api_handler.py on a 1-5 scale for the following criteria:
 
-1. 보안 (Security): SQL 인젝션, XSS, 인증/인가 등
-2. 성능 (Performance): 효율성, 캐싱, 최적화
-3. 유지보수성 (Maintainability): 가독성, 모듈화, 문서화
-4. 에러 처리 (Error Handling): 예외 처리, 입력 검증
-5. 테스트 가능성 (Testability): 의존성 주입, 모의 가능성
+1. Security: SQL injection, XSS, authentication/authorization, etc.
+2. Performance: Efficiency, caching, optimization
+3. Maintainability: Readability, modularity, documentation
+4. Error Handling: Exception handling, input validation
+5. Testability: Dependency injection, mockability
 
-각 점수에 대한 이유를 1-2줄로 설명하고, 총점과 개선 우선순위를 제시해.
-```
-
----
-
-## Step 4: 자기 리뷰 (Self-Review)
-
-Claude에게 코드를 작성시킨 후, 다른 관점에서 리뷰하게 합니다.
-
-### Claude에게 시도해볼 프롬프트
-
-먼저 코드를 작성하게 합니다:
-```
-src/api_handler.py의 문제를 수정한 개선 버전을 작성해줘.
-```
-
-그런 다음 자기 리뷰를 요청합니다:
-```
-방금 작성한 개선 버전을 까다로운 코드 리뷰어의 관점에서 리뷰해줘.
-특히:
-- 놓친 엣지 케이스는 없는가?
-- 더 개선할 수 있는 부분은?
-- 이 코드로 인해 새로 생길 수 있는 문제는?
+Explain each score in 1-2 lines, and provide a total score with improvement priorities.
 ```
 
 ---
 
-## Step 5: 체크리스트 리뷰
+## Step 4: Self-Review
 
-보안 체크리스트를 기반으로 체계적인 리뷰를 수행합니다.
+Have Claude write code, then review it from a different perspective.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
+First, have it write the code:
 ```
-다음 보안 체크리스트로 src/api_handler.py를 리뷰해줘.
-각 항목에 대해 통과(PASS), 실패(FAIL), 해당없음(N/A)을 표시해.
+Write an improved version that fixes the issues in src/api_handler.py.
+```
 
-보안 체크리스트:
-- [ ] 모든 사용자 입력이 검증/새니타이징되는가?
-- [ ] SQL/NoSQL 인젝션 방지가 되어 있는가?
-- [ ] API 키나 비밀 정보가 하드코딩되어 있지 않은가?
-- [ ] 적절한 에러 처리가 되어 있는가? (에러 메시지에 내부 정보 노출 없는가?)
-- [ ] 인증/인가 체크가 되어 있는가?
-- [ ] Rate limiting이 구현되어 있는가?
-- [ ] CORS 설정이 적절한가?
-- [ ] 로깅이 적절한가? (민감 정보 로깅하지 않는가?)
-- [ ] 타임아웃이 설정되어 있는가?
-- [ ] 의존성에 알려진 취약점이 없는가?
+Then request a self-review:
+```
+Review the improved version you just wrote from the perspective of a tough code reviewer.
+In particular:
+- Are there any missed edge cases?
+- Are there areas that could be further improved?
+- Are there any new problems that this code could introduce?
 ```
 
 ---
 
-## 완료 기준
+## Step 5: Checklist Review
 
-- [ ] Step 1: 기본 리뷰를 수행하고 baseline 피드백을 확인했다
-- [ ] Step 2: 역할 기반 리뷰로 더 깊은 보안 분석을 얻었다
-- [ ] Step 3: 정량적 점수를 활용한 체계적 평가를 수행했다
-- [ ] Step 4: 자기 리뷰로 AI가 자체 코드를 비판적으로 분석하는 것을 경험했다
-- [ ] Step 5: 체크리스트 기반 리뷰로 체계적 검토를 수행했다
+Perform a systematic review based on a security checklist.
 
-## 회고 질문
+### Prompts to Try with Claude
 
-1. 5가지 리뷰 패턴 중 가장 유용하다고 느낀 패턴은 무엇인가요?
-2. 역할을 지정했을 때 리뷰의 깊이가 어떻게 달라졌나요?
-3. 자기 리뷰(Self-Review) 패턴에서 Claude는 자신의 코드를 얼마나 잘 비판했나요?
-4. 이 패턴들을 실제 코드 리뷰 워크플로우에 어떻게 통합하겠습니까?
+```
+Review src/api_handler.py using the following security checklist.
+Mark each item as PASS, FAIL, or N/A.
+
+Security Checklist:
+- [ ] Is all user input validated/sanitized?
+- [ ] Is SQL/NoSQL injection prevention in place?
+- [ ] Are API keys or secrets not hardcoded?
+- [ ] Is proper error handling in place? (No internal information exposed in error messages?)
+- [ ] Are authentication/authorization checks in place?
+- [ ] Is rate limiting implemented?
+- [ ] Is CORS configuration appropriate?
+- [ ] Is logging appropriate? (No sensitive information being logged?)
+- [ ] Are timeouts configured?
+- [ ] Are there no known vulnerabilities in dependencies?
+```
+
+---
+
+## Completion Criteria
+
+- [ ] Step 1: Performed a basic review and established baseline feedback
+- [ ] Step 2: Obtained deeper security analysis with role-based review
+- [ ] Step 3: Performed systematic evaluation using quantitative scores
+- [ ] Step 4: Experienced AI critically analyzing its own code through self-review
+- [ ] Step 5: Performed systematic review using a checklist-based approach
+
+## Reflection Questions
+
+1. Which of the 5 review patterns did you find most useful?
+2. How did the depth of the review change when you assigned a role?
+3. In the self-review pattern, how well did Claude critique its own code?
+4. How would you integrate these patterns into your actual code review workflow?

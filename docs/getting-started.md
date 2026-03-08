@@ -1,27 +1,27 @@
 # Getting Started
 
-15분 안에 Claude Code 설치부터 첫 대화까지 완료합니다.
+Complete everything from installing Claude Code to your first conversation in 15 minutes.
 
 ---
 
-## 1. 환경 확인 (3분)
+## 1. Check Your Environment (3 min)
 
 ```bash
-uv --version      # uv 설치 확인
-python --version   # Python 3.10 이상 권장
-git --version      # 아무 버전이나 OK
+uv --version      # Verify uv is installed
+python --version   # Python 3.10 or higher recommended
+git --version      # Any version is OK
 ```
 
-uv가 없다면:
+If uv is not installed:
 - macOS / Linux: `curl -LsSf https://astral.sh/uv/install.sh | sh`
 - Windows: `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
-- 또는 Homebrew: `brew install uv`
+- Or Homebrew: `brew install uv`
 
-에디터: **VS Code** 권장 (Claude Code 확장 지원)
+Editor: **VS Code** recommended (supports Claude Code extension)
 
 ---
 
-## 2. Claude Code 설치 (5분)
+## 2. Install Claude Code (5 min)
 
 ```bash
 # macOS / Linux
@@ -30,49 +30,49 @@ curl -fsSL https://claude.ai/install.sh | bash
 # Windows (PowerShell)
 irm https://claude.ai/install.ps1 | iex
 
-# 설치 확인
+# Verify installation
 claude --version
 ```
 
 ---
 
-## 3. 인증 (3분)
+## 3. Authentication (3 min)
 
 ```bash
 claude
 ```
 
-처음 실행하면 로그인 안내가 나옵니다. 다음 중 하나가 필요합니다:
-- **Claude Pro/Max 구독** (가장 간편)
-- **Anthropic API 키** (pay-as-you-go)
+When you run it for the first time, a login prompt will appear. You need one of the following:
+- **Claude Pro/Max subscription** (easiest)
+- **Anthropic API key** (pay-as-you-go)
 
 ---
 
-## 4. 첫 대화 (5분)
+## 4. First Conversation (5 min)
 
 ```bash
 mkdir practice-test && cd practice-test
 claude
 ```
 
-Claude Code가 시작되면 다음을 입력해보세요:
+Once Claude Code starts, try typing the following:
 
 ```
-이 디렉토리에 hello.ts 파일을 만들어줘.
-"Hello from Claude Code!"를 출력하는 간단한 프로그램으로.
+Create a hello.ts file in this directory.
+Make it a simple program that prints "Hello from Claude Code!"
 ```
 
-Claude가 파일을 만들면 다음을 해보세요:
+After Claude creates the file, try this:
 
 ```
-방금 만든 파일을 실행해줘
+Run the file you just created
 ```
 
-동작 확인 후 `/clear`를 입력해서 대화를 초기화합니다.
+After confirming it works, type `/clear` to reset the conversation.
 
 ---
 
-## 5. 이 Practice 레포 시작 (2분)
+## 5. Start This Practice Repo (2 min)
 
 ```bash
 cd ..
@@ -80,21 +80,21 @@ git clone <repo-url> ClaudeCodePractice
 cd ClaudeCodePractice
 ```
 
-이제 [Practice 01: 황금 워크플로우](../practices/01-golden-workflow/)부터 시작하세요.
+Now start with [Practice 01: Golden Workflow](../practices/01-golden-workflow/).
 
 ---
 
-## 알아두면 좋은 것
+## Good to Know
 
-| 단축키 | 동작 |
-|--------|------|
-| Shift+Tab | 모드 순환 (Normal → Auto-accept → Plan) |
-| Esc | 현재 작업 중단 |
-| Esc+Esc | 이전 상태로 되돌리기 |
+| Shortcut | Action |
+|----------|--------|
+| Shift+Tab | Cycle modes (Normal → Auto-accept → Plan) |
+| Esc | Stop current task |
+| Esc+Esc | Revert to previous state |
 
-| 명령어 | 동작 |
-|--------|------|
-| `/clear` | 대화 초기화 |
-| `/compact` | 대화 압축 (컨텍스트 확보) |
-| `/cost` | 현재 세션 비용 확인 |
-| `/help` | 도움말 |
+| Command | Action |
+|---------|--------|
+| `/clear` | Reset conversation |
+| `/compact` | Compress conversation (free up context) |
+| `/cost` | Check current session cost |
+| `/help` | Help |

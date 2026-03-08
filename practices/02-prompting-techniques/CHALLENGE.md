@@ -1,124 +1,124 @@
-# Challenge: 프롬프팅 기법 실습
+# Challenge: Prompting Techniques Hands-On
 
 ## Overview
 
-`src/calculator.py`에는 의도적으로 숨겨진 버그와 엣지 케이스가 있습니다.
-다양한 프롬프팅 기법을 사용하여 Claude와 함께 코드를 개선해보세요.
+`src/calculator.py` has intentionally hidden bugs and edge cases.
+Use various prompting techniques to improve the code together with Claude.
 
 ---
 
-## Step 1: 나쁜 프롬프트 vs 좋은 프롬프트
+## Step 1: Bad Prompts vs Good Prompts
 
-### 1-1. 나쁜 프롬프트 시도
+### 1-1. Try a Bad Prompt
 
-Claude에게 다음과 같이 요청해보세요:
-
-```
-이 코드 좀 봐줘. 뭔가 이상한 것 같은데 고쳐줘.
-```
-
-Claude의 응답을 관찰하세요. 무엇을 했나요? 변경 사항이 정확한가요?
-
-### 1-2. 좋은 프롬프트 시도
-
-이번에는 구체적으로 요청해보세요:
+Ask Claude the following:
 
 ```
-src/calculator.py의 divide 함수를 검토해주세요.
-- 0으로 나누는 경우에 대한 에러 처리가 올바른지 확인해주세요
-- 문제가 있다면 예외를 raise하도록 수정해주세요
-- 수정 후 pytest를 실행하여 기존 테스트가 통과하는지 확인해주세요
+Take a look at this code. Something seems off, fix it.
 ```
 
-**관찰 포인트**: 두 프롬프트의 결과 차이를 비교해보세요.
+Observe Claude's response. What did it do? Are the changes accurate?
+
+### 1-2. Try a Good Prompt
+
+This time, make a specific request:
+
+```
+Please review the divide function in src/calculator.py.
+- Check whether the error handling for division by zero is correct
+- If there is a problem, fix it to raise an exception
+- After fixing, run pytest to confirm existing tests still pass
+```
+
+**Observation point**: Compare the difference in results between the two prompts.
 
 ---
 
-## Step 2: 검증 기준 제공
+## Step 2: Providing Verification Criteria
 
-Claude에게 기능 구현과 함께 검증을 요청하세요:
+Ask Claude for verification alongside the feature implementation:
 
 ```
-src/calculator.py의 format_number 함수에 대해:
-1. 현재 어떤 엣지 케이스가 처리되지 않는지 분석해주세요
-2. 누락된 엣지 케이스를 처리하도록 코드를 수정해주세요
-3. 새로운 엣지 케이스에 대한 테스트를 src/test_calculator.py에 추가해주세요
-4. pytest를 실행하여 모든 테스트가 통과하는지 확인해주세요
+Regarding the format_number function in src/calculator.py:
+1. Analyze what edge cases are currently not handled
+2. Modify the code to handle the missing edge cases
+3. Add tests for the new edge cases to src/test_calculator.py
+4. Run pytest to confirm all tests pass
 
-검증 기준:
-- 음수에 대해 올바르게 포맷팅되어야 합니다
-- 소수점이 있는 숫자가 올바르게 처리되어야 합니다
-- 매우 큰 숫자와 매우 작은 숫자가 처리되어야 합니다
+Verification criteria:
+- Negative numbers should be formatted correctly
+- Numbers with decimal points should be handled correctly
+- Very large and very small numbers should be handled
 ```
 
-**관찰 포인트**: 검증 기준을 제공하면 Claude가 더 체계적으로 작업하는 것을 확인하세요.
+**Observation point**: Notice how Claude works more systematically when verification criteria are provided.
 
 ---
 
-## Step 3: 인터뷰 기법
+## Step 3: Interview Technique
 
-Claude에게 직접 구현하지 말고 먼저 질문하도록 요청하세요:
+Ask Claude to ask questions first instead of implementing directly:
 
 ```
-calculator.py에 거듭제곱(power) 함수를 추가하고 싶습니다.
-구현하기 전에, 요구사항에 대해 궁금한 점이 있으면 먼저 질문해주세요.
+I want to add a power (exponentiation) function to calculator.py.
+Before implementing, please ask any questions you have about the requirements first.
 ```
 
-Claude가 물어볼 수 있는 질문 예시:
-- 음수 지수를 지원해야 하나요?
-- 소수점 지수를 지원해야 하나요?
-- 결과가 너무 큰 경우 어떻게 처리하나요?
-- 0의 0제곱은 어떻게 처리하나요?
+Example questions Claude might ask:
+- Should negative exponents be supported?
+- Should decimal exponents be supported?
+- How should results that are too large be handled?
+- How should 0 to the power of 0 be handled?
 
-질문에 답변한 후, Claude가 더 정확한 구현을 제공하는 것을 확인하세요.
+After answering the questions, notice how Claude provides a more accurate implementation.
 
 ---
 
-## Step 4: 구조화된 프롬프트
+## Step 4: Structured Prompt
 
-모든 기법을 결합한 구조화된 프롬프트를 작성해보세요:
+Write a structured prompt that combines all techniques:
 
 ```
-역할: Python 시니어 개발자로서 코드 리뷰를 진행해주세요.
+Role: Please conduct a code review as a senior Python developer.
 
-컨텍스트: src/calculator.py는 기본적인 계산기 모듈입니다.
-현재 add, subtract, multiply, divide, format_number 함수가 구현되어 있습니다.
+Context: src/calculator.py is a basic calculator module.
+It currently has add, subtract, multiply, divide, and format_number functions implemented.
 
-작업:
-1. 전체 코드를 리뷰하고 개선점을 목록으로 정리해주세요
-2. 에러 처리가 누락된 부분을 수정해주세요
-3. 각 함수에 docstring을 추가해주세요
-4. 누락된 테스트 케이스를 추가해주세요
+Tasks:
+1. Review the entire code and list improvements
+2. Fix any missing error handling
+3. Add docstrings to each function
+4. Add missing test cases
 
-제약조건:
-- 기존 테스트를 깨뜨리지 마세요
-- 함수의 시그니처를 변경하지 마세요
-- Python 3.10 이상의 문법을 사용하세요
+Constraints:
+- Do not break existing tests
+- Do not change function signatures
+- Use Python 3.10+ syntax
 
-예상 출력:
-- 수정된 src/calculator.py
-- 업데이트된 src/test_calculator.py
-- 변경 사항 요약
+Expected output:
+- Modified src/calculator.py
+- Updated src/test_calculator.py
+- Summary of changes
 
-검증:
-- pytest 실행하여 모든 테스트 통과 확인
-- 새로 추가한 테스트가 실제 엣지 케이스를 검증하는지 확인
+Verification:
+- Run pytest to confirm all tests pass
+- Confirm that newly added tests actually verify edge cases
 ```
 
-**관찰 포인트**: 구조화된 프롬프트가 Claude의 작업 품질에 미치는 영향을 확인하세요.
+**Observation point**: Notice how structured prompts affect Claude's work quality.
 
 ---
 
 ## Completion Checklist
 
-- [ ] 나쁜 프롬프트와 좋은 프롬프트의 결과 차이를 경험했다
-- [ ] 검증 기준을 포함한 프롬프트를 작성하고 Claude의 체계적인 작업을 확인했다
-- [ ] 인터뷰 기법을 사용하여 Claude가 먼저 질문하도록 유도했다
-- [ ] 구조화된 프롬프트를 작성하여 높은 품질의 결과를 얻었다
+- [ ] Experienced the difference in results between bad and good prompts
+- [ ] Wrote a prompt with verification criteria and confirmed Claude's systematic work
+- [ ] Used the interview technique to get Claude to ask questions first
+- [ ] Wrote a structured prompt and obtained high-quality results
 
 ## Tips
 
-- 프롬프트에 "왜"를 포함하면 Claude가 더 나은 판단을 합니다
-- 검증 기준은 구체적일수록 좋습니다 (예: "테스트 통과" > "잘 작동")
-- 인터뷰 기법은 복잡한 기능 구현에 특히 효과적입니다
-- 구조화된 프롬프트는 처음에는 번거롭지만, 재작업을 줄여줍니다
+- Including "why" in your prompt helps Claude make better judgments
+- The more specific the verification criteria, the better (e.g., "tests pass" > "works well")
+- The interview technique is especially effective for complex feature implementations
+- Structured prompts may feel cumbersome at first, but they reduce rework

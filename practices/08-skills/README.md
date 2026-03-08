@@ -1,4 +1,4 @@
-# Practice 08: Skills 만들기
+# Practice 08: Creating Skills
 
 ## Goal
 
@@ -6,7 +6,7 @@ Learn to create SKILL.md files — reusable workflows with frontmatter, dynamic 
 
 ## Prerequisites
 
-- [Practice 05: CLAUDE.md 작성법](../05-claude-md/)
+- [Practice 05: Writing CLAUDE.md](../05-claude-md/)
 
 ## Time
 

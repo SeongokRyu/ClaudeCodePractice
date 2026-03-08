@@ -1,4 +1,4 @@
-# Challenge: 결정론적 가드레일
+# Challenge: Deterministic Guardrails
 
 ## Step 1: File Protection Hook (PreToolUse)
 

@@ -1,10 +1,10 @@
-# Practice 26: Writer/Reviewer 패턴
+# Practice 26: Writer/Reviewer Pattern
 
 ## Goal
 Build a writer+reviewer collaboration pipeline where one agent implements features and another reviews them, iterating until the code meets quality standards.
 
 ## Prerequisites
-- Practice 25 (커스텀 서브에이전트 설계)
+- Practice 25 (Custom Subagent Design)
 
 ## Time
 90-120 minutes

@@ -1,4 +1,4 @@
-# Practice 31: 컨텍스트 엔지니어링
+# Practice 31: Context Engineering
 
 ## Goal
 

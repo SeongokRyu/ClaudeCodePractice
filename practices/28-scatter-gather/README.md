@@ -1,10 +1,10 @@
-# Practice 28: Scatter-Gather 연구 시스템
+# Practice 28: Scatter-Gather Research System
 
 ## Goal
 Build a research system using the scatter-gather pattern: a lead agent decomposes a research question, multiple worker agents research in parallel, and the lead agent synthesizes the findings into a comprehensive report.
 
 ## Prerequisites
-- Practice 24 (Agent SDK 입문)
+- Practice 24 (Agent SDK Introduction)
 
 ## Time
 90-120 minutes

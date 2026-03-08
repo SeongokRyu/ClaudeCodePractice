@@ -1,34 +1,34 @@
-# Practice 10: 버그 디버깅
+# Practice 10: Bug Debugging
 
-## 목표
+## Objective
 
-Claude와 함께 버그를 디버깅하는 방법을 학습합니다. 단순한 증상 수정이 아닌 근본 원인 분석(Root Cause Analysis)을 연습하고, 다양한 유형의 버그를 체계적으로 해결하는 15가지 디버깅 전략을 익힙니다.
+Learn how to debug bugs together with Claude. Practice root cause analysis rather than just fixing symptoms, and learn 15 systematic debugging strategies for various types of bugs.
 
-## 사전 요구사항
+## Prerequisites
 
-- Practice 05 (CLAUDE.md) 완료
-- Python 및 pytest 기본 이해
+- Practice 05 (CLAUDE.md) completed
+- Basic understanding of Python and pytest
 
-## 소요 시간
+## Estimated Time
 
-45-60분
+45-60 minutes
 
-## 핵심 개념
+## Key Concepts
 
-### 디버깅의 3가지 유형
+### 3 Types of Bugs
 
-1. **Logic Bug** - 코드가 실행은 되지만 결과가 틀린 경우 (off-by-one 등)
-2. **Async Bug** - 비동기 실행 순서 문제, 경쟁 조건(Race Condition)
-3. **Type Bug** - 타입 변환이 잘못되거나 타입 가정이 틀린 경우
+1. **Logic Bug** - Code runs but produces incorrect results (off-by-one, etc.)
+2. **Async Bug** - Asynchronous execution order issues, race conditions
+3. **Type Bug** - Incorrect type conversions or wrong type assumptions
 
-### Claude 디버깅 전략
+### Claude Debugging Strategies
 
-- **실행 추적 (Trace)**: "이 코드를 한 줄씩 실행 추적해줘"
-- **근본 원인 분석**: "증상이 아닌 근본 원인을 찾아줘"
-- **가설 검증**: "이 버그의 가능한 원인 3가지를 제시하고 각각 검증해줘"
-- **최소 재현**: "이 버그를 재현하는 최소한의 테스트를 작성해줘"
+- **Execution Trace**: "Trace through this code line by line"
+- **Root Cause Analysis**: "Find the root cause, not just the symptom"
+- **Hypothesis Testing**: "Suggest 3 possible causes for this bug and verify each one"
+- **Minimal Reproduction**: "Write the smallest possible test that reproduces this bug"
 
-## 시작하기
+## Getting Started
 
 ```bash
 cd practices/10-bug-debugging
@@ -36,13 +36,13 @@ uv sync
 uv run pytest src/
 ```
 
-테스트를 실행하면 일부 테스트가 실패합니다. 각 파일에는 의도적으로 심어둔 버그가 있습니다.
+Running the tests will show some test failures. Each file contains intentionally planted bugs.
 
-이제 `CHALLENGE.md`의 단계를 따라 Claude와 함께 디버깅을 실습하세요.
+Now follow the steps in `CHALLENGE.md` to practice debugging with Claude.
 
-## 학습 포인트
+## Learning Points
 
-- Claude에게 "왜 실패하는지"보다 "실행 흐름을 추적해줘"가 더 좋은 결과를 낸다
-- 근본 원인과 증상의 차이를 구분할 수 있게 된다
-- 비동기 버그는 특히 실행 순서를 시각화하면 이해가 쉬워진다
-- 타입 강제 변환(Type Coercion) 버그는 가장 찾기 어렵다
+- Asking Claude "trace the execution flow" yields better results than "why does it fail"
+- You learn to distinguish between root causes and symptoms
+- Async bugs are especially easier to understand when you visualize the execution order
+- Type coercion bugs are the hardest to find

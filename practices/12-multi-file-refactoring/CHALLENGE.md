@@ -1,117 +1,116 @@
-# Challenge: 멀티 파일 리팩토링
+# Challenge: Multi-File Refactoring
 
-## 사전 확인
+## Pre-check
 
-먼저 모든 테스트가 통과하는지 확인하세요:
+First, confirm that all tests pass:
 
 ```bash
 uv run pytest src/
 ```
 
-모든 테스트가 통과해야 합니다. 이것이 리팩토링의 안전망입니다.
+All tests should pass. This is the safety net for your refactoring.
 
 ---
 
-## Step 1: 탐색 — 의존성 그래프 파악
+## Step 1: Exploration — Identify the Dependency Graph
 
-Claude에게 코드베이스의 구조와 의존성을 분석하도록 요청합니다.
+Ask Claude to analyze the codebase structure and dependencies.
 
-### Claude에게 시도해볼 프롬프트
-
-```
-src/ 디렉토리의 모든 파일을 읽고 의존성 그래프를 그려줘.
-어떤 파일이 어떤 파일을 import하는지,
-그리고 콜백 패턴이 어떻게 사용되고 있는지 분석해줘.
-```
-
-### 기대하는 결과
+### Prompts to Try with Claude
 
 ```
-types.py               ← 의존성 없음 (최하위)
-database.py            ← 의존성 없음
+Read all the files in the src/ directory and draw a dependency graph.
+Analyze which file imports which, and how the callback pattern is being used.
+```
+
+### Expected Result
+
+```
+types.py               ← No dependencies (lowest level)
+database.py            ← No dependencies
 user_repository.py     ← database.py
 order_repository.py    ← database.py
-notification_service.py ← 의존성 없음
-app.py                 ← 모든 모듈 (최상위)
+notification_service.py ← No dependencies
+app.py                 ← All modules (highest level)
 ```
 
 ---
 
-## Step 2: 계획 — 리팩토링 순서 정하기
+## Step 2: Planning — Determine the Refactoring Order
 
-Claude에게 콜백 → async/await 리팩토링 계획을 세우도록 합니다.
+Have Claude create a plan for the callback to async/await refactoring.
 
-### Claude에게 시도해볼 프롬프트
-
-```
-이 코드베이스를 콜백 패턴에서 async/await 패턴으로 리팩토링하려고 해.
-의존성 그래프를 기반으로 안전한 리팩토링 순서를 계획해줘.
-
-조건:
-- 한 번에 하나의 파일만 변경
-- 각 변경 후 테스트가 통과해야 함
-- types.py는 변경하지 않음
-```
-
----
-
-## Step 3: 단계별 구현
-
-계획에 따라 한 파일씩 리팩토링합니다. **각 파일 변경 후 반드시 테스트를 실행**합니다.
-
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-리팩토링 계획의 1단계를 실행해줘.
-database.py를 콜백 패턴에서 async/await 패턴으로 변환해.
+I want to refactor this codebase from the callback pattern to async/await.
+Based on the dependency graph, plan a safe refactoring order.
 
-변환 후:
-1. uv run pytest src/를 실행해서 결과를 확인해
-2. 실패하는 테스트가 있으면, 해당 테스트도 async/await로 업데이트해
-3. 모든 테스트가 통과할 때까지 반복해
-```
-
-이후 같은 방식으로 나머지 파일들을 순서대로 리팩토링합니다:
-
-```
-다음 파일(user_repository.py)을 async/await로 리팩토링해줘.
-이전 단계에서 변경한 database.py의 새 인터페이스를 사용해.
-변경 후 uv run pytest src/를 실행해서 확인해.
+Conditions:
+- Change only one file at a time
+- Tests must pass after each change
+- Do not change types.py
 ```
 
 ---
 
-## Step 4: 검증
+## Step 3: Step-by-Step Implementation
 
-모든 리팩토링이 완료된 후 최종 확인을 합니다.
+Refactor one file at a time according to the plan. **Run tests after every file change**.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-리팩토링이 모두 완료되었어. 다음을 확인해줘:
+Execute step 1 of the refactoring plan.
+Convert database.py from the callback pattern to async/await.
 
-1. uv run pytest src/를 실행해서 모든 테스트가 통과하는지 확인
-2. 남아있는 콜백 패턴이 없는지 검색 (callback이라는 단어가 없어야 함)
-3. 리팩토링 전후의 코드를 비교해서 요약해줘
+After conversion:
+1. Run uv run pytest src/ and check the results
+2. If any tests fail, update those tests to async/await as well
+3. Repeat until all tests pass
+```
 
-특히 다음을 확인해:
-- 모든 비동기 함수가 async/await를 사용하는가?
-- 에러 처리가 try/except로 전환되었는가?
-- 타입이 올바르게 유지되는가?
+Then refactor the remaining files in the same order:
+
+```
+Refactor the next file (user_repository.py) to async/await.
+Use the new interface from database.py that was changed in the previous step.
+After the change, run uv run pytest src/ to verify.
 ```
 
 ---
 
-## 완료 기준
+## Step 4: Verification
 
-- [ ] Step 1: 의존성 그래프를 이해했다
-- [ ] Step 2: 리팩토링 계획을 수립했다
-- [ ] Step 3: 한 파일씩 리팩토링하며 매번 테스트를 통과시켰다
-- [ ] Step 4: 모든 테스트가 통과하고 콜백 패턴이 제거되었다
+Perform final verification after all refactoring is complete.
 
-## 회고 질문
+### Prompts to Try with Claude
 
-1. 의존성 그래프를 먼저 파악한 것이 리팩토링에 어떤 도움이 되었나요?
-2. 한 파일씩 변경하는 것과 모든 파일을 한 번에 변경하는 것의 차이는 무엇인가요?
-3. 테스트가 없었다면 이 리팩토링이 얼마나 더 위험했을까요?
-4. Claude에게 "계획을 세워줘"라고 한 것이 바로 "리팩토링해줘"라고 한 것보다 나은 점은 무엇이었나요?
+```
+All refactoring is complete. Please verify the following:
+
+1. Run uv run pytest src/ to confirm all tests pass
+2. Search for any remaining callback patterns (the word "callback" should not appear)
+3. Summarize the code comparison before and after refactoring
+
+In particular, verify:
+- Do all async functions use async/await?
+- Has error handling been converted to try/except?
+- Are types correctly preserved?
+```
+
+---
+
+## Completion Criteria
+
+- [ ] Step 1: Understood the dependency graph
+- [ ] Step 2: Established a refactoring plan
+- [ ] Step 3: Refactored one file at a time, passing tests each time
+- [ ] Step 4: All tests pass and callback patterns have been removed
+
+## Reflection Questions
+
+1. How did identifying the dependency graph first help with refactoring?
+2. What is the difference between changing one file at a time versus changing all files at once?
+3. How much riskier would this refactoring have been without tests?
+4. What was the benefit of asking Claude to "make a plan" versus directly saying "refactor it"?

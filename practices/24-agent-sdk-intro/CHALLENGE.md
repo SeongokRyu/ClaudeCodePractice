@@ -1,4 +1,4 @@
-# Challenge: Agent SDK 입문
+# Challenge: Agent SDK Introduction
 
 ## Step 1: Install Agent SDK
 

@@ -1,109 +1,109 @@
-# Claude Code 마스터 가이드 2026
+# Claude Code Master Guide 2026
 
 - **URL**: https://claudeguide-dv5ktqnq.manus.space/
-- **특징**: 28개 섹션, 120+ 실전 팁, 한국어, 단일 페이지 앱
-- **출처**: Anthropic Docs, paddo.dev, Andrej Karpathy, Simon Willison, Reddit 등 20+ 소스
-- **최종 업데이트**: 2026.02.25
+- **Features**: 28 sections, 120+ practical tips, Korean, single-page app
+- **Sources**: Anthropic Docs, paddo.dev, Andrej Karpathy, Simon Willison, Reddit, and 20+ other sources
+- **Last Updated**: 2026.02.25
 
 ---
 
-## 28개 섹션 요약
+## Summary of 28 Sections
 
-### 초급 섹션
+### Beginner Sections
 
-**핵심 철학**
-- Intent over Implementation: "무엇을/왜"를 정의하면 AI가 "어떻게"를 처리
-- Conductor, not Coder: 지휘자 역할
-- Trust but Verify: 신뢰하되 검증
-- Context Engineering: 올바른 답이 자명해지도록 환경을 구조화
+**Core Philosophy**
+- Intent over Implementation: Define "what/why" and AI handles "how"
+- Conductor, not Coder: Act as a conductor
+- Trust but Verify: Trust but always verify
+- Context Engineering: Structure the environment so the correct answer becomes self-evident
 
-**황금 워크플로우**: Explore → Plan → Implement → Commit
+**Golden Workflow**: Explore → Plan → Implement → Commit
 
-**CLAUDE.md 작성법**
-- 포함: bash 명령어, 스타일 규칙, 테스트 방법, 브랜치 컨벤션, 아키텍처 결정, 환경 변수
-- 제외: 코드에서 읽을 수 있는 것, 언어 표준 규칙, 상세 API 문서
-- Pro Tip: "이 줄을 제거하면 Claude가 실수할까?" → NO면 삭제
+**How to Write CLAUDE.md**
+- Include: bash commands, style rules, testing methods, branch conventions, architecture decisions, environment variables
+- Exclude: Things readable from code, standard language rules, detailed API docs
+- Pro Tip: "If I remove this line, will Claude make mistakes?" → If NO, delete it
 
-**7대 실수**
-1. 맹목적 신뢰 (리뷰 없이 수락)
-2. 아키텍처 부재 (스파게티 코드)
-3. 라텐트 버그 (엣지 케이스 누락)
-4. 기술 부채 과속 (유지보수 능력 초과)
-5. 학습 부채 (이해 없이 사용)
-6. 스코프 크리프 (범위 비대)
-7. 자율 루프 과신 (판단 영역 자동화)
+**7 Major Mistakes**
+1. Blind trust (accepting without review)
+2. Lack of architecture (spaghetti code)
+3. Latent bugs (missing edge cases)
+4. Technical debt acceleration (exceeding maintenance capacity)
+5. Learning debt (using without understanding)
+6. Scope creep (scope bloat)
+7. Over-trusting autonomous loops (automating areas requiring judgment)
 
-**황금 원칙 10가지**
-1. 코드는 무가치하다. 스펙이 핵심이다
+**10 Golden Principles**
+1. Code is worthless. The spec is what matters
 2. Plan Before Execute
 3. Compact Often (/clear)
-4. CLAUDE.md는 짧게
+4. Keep CLAUDE.md short
 5. Delegate to Subagents
-6. Git Worktree로 병렬화
-7. CLI > MCP (컨텍스트 효율)
-8. Hooks로 강제 (결정론적)
+6. Parallelize with Git Worktree
+7. CLI > MCP (context efficiency)
+8. Enforce with Hooks (deterministic)
 9. Rewind Freely
-10. 리뷰/테스트/이해했다면 안전
+10. If you reviewed/tested/understood, it's safe
 
-### 중급 섹션
+### Intermediate Sections
 
-**컨텍스트 관리**
-- LLM 성능 = 컨텍스트 윈도우 관리
-- 자동 컴팩션: ~80%에서 트리거
-- HANDOFF.md로 세션 간 인수인계
+**Context Management**
+- LLM performance = context window management
+- Auto compaction: triggers at ~80%
+- HANDOFF.md for cross-session handoffs
 
-**프롬프팅 기법**
-- 검증 수단 제공이 단일 최고 레버리지 행동
-- 인터뷰 기법: Claude에게 역질문시켜 스펙 완성
-- 구조화된 프롬프팅: 역할 + 컨텍스트 + 제약조건 + 예상 출력 + 검증 기준
-- @ 참조로 필요한 파일만 명시적 참조
-- 파이프 입력: `cat error.log | claude`
+**Prompting Techniques**
+- Providing verification means is the single highest-leverage action
+- Interview technique: Have Claude ask counter-questions to complete the spec
+- Structured prompting: Role + Context + Constraints + Expected output + Verification criteria
+- Use @ references to explicitly reference only needed files
+- Pipe input: `cat error.log | claude`
 
-**서브에이전트**
-- 메인 컨텍스트 보호하며 멀티태스킹
-- haiku/sonnet/opus 작업 복잡도에 맞게
-- Worktree 병렬 개발
-- Writer/Reviewer 패턴
+**Subagents**
+- Multitask while protecting the main context
+- Match haiku/sonnet/opus to task complexity
+- Worktree parallel development
+- Writer/Reviewer pattern
 
-**보안 체크리스트**
-- 슬롭스쿼팅(Slopsquatting) 주의: AI가 존재하지 않는 패키지 추천
-- 필수 보안 품질 게이트 8가지
+**Security Checklist**
+- Watch for slopsquatting: AI recommending non-existent packages
+- 8 essential security quality gates
 
-**프로젝트 레시피 12가지**
-- SaaS, Chrome 확장, REST API, CLI, React Native, 랜딩페이지, 대시보드, AI 챗봇, VS Code 확장, 자동화 스크립트, Canvas 게임, ETL 파이프라인
+**12 Project Recipes**
+- SaaS, Chrome extension, REST API, CLI, React Native, landing page, dashboard, AI chatbot, VS Code extension, automation script, Canvas game, ETL pipeline
 
-**프롬프트 템플릿 20개** (복사해서 바로 사용)
+**20 Prompt Templates** (copy and use directly)
 
-**디버깅 마스터 15가지 전략**
-- 핵심: /clear로 오염된 컨텍스트 리셋, Plan Mode로 설계 승인, 최소 단위 변경
+**15 Debugging Master Strategies**
+- Key points: Reset contaminated context with /clear, approve designs with Plan Mode, make minimal unit changes
 
-### 고급 섹션
+### Advanced Sections
 
 **Agent Teams** (Research Preview)
-- 멀티 에이전트 팀 협업, Lead agent 조율
-- 서브에이전트와 달리 팀원 간 직접 커뮤니케이션
+- Multi-agent team collaboration, Lead agent coordination
+- Unlike subagents, team members communicate directly with each other
 
-**Hooks 시스템**
-- CLAUDE.md = 확률적 / Hooks = 결정론적
-- 보호 파일 편집 차단, 자동 포맷, 알림
-- Exit code: 0=계속, 2=차단
+**Hooks System**
+- CLAUDE.md = probabilistic / Hooks = deterministic
+- Block protected file edits, auto-format, notifications
+- Exit code: 0=continue, 2=block
 
-**멀티세션 워크플로우 8가지 패턴**
+**8 Multi-Session Workflow Patterns**
 1. Writer/Reviewer
-2. Specialist 팀 (병렬)
-3. 경쟁 프로토타입
-4. 단계적 마이그레이션
+2. Specialist team (parallel)
+3. Competing prototypes
+4. Phased migration
 5. TDD Ping-Pong
-6. 야간 자율 작업
-7. 리뷰 파이프라인
-8. 마이크로서비스 개발
+6. Overnight autonomous work
+7. Review pipeline
+8. Microservices development
 
-**비용 최적화 10가지**
-- 최고의 비용 최적화: CLAUDE.md + 명확한 프롬프트 + /compact
+**10 Cost Optimization Tips**
+- Best cost optimization: CLAUDE.md + clear prompts + /compact
 
-**MCP 실전 활용**
-- 주요 서버: Context7, Playwright, GitHub, Supabase, PostgreSQL, Notion, Slack, Figma, Exa
+**MCP Practical Usage**
+- Major servers: Context7, Playwright, GitHub, Supabase, PostgreSQL, Notion, Slack, Figma, Exa
 
-**AI 코드 리뷰 8가지 마스터 패턴**
-- 신뢰 레벨 단계적 확대 (Level 1~4)
-- "AI가 작성 → 인간이 검증 → 테스트가 증명" 3단계 파이프라인
+**8 AI Code Review Master Patterns**
+- Gradual trust level escalation (Level 1~4)
+- "AI writes → Human verifies → Tests prove" 3-stage pipeline

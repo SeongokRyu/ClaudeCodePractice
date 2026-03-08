@@ -1,4 +1,4 @@
-# Challenge: 샌드박싱과 권한 제어
+# Challenge: Sandboxing and Permission Control
 
 ## Step 1: Enable Sandbox Mode
 

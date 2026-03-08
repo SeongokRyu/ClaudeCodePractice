@@ -2,93 +2,93 @@
 
 ## Purpose
 
-TypeScript/JavaScript 코드의 품질을 분석하고 점수를 산정합니다.
-이 Skill은 분석 기준과 점수 산정 규칙을 정의합니다.
+Analyzes TypeScript/JavaScript code quality and assigns scores.
+This Skill defines the analysis criteria and scoring rules.
 
 ## Analysis Criteria
 
-### 1. Complexity (복잡도) — 30점
+### 1. Complexity — 30 points
 
-| 항목 | 기준 | 점수 |
+| Item | Criteria | Score |
 |------|------|------|
-| 함수 길이 | 20줄 이하 | 10점 |
-| | 21-50줄 | 5점 |
-| | 50줄 초과 | 0점 |
-| 중첩 깊이 | 3단계 이하 | 10점 |
-| | 4-5단계 | 5점 |
-| | 6단계 이상 | 0점 |
-| 매개변수 수 | 3개 이하 | 10점 |
-| | 4-5개 | 5점 |
-| | 6개 이상 | 0점 |
+| Function length | 20 lines or fewer | 10 pts |
+| | 21-50 lines | 5 pts |
+| | Over 50 lines | 0 pts |
+| Nesting depth | 3 levels or fewer | 10 pts |
+| | 4-5 levels | 5 pts |
+| | 6 levels or more | 0 pts |
+| Number of parameters | 3 or fewer | 10 pts |
+| | 4-5 | 5 pts |
+| | 6 or more | 0 pts |
 
-### 2. Maintainability (유지보수성) — 30점
+### 2. Maintainability — 30 points
 
-| 항목 | 기준 | 점수 |
+| Item | Criteria | Score |
 |------|------|------|
-| 타입 안전성 | `any` 미사용 | 10점 |
-| | `any` 1-2회 | 5점 |
-| | `any` 3회 이상 | 0점 |
-| 에러 처리 | 적절한 try-catch | 10점 |
-| | 일부 누락 | 5점 |
-| | 에러 처리 없음 | 0점 |
-| 네이밍 | 의미있는 이름 | 10점 |
-| | 일부 불명확 | 5점 |
-| | 단일 문자 변수 다수 | 0점 |
+| Type safety | No `any` usage | 10 pts |
+| | `any` used 1-2 times | 5 pts |
+| | `any` used 3+ times | 0 pts |
+| Error handling | Appropriate try-catch | 10 pts |
+| | Partially missing | 5 pts |
+| | No error handling | 0 pts |
+| Naming | Meaningful names | 10 pts |
+| | Some unclear names | 5 pts |
+| | Many single-character variables | 0 pts |
 
-### 3. Best Practices (모범 사례) — 40점
+### 3. Best Practices — 40 points
 
-| 항목 | 기준 | 점수 |
+| Item | Criteria | Score |
 |------|------|------|
-| 단일 책임 원칙 | 준수 | 10점 |
-| | 일부 위반 | 5점 |
-| | 다수 위반 | 0점 |
-| DRY 원칙 | 중복 없음 | 10점 |
-| | 약간의 중복 | 5점 |
-| | 상당한 중복 | 0점 |
-| 테스트 존재 | 테스트 파일 있음 | 10점 |
-| | 일부만 있음 | 5점 |
-| | 테스트 없음 | 0점 |
-| 문서화 | JSDoc 있음 | 10점 |
-| | 일부만 있음 | 5점 |
-| | 문서 없음 | 0점 |
+| Single Responsibility Principle | Compliant | 10 pts |
+| | Some violations | 5 pts |
+| | Many violations | 0 pts |
+| DRY Principle | No duplication | 10 pts |
+| | Minor duplication | 5 pts |
+| | Significant duplication | 0 pts |
+| Test existence | Test file exists | 10 pts |
+| | Only partial coverage | 5 pts |
+| | No tests | 0 pts |
+| Documentation | JSDoc present | 10 pts |
+| | Only partial coverage | 5 pts |
+| | No documentation | 0 pts |
 
 ## Patterns to Detect
 
-### Red Flags (감점 요소)
-- `console.log` 디버깅 코드 방치
-- `// TODO` 주석이 3개 이상
-- 하드코딩된 매직 넘버
-- 사용되지 않는 import
-- `@ts-ignore` 사용
+### Red Flags (Penalty factors)
+- Leftover `console.log` debugging code
+- 3 or more `// TODO` comments
+- Hard-coded magic numbers
+- Unused imports
+- `@ts-ignore` usage
 
-### Green Flags (가점 요소)
-- 일관된 코딩 스타일
-- 의미있는 커밋 메시지
-- 인터페이스/타입 분리
-- 적절한 추상화 레벨
+### Green Flags (Bonus factors)
+- Consistent coding style
+- Meaningful commit messages
+- Separated interfaces/types
+- Appropriate abstraction levels
 
 ## Output Format
 
-### 파일별 보고서
+### Per-file Report
 
 ```
-| 파일 | 복잡도 | 유지보수성 | 모범사례 | 총점 | 등급 |
+| File | Complexity | Maintainability | Best Practices | Total | Grade |
 |------|--------|-----------|---------|------|------|
 | file.ts | X/30 | X/30 | X/40 | X/100 | A~F |
 ```
 
-### 등급 기준
+### Grade Criteria
 
-- **A** (90-100): 우수 — 모범적인 코드
-- **B** (80-89): 양호 — 약간의 개선 여지
-- **C** (70-79): 보통 — 개선 필요
-- **D** (60-69): 미흡 — 상당한 개선 필요
-- **F** (0-59): 불량 — 즉시 리팩토링 필요
+- **A** (90-100): Excellent — Exemplary code
+- **B** (80-89): Good — Minor room for improvement
+- **C** (70-79): Average — Improvement needed
+- **D** (60-69): Below average — Significant improvement needed
+- **F** (0-59): Poor — Immediate refactoring required
 
-### 전체 요약
+### Overall Summary
 
 ```
-프로젝트 평균: X/100 (등급)
-분석 파일 수: N개
-개선 필요 파일: N개
+Project average: X/100 (Grade)
+Files analyzed: N
+Files needing improvement: N
 ```

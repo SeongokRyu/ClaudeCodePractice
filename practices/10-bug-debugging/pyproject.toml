@@ -1,7 +1,7 @@
 [project]
 name = "practice-10-bug-debugging"
 version = "0.1.0"
-description = "Practice 10: 버그 디버깅"
+description = "Practice 10: Bug Debugging"
 requires-python = ">=3.10"
 
 [tool.pytest.ini_options]

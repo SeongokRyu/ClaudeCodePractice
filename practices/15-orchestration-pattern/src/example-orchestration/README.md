@@ -1,46 +1,46 @@
 # Example Orchestration: Code Analyzer
 
-이 디렉토리는 Command→Agent→Skill 3계층 오케스트레이션 패턴의 완성된 예제입니다.
+This directory is a completed example of the Command→Agent→Skill 3-layer orchestration pattern.
 
 ## Architecture
 
 ```
-사용자 입력
+User Input
     │
     ▼
 ┌──────────────────────────────────────────────┐
 │  /analyze src/                                │
 │  .claude/commands/analyze.md                  │
 │                                               │
-│  역할:                                        │
-│  - $ARGUMENTS로 대상 경로를 받음               │
-│  - analyzer-agent에게 작업 위임               │
-│  - 결과를 포맷팅하여 사용자에게 출력            │
+│  Role:                                        │
+│  - Receives target path via $ARGUMENTS        │
+│  - Delegates work to analyzer-agent           │
+│  - Formats results and outputs to user        │
 └──────────────┬───────────────────────────────┘
-               │ 위임
+               │ Delegation
                ▼
 ┌──────────────────────────────────────────────┐
 │  analyzer-agent                               │
 │  .claude/agents/analyzer-agent.md             │
 │                                               │
-│  역할:                                        │
-│  - code-analyzer Skill을 로드                 │
-│  - 대상 파일 탐색 및 수집                      │
-│  - Skill 기준에 따라 파일별 분석               │
-│  - 분석 보고서 생성                            │
+│  Role:                                        │
+│  - Loads code-analyzer Skill                  │
+│  - Discovers and collects target files        │
+│  - Analyzes each file based on Skill criteria │
+│  - Generates analysis report                  │
 └──────────────┬───────────────────────────────┘
-               │ 참조
+               │ Reference
                ▼
 ┌──────────────────────────────────────────────┐
 │  code-analyzer Skill                          │
 │  .claude/skills/code-analyzer/SKILL.md        │
 │                                               │
-│  역할:                                        │
-│  - 복잡도 분석 기준 (30점)                     │
-│  - 유지보수성 분석 기준 (30점)                  │
-│  - 모범 사례 분석 기준 (40점)                   │
-│  - 등급 산정 기준 (A~F)                        │
-│  - 출력 형식 템플릿                            │
+│  Role:                                        │
+│  - Complexity analysis criteria (30 pts)      │
+│  - Maintainability analysis criteria (30 pts) │
+│  - Best practices analysis criteria (40 pts)  │
+│  - Grade assignment criteria (A~F)            │
+│  - Output format template                     │
 └──────────────────────────────────────────────┘
 ```
 
@@ -49,46 +49,46 @@
 ```
 .claude/
 ├── commands/
-│   └── analyze.md          ← Layer 1: 사용자 진입점
+│   └── analyze.md          ← Layer 1: User entry point
 ├── agents/
-│   └── analyzer-agent.md   ← Layer 2: 실행 로직
+│   └── analyzer-agent.md   ← Layer 2: Execution logic
 └── skills/
     └── code-analyzer/
-        └── SKILL.md        ← Layer 3: 도메인 지식
+        └── SKILL.md        ← Layer 3: Domain knowledge
 ```
 
 ## How It Works
 
-### 1. Command Layer (진입점)
+### 1. Command Layer (Entry Point)
 
-`analyze.md`는 사용자가 `/analyze src/`를 입력하면 실행됩니다.
-- `$ARGUMENTS`를 통해 대상 경로를 받습니다
-- 실제 분석 작업은 Agent에게 위임합니다
-- Agent의 결과를 사용자에게 보기 좋게 출력합니다
+`analyze.md` is executed when the user enters `/analyze src/`.
+- Receives the target path through `$ARGUMENTS`
+- Delegates the actual analysis work to the Agent
+- Displays the Agent's results in a user-friendly format
 
-### 2. Agent Layer (실행자)
+### 2. Agent Layer (Executor)
 
-`analyzer-agent.md`는 실제 분석 작업을 수행합니다.
-- Skill을 preload하여 분석 기준을 참조합니다
-- 파일 탐색 → 개별 분석 → 보고서 생성의 3단계로 진행합니다
-- 구조화된 보고서를 생성합니다
+`analyzer-agent.md` performs the actual analysis work.
+- Preloads the Skill to reference analysis criteria
+- Proceeds in 3 steps: file discovery → individual analysis → report generation
+- Generates a structured report
 
-### 3. Skill Layer (지식 제공)
+### 3. Skill Layer (Knowledge Provider)
 
-`SKILL.md`는 코드 품질 분석에 필요한 도메인 지식을 정의합니다.
-- 복잡도, 유지보수성, 모범 사례의 3가지 카테고리
-- 각 카테고리의 구체적인 점수 산정 기준
-- 등급 기준과 출력 형식 템플릿
+`SKILL.md` defines the domain knowledge needed for code quality analysis.
+- 3 categories: complexity, maintainability, and best practices
+- Specific scoring criteria for each category
+- Grade standards and output format template
 
 ## Extending This Pattern
 
-이 패턴을 활용하여 새로운 파이프라인을 만들 수 있습니다:
+You can use this pattern to create new pipelines:
 
-| Command | Agent | Skill | 용도 |
+| Command | Agent | Skill | Purpose |
 |---------|-------|-------|------|
-| /analyze | analyzer-agent | code-analyzer | 코드 품질 분석 |
-| /review | review-agent | code-reviewer | 코드 리뷰 |
-| /docs | docs-agent | docs-generator | 문서 자동 생성 |
-| /security | security-agent | security-checker | 보안 점검 |
+| /analyze | analyzer-agent | code-analyzer | Code quality analysis |
+| /review | review-agent | code-reviewer | Code review |
+| /docs | docs-agent | docs-generator | Automated documentation generation |
+| /security | security-agent | security-checker | Security audit |
 
-핵심: Skill은 여러 Agent가 공유할 수 있고, Agent는 여러 Command에서 재사용 가능합니다.
+Key point: Skills can be shared by multiple Agents, and Agents can be reused across multiple Commands.

@@ -1,105 +1,105 @@
-# Challenge: 버그 디버깅
+# Challenge: Bug Debugging
 
-## Step 1: Bug 1 — 논리 버그 (Logic Bug)
+## Step 1: Bug 1 — Logic Bug
 
-`src/event_scheduler.py`의 이벤트 스케줄러에는 날짜 범위 체크에서 **off-by-one 에러**가 있습니다.
+The event scheduler in `src/event_scheduler.py` has an **off-by-one error** in the date range check.
 
 ```bash
 uv run pytest src/test_event_scheduler.py
 ```
 
-테스트를 실행하면 대부분 통과하지만, 경계값(boundary) 테스트 하나가 실패합니다.
+Running the tests will show most passing, but one boundary test fails.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-src/test_event_scheduler.py를 실행하면 일부 테스트가 실패해.
-실패하는 테스트를 확인하고, 코드의 실행 흐름을 한 줄씩 추적해서
-근본 원인을 찾아줘.
+When I run src/test_event_scheduler.py, some tests fail.
+Check the failing tests and trace the execution flow line by line
+to find the root cause.
 ```
 
 ---
 
-## Step 2: Bug 2 — 비동기 버그 (Async Bug)
+## Step 2: Bug 2 — Async Bug
 
-`src/data_fetcher.py`의 데이터 페처에는 **경쟁 조건(Race Condition)**이 있습니다. 공유 가변 상태를 적절히 관리하지 않아 동시 호출 시 문제가 발생합니다.
+The data fetcher in `src/data_fetcher.py` has a **race condition**. It fails to properly manage shared mutable state, causing issues with concurrent calls.
 
 ```bash
 uv run pytest src/test_data_fetcher.py
 ```
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-src/data_fetcher.py에 경쟁 조건(race condition) 버그가 있어.
-동시에 여러 요청이 들어올 때 어떤 순서로 실행되는지
-타임라인을 그려서 설명해줘.
+There's a race condition bug in src/data_fetcher.py.
+Draw a timeline showing the execution order when
+multiple requests come in simultaneously.
 ```
 
 ---
 
-## Step 3: Bug 3 — 타입 버그 (Type Bug)
+## Step 3: Bug 3 — Type Bug
 
-`src/config_parser.py`의 설정 파서는 **문자열 "false"를 True로 잘못 변환**합니다. Python의 truthy/falsy 평가 때문에 발생하는 미묘한 버그입니다.
+The config parser in `src/config_parser.py` **incorrectly converts the string "false" to True**. This is a subtle bug caused by Python's truthy/falsy evaluation.
 
 ```bash
 uv run pytest src/test_config_parser.py
 ```
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-src/config_parser.py에서 boolean 값 파싱이 잘못되고 있어.
-Python의 타입 강제 변환(type coercion)과 관련된 문제야.
-"false" 문자열이 어떻게 처리되는지 단계별로 추적해줘.
+Boolean value parsing is broken in src/config_parser.py.
+This is related to Python's type coercion.
+Trace step by step how the "false" string is being processed.
 ```
 
 ---
 
-## Step 4: 실행 추적 요청
+## Step 4: Execution Trace Request
 
-각 버그에 대해 Claude에게 실행 추적(execution trace)을 요청하세요.
+For each bug, ask Claude for an execution trace.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-다음 함수 호출의 실행 흐름을 단계별로 추적해줘:
+Trace the execution flow step by step for the following function call:
 
 scheduler.get_events_in_range(datetime(2024, 3, 1), datetime(2024, 3, 31))
 
-각 단계에서 변수의 값이 어떻게 변하는지 보여줘.
+Show how the variable values change at each step.
 ```
 
 ---
 
-## Step 5: 근본 원인 분석
+## Step 5: Root Cause Analysis
 
-Claude에게 **증상 수정이 아닌 근본 원인 수정**을 요청하세요.
+Ask Claude for a **root cause fix, not just a symptom fix**.
 
-### Claude에게 시도해볼 프롬프트
+### Prompts to Try with Claude
 
 ```
-이 3가지 버그 각각에 대해:
-1. 증상(symptom)이 무엇인지
-2. 근본 원인(root cause)이 무엇인지
-3. 증상만 고치는 방법과 근본 원인을 고치는 방법의 차이
+For each of these 3 bugs:
+1. What is the symptom?
+2. What is the root cause?
+3. What is the difference between fixing the symptom vs. fixing the root cause?
 
-를 설명해줘. 근본 원인을 해결하는 수정을 적용하고,
-모든 테스트가 통과하는지 확인해줘.
+Explain each one, apply the root cause fix,
+and verify that all tests pass.
 ```
 
 ---
 
-## 완료 기준
+## Completion Criteria
 
-- [ ] Bug 1 (off-by-one): 근본 원인을 이해하고 수정했다
-- [ ] Bug 2 (race condition): 경쟁 조건의 타임라인을 이해했다
-- [ ] Bug 3 (type coercion): 타입 강제 변환 문제를 이해했다
-- [ ] 모든 테스트가 통과한다 (`uv run pytest src/`)
-- [ ] 각 버그의 "증상"과 "근본 원인"의 차이를 설명할 수 있다
+- [ ] Bug 1 (off-by-one): Understood and fixed the root cause
+- [ ] Bug 2 (race condition): Understood the race condition timeline
+- [ ] Bug 3 (type coercion): Understood the type coercion issue
+- [ ] All tests pass (`uv run pytest src/`)
+- [ ] Can explain the difference between "symptom" and "root cause" for each bug
 
-## 회고 질문
+## Reflection Questions
 
-1. Claude에게 "왜 실패해?"라고 물었을 때와 "실행 흐름을 추적해줘"라고 물었을 때 답변의 질이 어떻게 달랐나요?
-2. 세 가지 버그 유형 중 어떤 것이 가장 찾기 어려웠나요?
-3. 실제 프로젝트에서 비슷한 버그를 만났을 때 Claude를 어떻게 활용하겠습니까?
+1. How did the quality of answers differ between asking Claude "why does it fail?" vs. "trace the execution flow"?
+2. Which of the three bug types was the hardest to find?
+3. How would you use Claude when you encounter similar bugs in real projects?
