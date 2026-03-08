@@ -53,7 +53,7 @@ model: haiku
 
 ```bash
 cd practices/13-subagents
-npm install
+uv sync
 ```
 
 `src/example-agents/` 디렉토리에 에이전트 정의 예시가 있습니다. `CHALLENGE.md`를 따라 서브에이전트를 만들고 활용해보세요.

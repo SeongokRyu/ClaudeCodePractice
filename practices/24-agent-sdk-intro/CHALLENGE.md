@@ -6,7 +6,7 @@ Install the Claude Agent SDK in both Python and TypeScript environments.
 
 **Python:**
 ```bash
-pip install claude-agent-sdk
+uv sync
 ```
 
 **TypeScript:**
@@ -41,7 +41,6 @@ Here are the files in the current directory:
 - basic_agent.py
 - tool_restricted_agent.py
 - streaming_agent.py
-- requirements.txt
 ```
 
 ---

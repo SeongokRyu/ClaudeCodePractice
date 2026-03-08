@@ -51,7 +51,7 @@ Use `--allowedTools` to limit what Claude can do in headless mode. This is criti
 claude -p "explain what this project does"
 
 # Pipe file content
-cat src/app.ts | claude -p "review this code"
+cat src/app.py | claude -p "review this code"
 
 # JSON output
 claude -p "list TODO comments" --output-format json
@@ -66,14 +66,19 @@ claude -p "review src/" --allowedTools Read,Grep --max-turns 5
 19-headless-mode/
 ├── README.md
 ├── CHALLENGE.md
-├── package.json
-├── tsconfig.json
-├── jest.config.js
+├── pyproject.toml
 └── src/
-    ├── app.ts              # Sample app for scripts to analyze
-    ├── app.test.ts         # Tests for the sample app
+    ├── app.py              # Sample app for scripts to analyze
+    ├── test_app.py         # Tests for the sample app (pytest)
     └── scripts/
         ├── auto-commit.sh      # Automatic commit message generation
         ├── review-changes.sh   # Review changed files via git diff
         └── todo-scanner.sh     # Scan for TODO/FIXME comments
+```
+
+## Setup
+
+```bash
+uv sync
+uv run pytest
 ```

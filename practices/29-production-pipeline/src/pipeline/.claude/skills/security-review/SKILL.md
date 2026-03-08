@@ -14,39 +14,31 @@ This skill provides a security review checklist for code review. Load this skill
 ## Common Vulnerability Patterns
 
 ### Injection Attacks
-```typescript
-// BAD: SQL injection
-const query = `SELECT * FROM users WHERE id = '${userId}'`;
+```python
+# BAD: SQL injection
+query = f"SELECT * FROM users WHERE id = '{user_id}'"
 
-// GOOD: Parameterized query
-const query = `SELECT * FROM users WHERE id = $1`;
-db.query(query, [userId]);
+# GOOD: Parameterized query
+cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
 
-// BAD: Command injection
-exec(`ls ${userInput}`);
+# BAD: Command injection
+os.system(f"ls {user_input}")
 
-// GOOD: Use safe APIs
-const files = fs.readdirSync(sanitizedPath);
-```
-
-### Cross-Site Scripting (XSS)
-```typescript
-// BAD: Direct HTML insertion
-element.innerHTML = userInput;
-
-// GOOD: Text content or sanitized HTML
-element.textContent = userInput;
+# GOOD: Use safe APIs
+files = os.listdir(sanitized_path)
+# or use subprocess with list args
+subprocess.run(["ls", sanitized_path], check=True)
 ```
 
 ### Hardcoded Secrets
-```typescript
-// BAD
-const API_KEY = "sk-1234567890";
-const DB_PASSWORD = "admin123";
+```python
+# BAD
+API_KEY = "sk-1234567890"
+DB_PASSWORD = "admin123"
 
-// GOOD
-const API_KEY = process.env.API_KEY;
-const DB_PASSWORD = process.env.DB_PASSWORD;
+# GOOD
+API_KEY = os.environ.get("API_KEY")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
 ```
 
 ## Authentication & Authorization
@@ -63,7 +55,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 - [ ] Data is encrypted at rest and in transit
 
 ## Dependencies
-- [ ] No known vulnerabilities in dependencies (`npm audit`)
+- [ ] No known vulnerabilities in dependencies (`pip-audit` / `safety check`)
 - [ ] Dependencies are from trusted sources
 - [ ] Dependency versions are pinned
 - [ ] No unnecessary dependencies

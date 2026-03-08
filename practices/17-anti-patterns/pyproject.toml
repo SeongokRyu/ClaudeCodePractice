@@ -1,0 +1,11 @@
+[project]
+name = "practice-17-anti-patterns"
+version = "0.1.0"
+description = "Practice 17: 7대 실수 체험"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest"]

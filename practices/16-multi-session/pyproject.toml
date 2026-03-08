@@ -1,0 +1,11 @@
+[project]
+name = "practice-16-multi-session"
+version = "0.1.0"
+description = "Practice 16: 멀티세션 워크플로우"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest"]

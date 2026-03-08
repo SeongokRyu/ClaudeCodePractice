@@ -65,17 +65,17 @@ Execute the writer/reviewer pipeline manually using Claude CLI.
 ```bash
 # 1. Writer implements the feature
 claude --agent src/agents/writer.md \
-  "Implement a user authentication module in src/project/src/auth.ts with:
+  "Implement a user authentication module in src/project/src/auth.py with:
    - login(email, password) function
    - logout(token) function
-   - validateToken(token) function
-   - Password hashing with bcrypt
-   - JWT token generation
-   Include tests in src/project/src/auth.test.ts"
+   - validate_token(token) function
+   - Password hashing (simulated)
+   - JWT-like token generation
+   Include tests in src/project/src/test_auth.py"
 
 # 2. Reviewer reviews the implementation
 REVIEW=$(claude --agent src/agents/reviewer.md --print \
-  "Review the authentication module in src/project/src/auth.ts and its tests")
+  "Review the authentication module in src/project/src/auth.py and its tests")
 
 # 3. If changes requested, writer fixes
 echo "$REVIEW" | grep -q "CHANGES_REQUESTED" && \
@@ -93,9 +93,7 @@ claude --agent src/agents/reviewer.md --print \
 
 Build the full pipeline programmatically using the Agent SDK.
 
-**Files:**
-- `src/python/writer_reviewer_pipeline.py`
-- `src/typescript/writer-reviewer-pipeline.ts`
+**File:** `src/python/writer_reviewer_pipeline.py`
 
 ### Requirements
 1. Implement the writer/reviewer loop with max iterations
@@ -165,7 +163,7 @@ Writer implements
 - [ ] Pipeline loops until approval or max iterations
 - [ ] Verifier agent runs tests and gives final verdict
 - [ ] Full pipeline works end-to-end (implement → review → fix → verify)
-- [ ] Both Python and TypeScript SDK implementations work
+- [ ] Python SDK implementation works
 
 ## Bonus Challenges
 

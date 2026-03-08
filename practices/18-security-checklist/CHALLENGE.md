@@ -2,7 +2,7 @@
 
 ## Step 1: 취약한 코드 리뷰
 
-`src/vulnerable-app.ts`를 열어 코드를 직접 읽어보세요.
+`src/vulnerable_app.py`를 열어 코드를 직접 읽어보세요.
 
 ### 먼저 직접 찾아보기
 
@@ -32,7 +32,7 @@
 Claude에게 OWASP Top 10 기준으로 보안 리뷰를 요청합니다.
 
 ```
-src/vulnerable-app.ts를 OWASP Top 10 기준으로 보안 리뷰해주세요.
+src/vulnerable_app.py를 OWASP Top 10 기준으로 보안 리뷰해주세요.
 
 각 취약점에 대해:
 1. OWASP 카테고리 (A01~A10)
@@ -83,7 +83,7 @@ Claude와 함께 취약점을 수정합니다.
 ### 4-1. Critical/High 취약점 수정
 
 ```
-src/vulnerable-app.ts의 Critical과 High 심각도 취약점을 수정해주세요.
+src/vulnerable_app.py의 Critical과 High 심각도 취약점을 수정해주세요.
 
 수정 원칙:
 1. SQL 인젝션 → 파라미터화된 쿼리 사용
@@ -93,14 +93,14 @@ src/vulnerable-app.ts의 Critical과 High 심각도 취약점을 수정해주세
 5. IDOR → 권한 확인 추가
 6. 입력 검증 → 스키마 검증 추가
 
-수정된 코드를 src/secure-app.ts에 작성해주세요.
+수정된 코드를 src/secure_app.py에 작성해주세요.
 ```
 
 ### 4-2. Medium/Low 취약점 수정
 
 ```
 나머지 Medium과 Low 심각도 취약점도 수정해주세요.
-src/secure-app.ts를 업데이트해주세요.
+src/secure_app.py를 업데이트해주세요.
 ```
 
 ---
@@ -112,16 +112,16 @@ src/secure-app.ts를 업데이트해주세요.
 ### 테스트 실행
 
 ```bash
-npm test
+uv run pytest
 ```
 
-`src/vulnerable-app.test.ts`에 보안 테스트가 준비되어 있습니다.
+`src/test_vulnerable_app.py`에 보안 테스트가 준비되어 있습니다.
 이 테스트는 취약점이 수정되었는지 확인합니다.
 
 ### Claude에게 추가 테스트 요청
 
 ```
-src/secure-app.ts에 대한 추가 보안 테스트를 작성해주세요.
+src/secure_app.py에 대한 추가 보안 테스트를 작성해주세요.
 
 테스트 시나리오:
 1. SQL 인젝션 시도 시 안전하게 처리되는지
@@ -137,13 +137,13 @@ src/secure-app.ts에 대한 추가 보안 테스트를 작성해주세요.
 
 ### 가짜 패키지 확인
 
-`src/package-check.json`을 확인하세요. 이 파일에는 의심스러운 패키지명이 포함되어 있습니다.
+`requirements-check.txt`를 확인하세요. 이 파일에는 의심스러운 패키지명이 포함되어 있습니다.
 
 ```
-src/package-check.json의 dependencies를 확인해주세요.
+requirements-check.txt의 dependencies를 확인해주세요.
 
 각 패키지에 대해:
-1. npm에 실제로 존재하는 패키지인지 확인
+1. PyPI에 실제로 존재하는 패키지인지 확인
 2. 이름이 유명 패키지와 유사한지 (typosquatting)
 3. Claude가 추천했을 법한 존재하지 않는 패키지인지 (slopsquatting)
 4. 주간 다운로드 수가 극히 적은 의심스러운 패키지인지
@@ -157,11 +157,11 @@ src/package-check.json의 dependencies를 확인해주세요.
 AI가 추천하는 패키지를 설치하기 전에 확인할 체크리스트를 만들어주세요.
 
 포함해야 할 항목:
-- npm 공식 페이지에서 패키지 존재 확인
+- PyPI 공식 페이지에서 패키지 존재 확인
 - 주간 다운로드 수 확인 (최소 기준)
 - 패키지 유지보수 상태 (마지막 업데이트 날짜)
 - GitHub 저장소 확인
-- 이름 유사성 검사 (express-validator vs express-validater)
+- 이름 유사성 검사 (flask-limiter vs flask-limmiter)
 ```
 
 ---

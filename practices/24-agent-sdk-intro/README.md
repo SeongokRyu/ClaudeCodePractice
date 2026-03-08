@@ -26,9 +26,9 @@ Build your first agent with the Claude Agent SDK in both Python and TypeScript. 
 practices/24-agent-sdk-intro/
 ├── README.md
 ├── CHALLENGE.md
+├── pyproject.toml
 ├── src/
 │   ├── python/
-│   │   ├── requirements.txt
 │   │   ├── basic_agent.py
 │   │   ├── tool_restricted_agent.py
 │   │   └── streaming_agent.py

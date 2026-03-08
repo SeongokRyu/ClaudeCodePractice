@@ -1,0 +1,11 @@
+[project]
+name = "practice-01-golden-workflow"
+version = "0.1.0"
+description = "Practice 01: 황금 워크플로우"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest"]

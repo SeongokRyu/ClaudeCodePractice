@@ -61,10 +61,10 @@ claude --worktree feature-auth
 Claude에게 다음을 요청하세요:
 
 ```
-src/app.ts에 인증 기능을 추가해주세요:
+src/app.py에 인증 기능을 추가해주세요:
 1. POST /auth/login 엔드포인트 — username, password를 받아 JWT 토큰 반환
 2. POST /auth/register 엔드포인트 — 새 사용자 등록
-3. authMiddleware — 토큰 검증 미들웨어
+3. auth_middleware — 토큰 검증 미들웨어
 4. 기존 GET /users 엔드포인트에 인증 미들웨어 적용
 5. 테스트도 함께 추가해주세요
 ```
@@ -89,7 +89,7 @@ claude --worktree feature-logging
 Claude에게 다음을 요청하세요:
 
 ```
-src/app.ts에 요청 로깅 기능을 추가해주세요:
+src/app.py에 요청 로깅 기능을 추가해주세요:
 1. requestLogger 미들웨어 — 모든 요청의 method, path, 응답시간을 로그
 2. GET /logs 엔드포인트 — 최근 로그 조회
 3. 로그 레벨 지원 (info, warn, error)

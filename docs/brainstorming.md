@@ -65,7 +65,7 @@ Claude Code는 사용자 지시를 수행하기 위해 내부적으로 **도구(
 | **Write** | 새 파일을 만들거나 전체를 덮어쓴다 | 새 파일 저장 |
 | **Glob** | 파일 이름 패턴으로 검색한다 (`*.ts`, `src/**/*.py`) | 파일 탐색기에서 검색 |
 | **Grep** | 파일 내용에서 텍스트를 검색한다 | Ctrl+Shift+F (전체 검색) |
-| **Bash** | 터미널 명령을 실행한다 (`npm install`, `git status` 등) | 터미널에 직접 타이핑 |
+| **Bash** | 터미널 명령을 실행한다 (`uv sync`, `git status` 등) | 터미널에 직접 타이핑 |
 | **Agent** | 별도의 하위 에이전트를 띄워 독립 작업을 수행한다 | 동료에게 일 맡기기 |
 
 ### 설정 및 커스터마이징
@@ -376,15 +376,15 @@ Phase 5: Multi-Agent & Harness (Practice 24-34) ← 5~7일
 
 | Phase | 언어 | 이유 |
 |-------|------|------|
-| Phase 1~4 | **TypeScript** | Claude Code 자체가 TS 기반. 웹 생태계 예제 풍부. `npm run`, `jest`, `eslint` 등 도구 체인 활용 자연스러움. |
+| Phase 1~4 | **TypeScript** | Claude Code 자체가 TS 기반. 웹 생태계 예제 풍부. `uv run`, `pytest`, `ruff` 등 도구 체인 활용 자연스러움. |
 | Phase 5 | **TypeScript + Python** | Agent SDK가 양쪽 모두 지원. 실무에서 Python 사용 비중 높음. 둘 다 경험하는 것이 가치 있음. |
 
 **이유**:
 - Claude Code의 도구들 (Bash, Read, Edit 등)은 언어 무관하지만, 실습 코드가 있어야 효과적
-- 하나로 통일하면 환경 설정 부담 최소화 (`node` + `npm`만 있으면 시작)
+- 하나로 통일하면 환경 설정 부담 최소화 (`uv`만 있으면 시작, `pyproject.toml`로 의존성 관리)
 - Phase 5의 Agent SDK는 Python 예제가 더 풍부하고, 데이터/ML 엔지니어 타겟에 Python이 자연스러움
 
-**사전 요구**: Node.js 18+, npm, Git. Python은 Phase 5 시작 시 안내.
+**사전 요구**: uv, Python 3.10+, Git.
 
 ---
 
@@ -395,7 +395,8 @@ Phase 5: Multi-Agent & Harness (Practice 24-34) ← 5~7일
 포함할 내용:
 ```
 1. 환경 확인 (3분)
-   - Node.js 18+ 설치 확인: node --version
+   - uv 설치 확인: uv --version
+   - Python 3.10+ 설치 확인: python --version
    - Git 설치 확인: git --version
    - 에디터: VS Code 권장 (Claude Code 확장 지원)
 

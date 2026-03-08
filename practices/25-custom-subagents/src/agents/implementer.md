@@ -32,7 +32,7 @@ sonnet (balanced quality and speed)
 2. Test both happy path and error cases
 3. Use the same testing framework as the existing project
 4. Aim for > 80% code coverage on new code
-5. Test file naming: `*.test.ts` or `*_test.py`
+5. Test file naming: `test_*.py`
 
 ### Safety
 1. **DO NOT** modify files outside the specified project directory

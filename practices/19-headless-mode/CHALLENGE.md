@@ -19,7 +19,7 @@ Run Claude non-interactively with a simple prompt.
    ```
 3. Try with a more specific prompt:
    ```bash
-   claude -p "list all TypeScript files in src/ and describe their purpose"
+   claude -p "list all Python files in src/ and describe their purpose"
    ```
 4. Observe that Claude uses tools (Read, Glob, etc.) automatically
 
@@ -38,11 +38,11 @@ Feed file contents to Claude via stdin.
 
 1. Pipe a single file:
    ```bash
-   cat src/app.ts | claude -p "review this code for potential issues"
+   cat src/app.py | claude -p "review this code for potential issues"
    ```
 2. Pipe multiple files:
    ```bash
-   cat src/app.ts src/app.test.ts | claude -p "review this code and its tests"
+   cat src/app.py src/test_app.py | claude -p "review this code and its tests"
    ```
 3. Pipe command output:
    ```bash
@@ -80,7 +80,7 @@ Get structured responses for programmatic consumption.
    ```
 4. Use in a script:
    ```bash
-   RESULT=$(claude -p "is there a security issue in src/app.ts? answer yes or no" --output-format json | jq -r '.result')
+   RESULT=$(claude -p "is there a security issue in src/app.py? answer yes or no" --output-format json | jq -r '.result')
    echo "Security check: $RESULT"
    ```
 
@@ -100,15 +100,15 @@ Limit what Claude can do for safety and focus.
 
 1. Read-only review (no editing):
    ```bash
-   claude -p "review src/app.ts for bugs" --allowedTools Read,Grep --max-turns 5
+   claude -p "review src/app.py for bugs" --allowedTools Read,Grep --max-turns 5
    ```
 2. Analysis only (no file system access):
    ```bash
-   cat src/app.ts | claude -p "review this code" --allowedTools "" --max-turns 3
+   cat src/app.py | claude -p "review this code" --allowedTools "" --max-turns 3
    ```
 3. Limited editing:
    ```bash
-   claude -p "fix typos in src/app.ts" --allowedTools Read,Edit --max-turns 5
+   claude -p "fix typos in src/app.py" --allowedTools Read,Edit --max-turns 5
    ```
 4. Verify restrictions work:
    ```bash
@@ -137,8 +137,8 @@ Create a shell function that generates commit messages using Claude.
    - Uses the generated message for `git commit`
 3. Test the function:
    ```bash
-   # Make a change to src/app.ts
-   git add src/app.ts
+   # Make a change to src/app.py
+   git add src/app.py
    source src/scripts/auto-commit.sh
    auto_commit
    ```

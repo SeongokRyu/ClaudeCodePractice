@@ -17,7 +17,7 @@ Build a writer+reviewer collaboration pipeline where one agent implements featur
 - Setting up complementary agent roles (creator vs. critic)
 - Building feedback loops between agents
 - Adding a verification agent as a final quality gate
-- Implementing the full pipeline with Agent SDK (Python & TypeScript)
+- Implementing the full pipeline with Agent SDK (Python)
 
 ## Project Structure
 ```
@@ -31,13 +31,11 @@ practices/26-writer-reviewer/
 │   │   └── verifier.md
 │   ├── python/
 │   │   └── writer_reviewer_pipeline.py
-│   ├── typescript/
-│   │   └── writer-reviewer-pipeline.ts
 │   └── project/
 │       └── src/
-│           ├── auth.ts
-│           ├── auth.test.ts
-│           └── types.ts
+│           ├── auth.py
+│           ├── test_auth.py
+│           └── auth_types.py
 ```
 
 ## Key Concepts

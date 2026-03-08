@@ -28,8 +28,8 @@ Use natural language to spawn teammates.
 In the Claude Code prompt, type:
 ```
 Create a team with two teammates:
-1. A frontend developer working on the React components in src/project/frontend/
-2. A backend developer working on the API in src/project/backend/
+1. A frontend developer working on the Streamlit app in src/project/frontend/
+2. A backend developer working on the Flask API in src/project/backend/
 ```
 
 ### What Should Happen
@@ -52,11 +52,11 @@ Learn to coordinate work through the shared task list.
 Ask the lead agent to create tasks:
 ```
 Add these tasks to the shared list:
-- [ ] Frontend: Create UserProfile component
+- [ ] Frontend: Create UserProfile page in Streamlit
 - [ ] Frontend: Add authentication form
-- [ ] Backend: Create /api/users endpoint
+- [ ] Backend: Create /api/users endpoint in Flask
 - [ ] Backend: Add JWT middleware
-- [ ] Testing: Write integration tests for auth flow
+- [ ] Testing: Write integration tests for auth flow (pytest)
 ```
 
 ### Task Coordination
@@ -104,23 +104,23 @@ Use the prompt from `src/team-prompts/specialist-team.md`:
 ```
 Create a specialist team to implement a user dashboard feature:
 
-1. UX Specialist — Focus on component structure, styling, and user experience.
-   Work in src/project/frontend/src/. Create the dashboard components.
+1. UX Specialist — Focus on Streamlit layout, styling, and user experience.
+   Work in src/project/frontend/src/. Create the dashboard pages.
 
-2. Backend Specialist — Focus on API design, data models, and business logic.
+2. Backend Specialist — Focus on Flask API design, data models, and business logic.
    Work in src/project/backend/src/. Create the dashboard API endpoints.
 
 3. Testing Specialist — Focus on test coverage, edge cases, and integration.
-   Work in src/project/tests/. Write comprehensive tests.
+   Work in src/project/tests/. Write comprehensive pytest tests.
 
 Shared task list:
 - [ ] Design dashboard data model
 - [ ] Create GET /api/dashboard endpoint
 - [ ] Create DashboardView component
 - [ ] Create DashboardWidget component
-- [ ] Write unit tests for dashboard API
-- [ ] Write component tests for DashboardView
-- [ ] Write integration test for full dashboard flow
+- [ ] Write unit tests for dashboard API (pytest)
+- [ ] Write tests for Streamlit dashboard page
+- [ ] Write integration test for full dashboard flow (pytest)
 ```
 
 ### Verification
@@ -144,7 +144,7 @@ Use the prompt from `src/team-prompts/competing-hypotheses.md`:
 Debug the slow dashboard issue. Spawn 3 teammates, each investigating a different hypothesis:
 
 1. Hypothesis A — "It's a frontend rendering issue"
-   Investigate: React re-renders, useEffect dependencies, memoization
+   Investigate: Streamlit re-renders, caching with st.cache_data, session state
 
 2. Hypothesis B — "It's a backend API performance issue"
    Investigate: Database queries, N+1 problems, missing indexes, caching

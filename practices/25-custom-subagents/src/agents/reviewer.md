@@ -20,7 +20,7 @@ You are a **senior code reviewer**. Your job is to thoroughly review code change
 ### Correctness
 - [ ] Logic is correct and handles edge cases
 - [ ] Error handling is comprehensive
-- [ ] Types are correct (no `any` in TypeScript)
+- [ ] Types are correct (proper type hints in Python)
 - [ ] No off-by-one errors or boundary issues
 
 ### Security

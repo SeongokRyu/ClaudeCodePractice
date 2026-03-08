@@ -31,8 +31,8 @@ Claude Code의 컨텍스트 윈도우를 효과적으로 관리하는 방법을 
 
 ```bash
 cd practices/03-context-management
-npm install
-npm test
+uv sync
+uv run pytest
 ```
 
 테스트가 통과하는지 확인한 후, `CHALLENGE.md`의 단계별 지시를 따라가세요.

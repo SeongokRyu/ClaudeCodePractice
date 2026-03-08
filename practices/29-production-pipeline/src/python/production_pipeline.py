@@ -130,7 +130,7 @@ def implement_phase(plan: str, config: PipelineConfig, feedback: str = "") -> st
         f"1. Read the coding-conventions skill at {config.skills_path}/coding-conventions/SKILL.md\n"
         f"2. Read the testing-patterns skill at {config.skills_path}/testing-patterns/SKILL.md\n"
         f"3. Follow all conventions strictly\n\n"
-        f"After implementing, run `npm test` to verify."
+        f"After implementing, run `pytest` to verify."
     )
 
     if feedback:
@@ -211,7 +211,7 @@ def test_phase(config: PipelineConfig) -> tuple[TestResult, str]:
     result = tester.query(
         prompt=(
             f"Run the test suite in {config.project_path}.\n"
-            f"Run: cd {config.project_path} && npm test\n"
+            f"Run: cd {config.project_path} && pytest src/\n"
             f"Report: PASS or FAIL with details."
         ),
         allowed_tools=["Bash", "Read", "Glob"],

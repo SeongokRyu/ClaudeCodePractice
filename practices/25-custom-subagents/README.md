@@ -32,12 +32,16 @@ practices/25-custom-subagents/
 │   │   ├── tester.md
 │   │   └── security-auditor.md
 │   └── project/
-│       ├── package.json
-│       ├── tsconfig.json
-│       ├── jest.config.js
-│       ├── app.ts
-│       ├── utils.ts
-│       └── app.test.ts
+│       ├── app.py
+│       ├── utils.py
+│       └── test_app.py
+```
+
+## Setup
+
+```bash
+uv sync
+uv run pytest
 ```
 
 ## Key Concepts

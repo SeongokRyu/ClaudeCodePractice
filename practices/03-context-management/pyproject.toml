@@ -1,0 +1,11 @@
+[project]
+name = "practice-03-context-management"
+version = "0.1.0"
+description = "Practice 03: 컨텍스트 관리"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest"]

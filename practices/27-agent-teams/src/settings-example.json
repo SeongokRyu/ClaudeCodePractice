@@ -8,8 +8,8 @@
       "Read",
       "Write",
       "Edit",
-      "Bash(npm test:*)",
-      "Bash(npx tsc:*)",
+      "Bash(pytest:*)",
+      "Bash(python:*)",
       "Glob",
       "Grep"
     ],

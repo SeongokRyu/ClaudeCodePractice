@@ -46,13 +46,19 @@
 AI가 존재하지 않는 패키지명을 추천(hallucinate)하는 것을 악용하여, 해당 이름으로 악성 패키지를 등록하는 공격입니다.
 
 ```
-Claude: "express-rate-limiter-v2를 설치하세요"  ← 존재하지 않는 패키지!
-공격자: npm에 express-rate-limiter-v2 이름으로 악성 패키지 등록
-개발자: npm install express-rate-limiter-v2  ← 악성 코드 실행!
+Claude: "flask-rate-limiter-v2를 설치하세요"  ← 존재하지 않는 패키지!
+공격자: PyPI에 flask-rate-limiter-v2 이름으로 악성 패키지 등록
+개발자: pip install flask-rate-limiter-v2  ← 악성 코드 실행!
+```
+
+## Setup
+
+```bash
+uv sync
 ```
 
 ## Getting Started
 
 1. `CHALLENGE.md`를 열어 단계별 실습을 진행하세요
-2. `src/vulnerable-app.ts`에 의도적으로 취약한 코드가 있습니다
+2. `src/vulnerable_app.py`에 의도적으로 취약한 코드가 있습니다
 3. 취약점을 찾고, 수정하고, 테스트로 검증합니다

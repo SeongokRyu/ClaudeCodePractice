@@ -4,51 +4,58 @@
 This skill defines the coding conventions for this project. Load this skill before implementing any new code.
 
 ## Naming Conventions
-- **Variables & functions**: camelCase (`getUserById`, `isValid`)
-- **Types & interfaces**: PascalCase (`UserProfile`, `AuthToken`)
+- **Variables & functions**: snake_case (`get_user_by_id`, `is_valid`)
+- **Classes**: PascalCase (`UserProfile`, `AuthToken`)
 - **Constants**: UPPER_SNAKE_CASE (`MAX_RETRIES`, `DEFAULT_TIMEOUT`)
-- **Files**: kebab-case for multi-word (`user-preferences.ts`)
-- **Test files**: Same name + `.test.ts` suffix (`user-preferences.test.ts`)
+- **Files**: snake_case (`user_preferences.py`)
+- **Test files**: `test_` prefix (`test_user_preferences.py`)
 
 ## File Structure
-```typescript
-// 1. Imports (external first, then internal)
-import { someLib } from "external-lib";
-import { localUtil } from "./utils";
+```python
+"""Module docstring describing purpose."""
 
-// 2. Types and interfaces
-export interface MyType {
-  field: string;
-}
+# 1. Standard library imports
+import os
+from datetime import datetime
 
-// 3. Constants
-const MAX_ITEMS = 100;
+# 2. Third-party imports
+import requests
 
-// 4. Main exports (functions/classes)
-export function myFunction(): void {
-  // ...
-}
+# 3. Local imports
+from utils import local_util
 
-// 5. Helper functions (not exported)
-function helperFunction(): void {
-  // ...
-}
+# 4. Types and dataclasses
+@dataclass
+class MyType:
+    field: str
+
+# 5. Constants
+MAX_ITEMS = 100
+
+# 6. Main exports (functions/classes)
+def my_function() -> None:
+    """Docstring."""
+    ...
+
+# 7. Helper functions (private, prefixed with _)
+def _helper_function() -> None:
+    ...
 ```
 
 ## Error Handling
-- Always throw `Error` with descriptive messages
-- Include the failing value in error messages: `throw new Error(\`User not found: \${id}\`)`
+- Always raise `ValueError` or custom exceptions with descriptive messages
+- Include the failing value in error messages: `raise ValueError(f"User not found: {user_id}")`
 - Validate inputs at function boundaries
 - Use early returns for guard clauses
 
-## TypeScript Rules
-- **No `any`** — use `unknown` if type is truly unknown
-- **Prefer `interface` over `type`** for object shapes
-- **Use `readonly`** for properties that shouldn't change
-- **Prefer named exports** over default exports
+## Python Rules
+- **Type hints on all functions** -- parameters and return types
+- **Use `dataclasses`** for structured data
+- **Use `Optional[T]`** instead of `T | None` for compatibility
+- **Prefer explicit imports** over wildcard imports
 
 ## Comments
-- JSDoc on all public (exported) functions
+- Docstrings on all public functions and classes
 - Inline comments explain "why", not "what"
 - No commented-out code
 

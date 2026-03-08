@@ -41,19 +41,19 @@
 
 ```bash
 cd practices/12-multi-file-refactoring
-npm install
-npm test  # 모든 테스트가 통과하는 것을 확인
+uv sync
+uv run pytest src/  # 모든 테스트가 통과하는 것을 확인
 ```
 
 코드베이스 구조:
 ```
 src/
-  types.ts             # 공유 타입 정의
-  database.ts          # 데이터베이스 모듈 (콜백 패턴)
-  user-repository.ts   # 사용자 저장소 (콜백 패턴)
-  order-repository.ts  # 주문 저장소 (콜백 패턴)
-  notification-service.ts  # 알림 서비스 (콜백 패턴)
-  app.ts               # 메인 앱 (콜백 체인)
+  types.py               # 공유 타입 정의
+  database.py            # 데이터베이스 모듈 (콜백 패턴)
+  user_repository.py     # 사용자 저장소 (콜백 패턴)
+  order_repository.py    # 주문 저장소 (콜백 패턴)
+  notification_service.py  # 알림 서비스 (콜백 패턴)
+  app.py                 # 메인 앱 (콜백 체인)
 ```
 
 모든 모듈이 콜백 패턴을 사용하고 있으며, 이를 async/await로 변환하는 것이 목표입니다.

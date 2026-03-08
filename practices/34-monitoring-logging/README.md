@@ -39,22 +39,27 @@ Build structured logging, error handling, real-time monitoring, and failure reco
 ```
 src/
   logging/
-    agent-logger.ts       # Structured logger for agent sessions
-    log-parser.ts         # Extracts metrics from agent transcripts
-    log-analyzer.ts       # Identifies patterns in session data
-    agent-logger.test.ts  # Tests for the logger
+    agent_logger.py        # Structured logger for agent sessions
+    log_parser.py          # Extracts metrics from agent transcripts
+    log_analyzer.py        # Identifies patterns in session data
+    test_agent_logger.py   # Tests for the logger (pytest)
   monitoring/
-    cost-monitor.sh       # Session cost monitoring and alerting
-    stuck-detector.sh     # Detects stuck-in-loop agents
-    session-summary.sh    # Generates session summary reports
+    cost-monitor.sh        # Session cost monitoring and alerting
+    stuck-detector.sh      # Detects stuck-in-loop agents
+    session-summary.sh     # Generates session summary reports
   hooks/
-    logging-hooks.json    # Hooks for comprehensive logging
+    logging-hooks.json     # Hooks for comprehensive logging
   python/
-    monitored_agent.py    # Agent SDK agent with full monitoring
+    monitored_agent.py     # Agent SDK agent with full monitoring
 
-package.json              # Node.js dependencies
-tsconfig.json             # TypeScript configuration
-jest.config.js            # Jest test configuration
+pyproject.toml             # Python dependencies
+```
+
+## Setup
+
+```bash
+uv sync
+uv run pytest
 ```
 
 ## Tips

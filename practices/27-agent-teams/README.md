@@ -37,12 +37,27 @@ practices/27-agent-teams/
 │   └── project/
 │       ├── frontend/
 │       │   └── src/
-│       │       └── App.tsx
+│       │       └── app.py          # Streamlit dashboard
 │       ├── backend/
 │       │   └── src/
-│       │       └── server.ts
+│       │       └── server.py       # Flask API server
 │       └── tests/
-│           └── integration.test.ts
+│           └── test_integration.py # pytest integration tests
+```
+
+## Setup
+
+```bash
+pip install flask streamlit requests pytest
+
+# Run backend
+cd src/project/backend/src && python server.py
+
+# Run frontend (in another terminal)
+cd src/project/frontend/src && streamlit run app.py
+
+# Run tests
+cd src/project && pytest tests/
 ```
 
 ## Key Concepts

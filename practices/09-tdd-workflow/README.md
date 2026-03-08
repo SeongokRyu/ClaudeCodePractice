@@ -7,7 +7,7 @@ Test-Driven Development(TDD)를 Claude와 함께 실습합니다. Red-Green-Refa
 ## 사전 요구사항
 
 - Practice 05 (CLAUDE.md) 완료
-- TypeScript 및 Jest 기본 이해
+- Python 및 pytest 기본 이해
 
 ## 소요 시간
 
@@ -35,13 +35,13 @@ Claude에게 성공 기준을 주고 반복하게 하는 패턴입니다:
 
 ```bash
 cd practices/09-tdd-workflow
-npm install
+uv sync
 ```
 
-`src/shopping-cart.test.ts`에 미리 작성된 테스트가 있습니다. 구현 파일(`src/shopping-cart.ts`)은 인터페이스만 정의되어 있어 테스트는 **모두 실패**합니다.
+`src/test_shopping_cart.py`에 미리 작성된 테스트가 있습니다. 구현 파일(`src/shopping_cart.py`)은 인터페이스만 정의되어 있어 테스트는 **모두 실패**합니다.
 
 ```bash
-npm test  # 모든 테스트가 실패하는 것을 확인
+uv run pytest src/  # 모든 테스트가 실패하는 것을 확인
 ```
 
 이제 `CHALLENGE.md`의 단계를 따라 Claude와 함께 TDD를 실습하세요.

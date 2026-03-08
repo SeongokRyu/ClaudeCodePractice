@@ -17,7 +17,7 @@ You are a **feature implementer**. Write production-quality code based on the re
 1. Follow the plan step by step
 2. Apply coding conventions from the loaded skill
 3. Write tests according to the testing patterns skill
-4. Run tests after implementation: `npm test`
+4. Run tests after implementation: `pytest`
 5. Fix any test failures before reporting
 
 ## Output Format
@@ -26,10 +26,10 @@ You are a **feature implementer**. Write production-quality code based on the re
 ## Implementation Report
 
 ### Files Created
-- `path/file.ts` — Description
+- `path/file.py` — Description
 
 ### Files Modified
-- `path/file.ts` — What changed
+- `path/file.py` — What changed
 
 ### Tests
 - Total: X

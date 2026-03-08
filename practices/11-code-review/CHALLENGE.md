@@ -2,12 +2,12 @@
 
 ## Step 1: 기본 리뷰
 
-`src/api-handler.ts`를 Claude에게 가장 단순한 형태로 리뷰를 요청합니다.
+`src/api_handler.py`를 Claude에게 가장 단순한 형태로 리뷰를 요청합니다.
 
 ### Claude에게 시도해볼 프롬프트
 
 ```
-src/api-handler.ts를 리뷰해줘.
+src/api_handler.py를 리뷰해줘.
 ```
 
 Claude가 어떤 수준의 피드백을 주는지 관찰하세요. 이것이 기준선(baseline)입니다.
@@ -22,7 +22,7 @@ Claude가 어떤 수준의 피드백을 주는지 관찰하세요. 이것이 기
 
 ```
 너는 10년 경력의 시니어 보안 엔지니어야.
-OWASP Top 10을 기준으로 src/api-handler.ts를 보안 관점에서 리뷰해줘.
+OWASP Top 10을 기준으로 src/api_handler.py를 보안 관점에서 리뷰해줘.
 각 취약점에 대해 심각도(Critical/High/Medium/Low)를 부여해.
 ```
 
@@ -37,7 +37,7 @@ Step 1의 결과와 비교해보세요. 역할을 지정하면 어떤 차이가 
 ### Claude에게 시도해볼 프롬프트
 
 ```
-src/api-handler.ts를 다음 기준으로 1-5점 평가해줘:
+src/api_handler.py를 다음 기준으로 1-5점 평가해줘:
 
 1. 보안 (Security): SQL 인젝션, XSS, 인증/인가 등
 2. 성능 (Performance): 효율성, 캐싱, 최적화
@@ -58,7 +58,7 @@ Claude에게 코드를 작성시킨 후, 다른 관점에서 리뷰하게 합니
 
 먼저 코드를 작성하게 합니다:
 ```
-src/api-handler.ts의 문제를 수정한 개선 버전을 작성해줘.
+src/api_handler.py의 문제를 수정한 개선 버전을 작성해줘.
 ```
 
 그런 다음 자기 리뷰를 요청합니다:
@@ -79,7 +79,7 @@ src/api-handler.ts의 문제를 수정한 개선 버전을 작성해줘.
 ### Claude에게 시도해볼 프롬프트
 
 ```
-다음 보안 체크리스트로 src/api-handler.ts를 리뷰해줘.
+다음 보안 체크리스트로 src/api_handler.py를 리뷰해줘.
 각 항목에 대해 통과(PASS), 실패(FAIL), 해당없음(N/A)을 표시해.
 
 보안 체크리스트:

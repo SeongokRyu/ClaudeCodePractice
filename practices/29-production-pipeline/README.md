@@ -46,8 +46,8 @@ practices/29-production-pipeline/
 │   │   │       └── reviewer/
 │   │   │           └── MEMORY.md
 │   │   └── src/
-│   │       ├── app.ts
-│   │       └── app.test.ts
+│   │       ├── app.py
+│   │       └── test_app.py
 │   └── python/
 │       └── production_pipeline.py
 ```
@@ -78,6 +78,13 @@ practices/29-production-pipeline/
 - Memory persists across sessions in `.claude/agent-memory/reviewer/MEMORY.md`
 - Each review adds new patterns to the memory file
 - Over time, the reviewer becomes more effective
+
+## Setup
+
+```bash
+pip install pytest pytest-cov
+cd src/pipeline && pytest src/
+```
 
 ### Command Orchestration
 The `/build-feature` command ties everything together:

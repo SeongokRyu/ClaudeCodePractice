@@ -1,0 +1,11 @@
+[project]
+name = "practice-14-worktree-parallel"
+version = "0.1.0"
+description = "Practice 14: Worktree 병렬 개발"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest"]

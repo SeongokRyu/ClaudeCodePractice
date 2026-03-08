@@ -28,8 +28,8 @@ AI 에이전트와 작업할 때 안전한 Git 습관은 데이터 손실을 방
 
 ```bash
 cd practices/04-git-workflow
-npm install
-npm test
+uv sync
+uv run pytest
 ```
 
 **중요**: 이 연습을 위해 Git 저장소가 초기화되어 있어야 합니다.

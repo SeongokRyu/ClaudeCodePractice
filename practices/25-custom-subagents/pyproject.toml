@@ -1,0 +1,11 @@
+[project]
+name = "practice-25-custom-subagents"
+version = "0.1.0"
+description = "Practice 25: 커스텀 서브에이전트 설계"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src/project"]
+
+[dependency-groups]
+dev = ["pytest", "pytest-cov"]

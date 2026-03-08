@@ -7,14 +7,15 @@
 ## 1. 환경 확인 (3분)
 
 ```bash
-node --version    # v18 이상 필요
-git --version     # 아무 버전이나 OK
+uv --version      # uv 설치 확인
+python --version   # Python 3.10 이상 권장
+git --version      # 아무 버전이나 OK
 ```
 
-Node.js가 없다면:
-- macOS: `brew install node`
-- Windows: [nodejs.org](https://nodejs.org)에서 LTS 다운로드
-- Linux: `curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - && sudo apt-get install -y nodejs`
+uv가 없다면:
+- macOS / Linux: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- Windows: `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
+- 또는 Homebrew: `brew install uv`
 
 에디터: **VS Code** 권장 (Claude Code 확장 지원)
 

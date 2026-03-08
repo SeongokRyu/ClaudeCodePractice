@@ -38,7 +38,7 @@ Create a brief design showing:
 ```bash
 # The researcher should analyze src/project/ and produce a plan
 # It should NOT be able to modify any files
-claude --agent src/agents/researcher.md "Analyze the project in src/project/ and create an implementation plan for adding a user authentication module"
+claude --agent src/agents/researcher.md "Analyze the Python project in src/project/ and create an implementation plan for adding a user authentication module"
 ```
 
 ---
@@ -149,7 +149,7 @@ if echo "$REVIEW" | grep -q "CHANGES_REQUESTED"; then
 fi
 ```
 
-**Option B: Agent SDK orchestration (Python/TypeScript)**
+**Option B: Agent SDK orchestration (Python)**
 Use the Agent SDK to programmatically manage the workflow with proper error handling and retry logic.
 
 ---

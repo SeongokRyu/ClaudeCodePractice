@@ -40,21 +40,21 @@ Create three reusable Skills that agents can load.
 **File:** `src/pipeline/.claude/skills/coding-conventions/SKILL.md`
 
 Content should cover:
-- Naming conventions (camelCase for variables, PascalCase for types)
+- Naming conventions (snake_case for variables/functions, PascalCase for classes)
 - File structure patterns
 - Error handling approach
 - Import ordering
-- Comment style
+- Docstring style
 
 ### Testing Patterns Skill
 **File:** `src/pipeline/.claude/skills/testing-patterns/SKILL.md`
 
 Content should cover:
-- Test file naming (`*.test.ts`)
-- Test structure (describe/it blocks)
+- Test file naming (`test_*.py`)
+- Test structure (pytest classes and functions)
 - What to test (happy path, errors, edge cases)
 - Assertion patterns
-- Mock/stub conventions
+- Mock/fixture conventions
 
 ### Security Review Skill
 **File:** `src/pipeline/.claude/skills/security-review/SKILL.md`
@@ -204,13 +204,13 @@ Run the full pipeline on a real feature.
 1. /build-feature "Add user preferences module"
 
 2. Researcher analyzes → Plan:
-   - Create src/preferences.ts
-   - Create src/preferences.test.ts
-   - Follow existing patterns from src/app.ts
+   - Create src/preferences.py
+   - Create src/test_preferences.py
+   - Follow existing patterns from src/app.py
 
 3. Implementer builds → Code:
-   - src/preferences.ts (3 functions + types)
-   - src/preferences.test.ts (10+ test cases)
+   - src/preferences.py (3 functions + types)
+   - src/test_preferences.py (10+ test cases)
    - Uses coding-conventions skill
 
 4. Reviewer reviews → CHANGES_REQUESTED:

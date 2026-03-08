@@ -31,9 +31,9 @@ sonnet (balanced quality and speed)
 
 ## Implementation Rules
 1. Follow existing naming conventions
-2. Add proper TypeScript types (no `any`)
+2. Add proper type hints throughout
 3. Handle errors with descriptive messages
-4. Add JSDoc comments for public APIs
+4. Add docstrings for public APIs
 5. Keep functions small (< 30 lines)
 6. No hardcoded values — use constants
 
@@ -43,10 +43,10 @@ sonnet (balanced quality and speed)
 ## Implementation Summary
 
 ### Files Modified
-- `file.ts` — Description of changes
+- `file.py` — Description of changes
 
 ### Files Created
-- `file.ts` — Description of new file
+- `file.py` — Description of new file
 
 ### Test Results
 - X tests passing, Y failing

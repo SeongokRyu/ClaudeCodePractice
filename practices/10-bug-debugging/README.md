@@ -7,7 +7,7 @@ Claude와 함께 버그를 디버깅하는 방법을 학습합니다. 단순한 
 ## 사전 요구사항
 
 - Practice 05 (CLAUDE.md) 완료
-- TypeScript 및 Jest 기본 이해
+- Python 및 pytest 기본 이해
 
 ## 소요 시간
 
@@ -32,8 +32,8 @@ Claude와 함께 버그를 디버깅하는 방법을 학습합니다. 단순한 
 
 ```bash
 cd practices/10-bug-debugging
-npm install
-npm test
+uv sync
+uv run pytest src/
 ```
 
 테스트를 실행하면 일부 테스트가 실패합니다. 각 파일에는 의도적으로 심어둔 버그가 있습니다.

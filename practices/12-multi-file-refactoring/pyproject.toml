@@ -1,0 +1,11 @@
+[project]
+name = "practice-12-multi-file-refactoring"
+version = "0.1.0"
+description = "Practice 12: 멀티 파일 리팩토링"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest"]

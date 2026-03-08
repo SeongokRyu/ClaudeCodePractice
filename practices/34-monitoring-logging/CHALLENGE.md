@@ -2,7 +2,7 @@
 
 ## Step 1: Structured Logging
 
-Create a TypeScript logger (`src/logging/agent-logger.ts`) that captures every tool call with structured data.
+Create a Python logger (`src/logging/agent_logger.py`) that captures every tool call with structured data.
 
 Log entry format:
 ```json
@@ -18,7 +18,7 @@ Log entry format:
   },
   "status": "success",
   "metadata": {
-    "file_path": "src/app.ts",
+    "file_path": "src/app.py",
     "action": "edit"
   }
 }
@@ -51,14 +51,14 @@ Error categories to track:
 
 Build log analysis tools:
 
-### log-parser.ts
+### log_parser.py
 Parse raw agent transcripts and extract:
 - Tool call frequency (which tools are used most)
 - Error rates (failures per tool type)
 - Token usage over time
 - Session duration breakdown
 
-### log-analyzer.ts
+### log_analyzer.py
 Identify patterns:
 - Most commonly used tools
 - Most common errors
@@ -136,4 +136,4 @@ Build a session analysis workflow:
 - [ ] Cost monitor tracks spending and alerts at thresholds
 - [ ] Stuck detector identifies loop behavior
 - [ ] Session summary report provides actionable insights
-- [ ] All logger tests pass
+- [ ] All logger tests pass (`uv run pytest`)

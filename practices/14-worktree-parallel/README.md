@@ -58,8 +58,14 @@ Terminal 2: claude --worktree feature-logging
 결과: 두 기능이 독립적으로 동시에 개발됨
 ```
 
+## Setup
+
+```bash
+uv sync
+```
+
 ## Getting Started
 
 1. `CHALLENGE.md`를 열어 단계별 실습을 진행하세요
-2. `src/app.ts`를 기반으로 두 가지 기능을 병렬로 추가합니다
+2. `src/app.py`를 기반으로 두 가지 기능을 병렬로 추가합니다
 3. 각 worktree에서 작업한 내용을 PR로 머지합니다

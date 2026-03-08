@@ -52,8 +52,14 @@
                            → 병렬 작업
 ```
 
+## Setup
+
+```bash
+uv sync
+```
+
 ## Getting Started
 
 1. `CHALLENGE.md`를 열어 단계별 실습을 진행하세요
 2. `src/problem.md`에 정의된 문제를 여러 세션에서 해결합니다
-3. `src/rate-limiter-interface.ts`의 인터페이스를 구현합니다
+3. `src/rate_limiter_interface.py`의 인터페이스를 구현합니다

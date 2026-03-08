@@ -8,22 +8,22 @@ This project demonstrates a production-ready multi-agent pipeline using Claude C
 - **Skills**: coding-conventions, testing-patterns, security-review
 
 ## Code Conventions
-- TypeScript with strict mode
-- No `any` types
-- JSDoc comments on all public APIs
+- Python with type hints throughout
+- Dataclasses for structured data
+- Docstrings on all public APIs
 - Error handling with descriptive messages
 - Functions under 30 lines
 
 ## Testing
-- Test files: `*.test.ts` next to source files
-- Framework: Jest with ts-jest
-- Pattern: describe/it blocks
+- Test files: `test_*.py` next to source files
+- Framework: pytest
+- Pattern: pytest classes and functions
 - Coverage target: 80%+
 
 ## File Structure
 ```
 src/
-├── app.ts          — Main application module
-├── app.test.ts     — Tests for app module
-└── [new-module].ts — New modules added by the pipeline
+├── app.py          — Main application module
+├── test_app.py     — Tests for app module
+└── [new_module].py — New modules added by the pipeline
 ```

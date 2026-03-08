@@ -9,7 +9,7 @@
 ```
 이 프로젝트 전체(practices/ 디렉토리 아래 모든 파일)를 탐색하고,
 각 practice의 목적, 파일 구조, 사용된 패턴을 요약해줘.
-모든 .ts 파일의 내용을 확인해줘.
+모든 .py 파일의 내용을 확인해줘.
 ```
 
 이 작업 후 컨텍스트가 상당히 채워진 것을 확인하세요. `/cost` 명령으로 토큰 사용량을 확인할 수 있습니다.
@@ -59,7 +59,7 @@ src/example-agents/researcher.md를 참고해서
 만든 후 사용해보세요:
 
 ```
-@researcher 에이전트를 사용해서 이 프로젝트에서 사용된 모든 인터페이스를 찾아줘.
+@researcher 에이전트를 사용해서 이 프로젝트에서 사용된 모든 클래스를 찾아줘.
 ```
 
 ---
@@ -72,7 +72,7 @@ src/example-agents/researcher.md를 참고해서
 
 먼저 코드를 작성합니다:
 ```
-src/app.ts에 새 엔드포인트를 추가해줘:
+src/app.py에 새 엔드포인트를 추가해줘:
 - GET /users/:id/stats — 사용자의 요청 통계를 반환
 - POST /users/:id/preferences — 사용자 설정을 저장
 - DELETE /users/:id/cache — 사용자 캐시를 삭제
@@ -105,7 +105,7 @@ src/example-agents/code-reviewer.md를 참고해서
 - 이전 리뷰에서 발견한 패턴을 축적
 - 보안 체크리스트를 항상 적용
 
-만든 후에 src/app.ts를 이 에이전트로 리뷰해줘.
+만든 후에 src/app.py를 이 에이전트로 리뷰해줘.
 ```
 
 ---

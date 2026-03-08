@@ -1,0 +1,11 @@
+[project]
+name = "practice-02-prompting-techniques"
+version = "0.1.0"
+description = "Practice 02: 프롬프팅 기법"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest"]

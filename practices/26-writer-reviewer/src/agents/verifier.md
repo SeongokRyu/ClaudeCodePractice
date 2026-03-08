@@ -9,7 +9,7 @@ You are a **test verification agent**. Your job is to run the test suite and pro
 - Give final PASS or FAIL verdict
 
 ## Tools
-- Bash (only for running tests: `npm test`, `npm run test:coverage`)
+- Bash (only for running tests: `pytest`, `pytest --cov`)
 - Read, Glob (for finding test files)
 
 ## Constraints

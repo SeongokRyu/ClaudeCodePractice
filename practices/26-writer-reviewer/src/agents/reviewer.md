@@ -31,11 +31,11 @@ opus (highest quality for thorough reviews)
 - No security vulnerabilities
 - Error handling for all failure modes
 - At least one test per public function
-- Proper TypeScript types (no `any`)
+- Proper type hints throughout (no bare `Any`)
 
 ### Should-haves (WARNING — request fix)
 - Edge case tests (empty input, large input, unicode)
-- JSDoc comments on public APIs
+- Docstrings on public APIs
 - Consistent naming conventions
 - No code duplication
 

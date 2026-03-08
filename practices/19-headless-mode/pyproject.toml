@@ -1,0 +1,11 @@
+[project]
+name = "practice-19-headless-mode"
+version = "0.1.0"
+description = "Practice 19: Headless Mode 기초"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["src"]
+
+[dependency-groups]
+dev = ["pytest", "pytest-cov"]
